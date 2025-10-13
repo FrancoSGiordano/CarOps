@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "705246089595",
+    "project_id": "appsmoviles-firebaseauth",
+    "storage_bucket": "appsmoviles-firebaseauth.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705246089595:android:4a138f270fb5c8cbf22dde",
+        "android_client_info": {
+          "package_name": "com.example.trabajointegrador_modulonativo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKlT2zwhGRM1UC_vr3_2IuZxrY_m90adA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
