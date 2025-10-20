@@ -4,6 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#222831</color>
     <color name="card_background">#2F3846</color>
+    <color name="button">#0067FF</color>
+    <color name="gray_light">#686868</color>
 
 
 </resources>
