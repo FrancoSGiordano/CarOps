@@ -10,7 +10,6 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
     app:cardBackgroundColor="@color/card_background"
-    android:padding="12dp"
     app:strokeWidth="0dp"
     >
 
@@ -18,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/card_background">
+        android:background="@color/card_background"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imgThumb"

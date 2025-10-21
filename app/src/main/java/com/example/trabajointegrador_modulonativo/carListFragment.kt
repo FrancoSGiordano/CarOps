@@ -1,16 +1,19 @@
 package com.example.trabajointegrador_modulonativo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabajointegrador_modulonativo.placeholder.PlaceholderContent;
 import com.example.trabajointegrador_modulonativo.databinding.FragmentCarListBinding
@@ -79,7 +82,15 @@ class carListFragment : Fragment() {
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.car_detail_nav_container)
-
+        val btnCreate = view.findViewById<Button>(R.id.btnAgregarVehiculo)
+        Log.d("carListFragment", "button find result: $btnCreate")
+        if (btnCreate == null) {
+            Log.e("carListFragment", "Botón nulo — revisá res/layout y res/layout-sw600dp para ver si falta el id R.id.miBoton")
+            return
+        }
+        btnCreate.setOnClickListener {
+            findNavController().navigate(R.id.createCarFragment)
+        }
         setupRecyclerView(recyclerView, itemDetailFragmentContainer)
     }
 

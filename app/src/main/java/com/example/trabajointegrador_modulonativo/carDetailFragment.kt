@@ -79,13 +79,13 @@ class carDetailFragment : Fragment() {
 
     private fun updateContent() {
         item?.let { item ->
-            binding.websiteDetail.webViewClient = object : WebViewClient() {
+            binding.websiteDetail?.webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                     return super.shouldOverrideUrlLoading(view, request)
                 }
 
             }
-            binding.websiteDetail.loadUrl(item.details)
+            binding.websiteDetail?.loadUrl(item.details)
         }
     }
     companion object {

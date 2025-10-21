@@ -12,6 +12,9 @@
         <action
             android:id="@+id/show_car_detail"
             app:destination="@id/car_detail_fragment" />
+        <action
+            android:id="@+id/action_carListFragment_to_createCarFragment"
+            app:destination="@id/createCarFragment" />
     </fragment>
     <fragment
         android:id="@+id/car_detail_fragment"
@@ -23,4 +26,9 @@
             android:defaultValue=""
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/createCarFragment"
+        android:name="com.example.trabajointegrador_modulonativo.create_car"
+        android:label="Creacion de auto" />
+
 </navigation>
