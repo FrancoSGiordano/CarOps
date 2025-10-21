@@ -9,10 +9,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.trabajointegrador_modulonativo.databinding.ActivityCarDetailBinding
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 
 class carDetailHostActivity : AppCompatActivity() {
     private val TAG = "CarDetailHost"
+
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +23,7 @@ class carDetailHostActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // <-- Asegurate de tener un Toolbar en el layout con id = toolbar
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.carDetailToolbar)
 
         val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_car_detail) as? NavHostFragment
         if (fragment == null) {
@@ -38,5 +40,13 @@ class carDetailHostActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_car_detail)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == android.R.id.home){
+            onBackPressedDispatcher.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

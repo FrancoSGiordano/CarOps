@@ -1,8 +1,5 @@
 package com.example.trabajointegrador_modulonativo
 
-import android.content.ClipData
-import android.content.ClipDescription
-import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -17,9 +14,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabajointegrador_modulonativo.placeholder.PlaceholderContent;
 import com.example.trabajointegrador_modulonativo.databinding.FragmentCarListBinding
-import com.example.trabajointegrador_modulonativo.databinding.CarListContentBinding
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 /**
  * A Fragment representing a list of Pings. This fragment
@@ -137,7 +132,7 @@ class carListFragment : Fragment() {
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val imgThumb: ImageView = itemView.findViewById(R.id.imgThumb)
-            val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
+            val tvTitle: TextView = itemView.findViewById(R.id.expenseNameTextView)
             val tvSubtitle: TextView = itemView.findViewById(R.id.tvSubtitle)
         }
 
