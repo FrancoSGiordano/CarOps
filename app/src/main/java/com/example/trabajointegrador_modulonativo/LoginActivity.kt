@@ -17,6 +17,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            startCarHostActivity(currentUser.email ?: "", ProviderType.BASIC)
+            finish()
+            return
+        }
         setup()
 
     }
