@@ -13,8 +13,8 @@
             android:id="@+id/show_car_detail"
             app:destination="@id/car_detail_fragment" />
         <action
-            android:id="@+id/action_carListFragment_to_createCarFragment"
-            app:destination="@id/createCarFragment" />
+            android:id="@+id/action_list_to_form"
+            app:destination="@id/carFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/car_detail_fragment"
@@ -25,10 +25,22 @@
             android:name="item_id"
             android:defaultValue=""
             app:argType="string" />
+        <action
+            android:id="@+id/action_detail_to_form"
+            app:destination="@id/carFormFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/createCarFragment"
-        android:name="com.example.trabajointegrador_modulonativo.create_car"
-        android:label="Creacion de auto" />
+        android:id="@+id/carFormFragment"
+        android:name="com.example.trabajointegrador_modulonativo.ui.createcar.CarFormFragment"
+        android:label="CarFormFragment"
+        tools:layout="@layout/fragment_create_car">
+        <argument
+            android:name="car_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
 
 </navigation>

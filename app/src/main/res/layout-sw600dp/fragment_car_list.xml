@@ -22,7 +22,7 @@
         android:id="@+id/car_list"
         android:name="com.example.trabajointegrador_modulonativo.carListFragment"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/container_margin"
         android:layout_marginEnd="@dimen/container_margin"
         app:layoutManager="LinearLayoutManager"
@@ -32,6 +32,17 @@
         app:layout_constraintTop_toBottomOf="@+id/btnAgregarVehiculo"
         tools:context="com.example.trabajointegrador_modulonativo.carDetailHostActivity"
         tools:listitem="@layout/car_list_content" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="@id/car_list"
+        app:layout_constraintBottom_toBottomOf="@id/car_list"
+        app:layout_constraintStart_toStartOf="@id/car_list"
+        app:layout_constraintEnd_toEndOf="@id/car_list" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
