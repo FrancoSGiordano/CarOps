@@ -17,6 +17,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            startCarHostActivity(currentUser.email ?: "", ProviderType.BASIC)
+            finish()
+            return
+        }
         setup()
 
     }
@@ -47,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                 .signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        showLogout(it.result?.user?.email ?: "", ProviderType.BASIC)
+                        startCarHostActivity(it.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
                         showAlert("Error de autenticacion")
                     }
@@ -64,6 +72,14 @@ class LoginActivity : AppCompatActivity() {
         startActivity(logoutIntent)
     }
 
+    private fun startCarHostActivity(email: String, provider: ProviderType) {
+        val intent = Intent(this, carDetailHostActivity::class.java).apply {
+            putExtra("email", email)
+            putExtra("provider", provider.name)
+        }
+        startActivity(intent)
+
+    }
     private fun showAlert(message: String){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
