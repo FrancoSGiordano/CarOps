@@ -14,6 +14,7 @@ import com.example.trabajointegrador_modulonativo.databinding.FragmentCreateCarB
 import com.example.trabajointegrador_modulonativo.model.Car
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -24,7 +25,7 @@ class CarFormFragment : Fragment()  {
 
     private var _binding: FragmentCreateCarBinding? = null
     private val binding get() = _binding!!
-
+    val currentUser = FirebaseAuth.getInstance().currentUser
     private val viewModel: CarViewModel by activityViewModels{
         CarViewModelFactory(CarRepository())
     }
@@ -106,7 +107,8 @@ class CarFormFragment : Fragment()  {
                 model = model,
                 year = year,
                 licensePlate = plate,
-                lastUpdate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+                lastUpdate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date()),
+                ownerId = currentUser?.uid
             )
 
             viewModel.addCar(newCar)

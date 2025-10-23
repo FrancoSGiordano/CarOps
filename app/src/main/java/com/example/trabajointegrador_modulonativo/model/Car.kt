@@ -9,7 +9,8 @@ data class Car (
     val engine: String? = "",
     val transmission: String? = "",
     val lastUpdate: String? = "",
-    val imageUrl: String? = ""
+    val imageUrl: String? = "",
+    val ownerId: String? = ""
 ) {
-    constructor() : this("", "", "", 0, "", "", "", "", "")
+    constructor() : this("", "", "", 0, "", "", "", "", "", "")
 }
