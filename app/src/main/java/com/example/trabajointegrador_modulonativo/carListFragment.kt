@@ -83,11 +83,7 @@ class carListFragment : Fragment() {
         // layout configuration (layout, layout-sw600dp)
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.car_detail_nav_container)
         val btnCreate = view.findViewById<Button>(R.id.btnAgregarVehiculo)
-        Log.d("carListFragment", "button find result: $btnCreate")
-        if (btnCreate == null) {
-            Log.e("carListFragment", "Botón nulo — revisá res/layout y res/layout-sw600dp para ver si falta el id R.id.miBoton")
-            return
-        }
+
         btnCreate.setOnClickListener {
             findNavController().navigate(R.id.createCarFragment)
         }
