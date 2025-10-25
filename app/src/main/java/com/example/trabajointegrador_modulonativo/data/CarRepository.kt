@@ -12,7 +12,6 @@ class CarRepository {
 
     private val db = FirebaseClient.db
     private val carCollection = db.collection("cars")
-
     fun getCarsStream(userId: String): Flow<List<Car>> = callbackFlow {
 
         val query: Query = carCollection.whereEqualTo("userId", userId)
