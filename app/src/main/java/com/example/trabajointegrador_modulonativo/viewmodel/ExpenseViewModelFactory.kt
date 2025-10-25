@@ -6,15 +6,16 @@ import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 
-class CarViewModelFactory(
-    private val carRepository: CarRepository,
+class ExpenseViewModelFactory(
     private val expenseRepository: ExpenseRepository,
+    private val carRepository: CarRepository,
     private val sessionProvider: SessionProvider
 ) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(CarViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(ExpenseViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CarViewModel(carRepository, expenseRepository, sessionProvider) as T
+            return ExpenseViewModel(expenseRepository, carRepository, sessionProvider) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -3,7 +3,7 @@ package com.example.trabajointegrador_modulonativo.data
 import android.util.Log
 import com.example.trabajointegrador_modulonativo.FirebaseClient
 import com.example.trabajointegrador_modulonativo.model.Car
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -12,31 +12,24 @@ class CarRepository {
 
     private val db = FirebaseClient.db
     private val carCollection = db.collection("cars")
+    fun getCarsStream(userId: String): Flow<List<Car>> = callbackFlow {
 
-    fun getCarsStream(): Flow<List<Car>> = callbackFlow {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
-        if (uid == null) {
-            // Si no hay usuario autenticado, emitimos lista vacía y cerramos el flow.
-            trySend(emptyList()).isSuccess
-            close()
-            return@callbackFlow
-        }
+        val query: Query = carCollection.whereEqualTo("userId", userId)
 
-        val subscription = carCollection.whereEqualTo("ownerId", uid).addSnapshotListener { snapshot, error ->
+        val subscription = query.addSnapshotListener { snapshot, error ->
 
             if (error != null) {
                 close(error)
                 return@addSnapshotListener
             }
 
-            if(snapshot != null) {
-                val cars = snapshot.documents.map {document ->
-                    val car = document.toObject(Car::class.java)!!
-                    car.id = document.id
-                    car
+            val cars = snapshot?.documents?.mapNotNull { doc ->
+                doc.toObject(Car::class.java)?.apply {
+                    id = doc.id
                 }
-                trySend(cars)
-            }
+            } ?: emptyList()
+
+            trySend(cars)
         }
         awaitClose {
             subscription.remove()

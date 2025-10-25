@@ -3,7 +3,10 @@ package com.example.trabajointegrador_modulonativo.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trabajointegrador_modulonativo.data.CarRepository
+import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
+import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.model.Car
+import com.example.trabajointegrador_modulonativo.model.Expense
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,8 +14,12 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class CarViewModel (
-    private val repository: CarRepository
+    private val carRepository: CarRepository,
+    private val expenseRepository: ExpenseRepository,
+    private val sessionProvider: SessionProvider
 ) : ViewModel() {
+
+    private val userId: String? = sessionProvider.getUserId()
 
     private val _carsState = MutableStateFlow<List<Car>>(emptyList())
     val carsState : StateFlow<List<Car>> = _carsState.asStateFlow()
@@ -26,10 +33,37 @@ class CarViewModel (
     private val _selectedCar = MutableStateFlow<Car?>(null)
     val selectedCar: StateFlow<Car?> = _selectedCar.asStateFlow()
 
+    private val _carExpenses = MutableStateFlow<List<Expense>>(emptyList())
+    val carExpenses: StateFlow<List<Expense>> = _carExpenses.asStateFlow()
+
+
+
+    fun getCarExpenses(carId: String) {
+
+        if(userId == null){
+            _error.value = "Error: Usuario no autenticado"
+            return
+        }
+
+        viewModelScope.launch {
+            _isLoading.value = true
+            expenseRepository.getExpensesForUserStream(userId, carId)
+                .catch { e ->
+                    _error.value = "Error al cargar los gastos: ${e.message}"
+                    _isLoading.value = false
+                }
+                .collect { expenses ->
+                    _carExpenses.value = expenses
+                    _isLoading.value = false
+                    _error.value = null
+                }
+        }
+    }
+
     fun loadCarDetails(carId: String) {
         viewModelScope.launch {
             _isLoading.value = true
-            repository.getCarById(carId)
+            carRepository.getCarById(carId)
                 .catch { e ->
                     _error.value = "Error al cargar los detalles: ${e.message}"
                     _isLoading.value = false
@@ -49,7 +83,7 @@ class CarViewModel (
 
     fun updateCar(car: Car) {
         viewModelScope.launch {
-            repository.updateCar(car)
+            carRepository.updateCar(car)
         }
     }
 
@@ -57,14 +91,17 @@ class CarViewModel (
         _selectedCar.value = null
     }
 
-    init {
-        fetchCars()
-    }
 
-    private fun fetchCars() {
+    fun getCars() {
+
+        if(userId == null) {
+            _error.value = "Error: Usuario no autenticado"
+            return
+        }
+
        viewModelScope.launch {
            _isLoading.value = true
-           repository.getCarsStream()
+           carRepository.getCarsStream(userId)
                .catch { e ->
                    _error.value = e.message
                    _isLoading.value = false
@@ -79,8 +116,13 @@ class CarViewModel (
     }
 
     fun addCar(car : Car) {
+        if(userId == null) {
+            _error.value = "Error: Usuario no autenticado"
+            return
+        }
+        car.userId = this.userId
         viewModelScope.launch {
-            repository.addCar(car)
+            carRepository.addCar(car)
         }
     }
 

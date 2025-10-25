@@ -335,14 +335,18 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <include layout="@layout/expense_item"/>
-
-                <include layout="@layout/expense_item"/>
-
-                <include layout="@layout/expense_item"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/expensesRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    tools:listitem="@layout/car_expense_item"
+                    tools:itemCount="3" />
 
 
             </LinearLayout>
+
+
 
         </LinearLayout>
     </ScrollView>

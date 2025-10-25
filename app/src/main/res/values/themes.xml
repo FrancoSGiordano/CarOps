@@ -16,4 +16,27 @@
     <style name="Theme.TrabajoIntegradorModuloNativo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TrabajoIntegradorModuloNativo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="SpinnerItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CustomAlertDialogTheme" parent="Theme.Material3.Dark.Dialog.Alert">
+
+        <!-- Color de fondo del diálogo. Usa el mismo color oscuro que el resto de tu app.
+             Puedes cambiarlo por tu color de fondo principal si es diferente. -->
+        <item name="colorSurface">@color/primary</item> <!-- O el color de fondo de tu app -->
+
+        <!-- Color del Título ("Selecciona un Tipo de Gasto") -->
+        <item name="android:textColorPrimary">@color/white</item>
+
+        <!-- Color del texto de los ítems de la lista ("Combustible", "Mantenimiento", etc.) -->
+        <item name="android:textColor">@color/white</item>
+
+        <!-- Color del botón "Cancelar".
+             Aquí podemos usar tu color de acento o un gris claro para diferenciarlo. -->
+        <item name="colorOnSurface">@color/gray_light</item>
+
+    </style>
 </resources>

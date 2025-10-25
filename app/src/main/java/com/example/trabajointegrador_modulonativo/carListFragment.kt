@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.trabajointegrador_modulonativo.data.CarRepository
+import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
+import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.databinding.FragmentCarListBinding
 import com.example.trabajointegrador_modulonativo.model.Car
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
@@ -30,7 +32,7 @@ class carListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel : CarViewModel by viewModels {
-        CarViewModelFactory(CarRepository())
+        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider())
     }
 
     private var carAdapter: SimpleItemRecyclerViewAdapter? = null
@@ -52,9 +54,15 @@ class carListFragment : Fragment() {
         setupRecyclerView()
         observeViewModel()
 
+        viewModel.getCars()
+
         binding.btnAgregarVehiculo.setOnClickListener {
             findNavController().navigate(R.id.action_list_to_form)
 
+        }
+
+        binding.btnVerGastos?.setOnClickListener {
+            findNavController().navigate(R.id.action_list_to_expenses)
         }
     }
 
@@ -116,7 +124,7 @@ class carListFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
-            holder.binding.tvTitle.text = item.model
+            holder.binding.tvTitle.text = "${item.brand} ${item.model}"
             holder.binding.tvSubtitle.text = "Patente: ${item.licensePlate} - Última actualización: ${item.lastUpdate}"
 
             Glide.with(holder.itemView)
