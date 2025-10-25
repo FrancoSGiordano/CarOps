@@ -82,6 +82,16 @@ class carDetailFragment : Fragment() {
                 Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.viewAlarmButton?.setOnClickListener {
+            val carId = viewModel.selectedCar.value?.id
+            if (carId != null) {
+                val bundle = Bundle().apply { putString("car_id", carId) }
+                findNavController().navigate(R.id.action_detail_to_alarms, bundle)
+            } else {
+                Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun observeViewModel() {
