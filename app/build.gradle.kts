@@ -64,7 +64,10 @@ dependencies {
     implementation("com.firebaseui:firebase-ui-auth:9.0.0")
     implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation("com.google.firebase:firebase-firestore")
-
+// Coil para cargar imágenes
+    implementation("io.coil-kt:coil:2.4.0")
+// Firebase Storage
+    implementation("com.google.firebase:firebase-storage-ktx:20.2.0")
 
 
 }
