@@ -1,181 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".create_car">
+    tools:context=".ui.car.CarFormFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fitsSystemWindows="true"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/createVehicleTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="Crear vehiculo"
-                android:textColor="@color/white"
-                android:textSize="26sp"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <View
-                android:id="@+id/titleUnderline"
-                android:layout_width="140dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/button" />
+                <TextView
+                    android:id="@+id/createVehicleTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="Añadir vehículo"
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/titleUnderline"
+                    android:layout_width="140dp"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/button" />
+
+            </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/carBrandLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:hint="Marca"
+                    android:textColorHint="@color/gray_light"
+                    app:placeholderText="Ej. Peugeot">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/carBrandEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/carModelLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:hint="Modelo"
+                    android:textColorHint="@color/gray_light"
+                    app:placeholderText="Ej. 208">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/carModelEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/carYearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:hint="Año"
+                    android:textColorHint="@color/gray_light"
+                    app:placeholderText="Ej. 2017">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/carYearEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/carPlateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:hint="Patente"
+                    android:textColorHint="@color/gray_light"
+                    app:placeholderText="Ej. ITW760">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/carPlateEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/carEngineLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:hint="Motor"
+                    android:textColorHint="@color/gray_light"
+                    app:placeholderText="Ej. 1.6">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/carEngineEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/carTransmissionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:hint="Transmisión"
+                    android:textColorHint="@color/gray_light"
+                    app:placeholderText="Ej. Manual o Automática">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/carTransmissionEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Foto del vehiculo"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/labelOptional"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="(opcional)"
+                        android:textColor="@color/light_blue"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/card_background"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <ImageView
+                        android:id="@+id/iv_car_photo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/carplaceholder" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/createCarButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="60dp"
+                        android:text="Añadir"
+                        android:textSize="30dp"
+                        app:backgroundTint="@color/button" />
+
+                </LinearLayout>
+
+
+
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/labelBrand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="Marca"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/brandEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="ej: Peugeout"
-            android:inputType="text"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray_light" />
-
-        <TextView
-            android:id="@+id/labelModel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Modelo"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/modelEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="ej: 208"
-            android:inputType="text"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray_light" />
-
-        <TextView
-            android:id="@+id/labelYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Año"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/yearEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="ej: 2016"
-            android:inputType="number"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray_light" />
-
-        <TextView
-            android:id="@+id/labelPlate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Pantente"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/plateEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="ej: aa123bb"
-            android:inputType="text"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray_light" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/labelImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Foto del vehiculo"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/labelOptional"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="(opcional)"
-                android:textColor="@color/light_blue"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/card_background"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <ImageView
-                android:id="@+id/iv_car_photo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/carplaceholder" />
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/createCarButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="60dp"
-                android:text="Crear"
-                android:textSize="30dp"
-                app:backgroundTint="@color/button" />
-
-        </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+</ScrollView>

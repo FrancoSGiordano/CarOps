@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".create_car">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/createExpenseTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Añadir gasto"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/titleUnderline"
+                android:layout_width="140dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/button" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expenseDescriptionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:hint="Descripción"
+            android:textColorHint="@color/gray_light"
+            app:placeholderText="Ej. Nafta, Repuesto, Service">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expenseDescriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- CAMPO MONTO CON TEXTINPUTLAYOUT -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expenseAmountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Monto"
+            android:textColorHint="@color/gray_light"
+            app:placeholderText="$">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expenseAmountEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expenseDateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Fecha"
+            android:textColorHint="@color/gray_light">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expenseDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- CAMPO TIPO DE GASTO CON TEXTINPUTLAYOUT (PARA EL SELECTOR) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expenseTypeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Tipo de Gasto"
+            android:textColorHint="@color/gray_light">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expenseTypeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/createExpenseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="60dp"
+                android:text="Añadir"
+                android:textSize="24dp"
+                app:backgroundTint="@color/button" />
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

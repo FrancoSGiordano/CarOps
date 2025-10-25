@@ -1,5 +1,11 @@
 package com.example.trabajointegrador_modulonativo.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
+
+@Parcelize
 data class Car (
     var id: String? = "",
     val brand: String? = "",
@@ -9,7 +15,8 @@ data class Car (
     val engine: String? = "",
     val transmission: String? = "",
     val lastUpdate: String? = "",
-    val imageUrl: String? = ""
-) {
-    constructor() : this("", "", "", 0, "", "", "", "", "")
+    val imageUrl: String? = "",
+    var userId: String = "",
+) : Parcelable {
+    constructor() : this("", "", "", 0, "", "", "", "", "", "")
 }

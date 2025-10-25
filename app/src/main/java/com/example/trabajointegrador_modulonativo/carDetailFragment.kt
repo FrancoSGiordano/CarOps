@@ -18,12 +18,20 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.trabajointegrador_modulonativo.adapter.AdapterMode
+import com.example.trabajointegrador_modulonativo.adapter.ExpenseAdapter
 import com.example.trabajointegrador_modulonativo.data.CarRepository
+import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
+import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.model.Car
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+
+
 
 
 /**
@@ -37,10 +45,12 @@ class carDetailFragment : Fragment() {
     private var _binding: FragmentCarDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CarViewModel by activityViewModels {
-        CarViewModelFactory(CarRepository())
+        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider())
     }
 
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid
 
+    private lateinit var expenseAdapter: ExpenseAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,8 +65,11 @@ class carDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupRecylcerView()
+
         arguments?.getString(ARG_ITEM_ID)?.let { carId ->
             viewModel.loadCarDetails(carId)
+            viewModel.getCarExpenses(carId)
         }
         observeViewModel()
 
@@ -71,6 +84,26 @@ class carDetailFragment : Fragment() {
                 Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.addExpensesButton?.setOnClickListener {
+            val selectedCar = viewModel.selectedCar.value
+            if(selectedCar != null) {
+                val action = carDetailFragmentDirections.actionDetailToExpenseForm(selectedCar)
+                findNavController().navigate(action)
+            } else {
+                Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+
+    private fun setupRecylcerView() {
+        expenseAdapter = ExpenseAdapter(AdapterMode.SIMPLE_EXPENSE)
+        binding.expensesRecyclerView.apply {
+            this?.layoutManager = LinearLayoutManager(requireContext())
+            this?.adapter = expenseAdapter
+        }
+
     }
 
     private fun observeViewModel() {
@@ -88,6 +121,12 @@ class carDetailFragment : Fragment() {
                     }
                 }
 
+                launch {
+                    viewModel.carExpenses.collect { expenses ->
+                        expenseAdapter.updateExpenses(expenses)
+                    }
+                }
+
             }
         }
     }
@@ -98,9 +137,8 @@ class carDetailFragment : Fragment() {
         binding.carModelTextView?.text = "Modelo: ${car.model}"
         binding.carYearTextView?.text = "Año: ${car.year}"
         binding.lastModifiedTextView?.text = "Última actualizacion: ${car.lastUpdate}"
-
-        binding.carEngineTextView?.text = "Motor: ${car.engine ?: "N/A"}"
-        binding.carTransmissionTextView?.text = "Transmisión: ${car.transmission ?: "N/A"}"
+        binding.carEngineTextView?.text = "Motor: ${car.engine}"
+        binding.carTransmissionTextView?.text = "Transmisión: ${car.transmission}"
 
         binding.carImageView?.let { imageView ->
             Glide.with(this)
