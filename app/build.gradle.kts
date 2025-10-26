@@ -68,6 +68,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("io.coil-kt:coil:2.4.0")
     implementation("com.google.firebase:firebase-storage-ktx:20.2.0")
-
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
 }
