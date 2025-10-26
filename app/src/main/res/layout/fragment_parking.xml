@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parking_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Contenedor para SupportMapFragment -->
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:layout_marginBottom="0dp" />
+
+    <!-- Panel inferior con info y botones -->
+    <LinearLayout
+        android:id="@+id/bottomPanel"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="12dp"
+        android:background="@android:color/white"
+        android:elevation="6dp">
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Obteniendo ubicación..."
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvLat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lat: -" />
+
+        <TextView
+            android:id="@+id/tvLng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lng: -" />
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dirección (opcional)" />
+
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Notas (opcional)" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/btnGetLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actualizar" />
+
+            <Button
+                android:id="@+id/btnSaveParking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelar" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
