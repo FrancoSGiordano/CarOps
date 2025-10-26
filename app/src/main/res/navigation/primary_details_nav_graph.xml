@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/carFormFragment"
-        android:name="com.example.trabajointegrador_modulonativo.ui.createcar.CarFormFragment"
+        android:name="com.example.trabajointegrador_modulonativo.ui.car.CarFormFragment"
         android:label="CarFormFragment"
         tools:layout="@layout/fragment_create_car">
         <argument
