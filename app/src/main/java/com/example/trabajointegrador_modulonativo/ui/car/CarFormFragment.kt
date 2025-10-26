@@ -52,6 +52,7 @@ class CarFormFragment : Fragment()  {
 
     private var selectedImageUri: Uri? = null
     private var tempImageUri: Uri? = null
+    private var currentCar: Car? = null
 
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
@@ -121,40 +122,67 @@ class CarFormFragment : Fragment()  {
             viewModel.loadCarDetails(id)
             val car = viewModel.selectedCar.first()
             car?.let {
+                currentCar = it
                 binding.carBrandEditText.setText(it.brand)
                 binding.carModelEditText.setText(it.model)
-                binding.carYearEditText.setText(it.year.toString())
+                binding.carYearEditText.setText(it.year?.toString() ?: "")
                 binding.carPlateEditText.setText(it.licensePlate)
                 binding.carEngineEditText.setText(it.engine)
                 binding.carTransmissionEditText.setText(it.transmission)
-                it.imageUrl?.let {url ->
 
+                // Mostrar imagen si existe (usa Glide o similar)
+                it.imageUrl?.let { url ->
+                    // si no tenés Glide importado, agregalo a dependencias
+                    try {
+                        com.bumptech.glide.Glide.with(this@CarFormFragment)
+                            .load(url)
+                            .centerCrop()
+                            .into(binding.ivCarPhoto)
+                    } catch (e: Exception) {
+                        // fallback si no se puede cargar
+                    }
                 }
             }
         }
 
         binding.createCarButton.setOnClickListener {
-            if(!validateForm()){
-                return@setOnClickListener
+            if(!validateForm()) return@setOnClickListener
+
+            // Hacemos todo en coroutine porque podemos necesitar subir la imagen
+            viewLifecycleOwner.lifecycleScope.launch {
+                binding.createCarButton.isEnabled = false
+                binding.createCarButton.alpha = 0.6f
+                try {
+                    // Si hay nueva imagen -> subir y obtener URL, si no -> conservar la anterior
+                    val imageUrl = selectedImageUri?.let { uri ->
+                        uploadImageAndGetUrl(uri) // suspend function
+                    } ?: currentCar?.imageUrl
+
+                    val updatedCar = Car(
+                        id = id,
+                        brand = binding.carBrandEditText.text.toString().trim().uppercase(Locale.getDefault()),
+                        model = binding.carModelEditText.text.toString().trim().uppercase(Locale.getDefault()),
+                        year = binding.carYearEditText.text.toString().toIntOrNull(),
+                        licensePlate = binding.carPlateEditText.text.toString().trim().uppercase(Locale.getDefault()),
+                        engine = binding.carEngineEditText.text.toString().trim().uppercase(Locale.getDefault()),
+                        transmission = binding.carTransmissionEditText.text.toString().trim().uppercase(Locale.getDefault()),
+                        imageUrl = imageUrl,
+                        lastUpdate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date()).toString()
+                    )
+
+                    viewModel.updateCar(updatedCar)
+                    Toast.makeText(context, "Vehículo actualizado", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                } catch (e: Exception) {
+                    Toast.makeText(context, "Error al actualizar vehículo: ${e.message}", Toast.LENGTH_LONG).show()
+                } finally {
+                    binding.createCarButton.isEnabled = true
+                    binding.createCarButton.alpha = 1f
+                }
             }
-
-            val updatedCar = Car(
-                id = id,
-                brand = binding.carBrandEditText.text.toString().uppercase(),
-                model = binding.carModelEditText.text.toString().uppercase(),
-                year = binding.carYearEditText.text.toString().toIntOrNull(),
-                licensePlate = binding.carPlateEditText.text.toString().uppercase(),
-                engine = binding.carEngineEditText.text.toString().uppercase(),
-                transmission = binding.carTransmissionEditText.text.toString().uppercase(),
-                imageUrl = selectedImageUri?.toString(),
-                lastUpdate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date()).toString()
-            )
-
-            viewModel.updateCar(updatedCar)
-            Toast.makeText(context, "Vehículo actualizado", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack()
         }
     }
+
 
     private fun validateForm() : Boolean {
         var isValid = true

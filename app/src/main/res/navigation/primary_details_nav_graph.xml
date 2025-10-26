@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_detail_to_expense_form"
             app:destination="@id/expenseFormFragment" />
+        <action
+            android:id="@+id/action_detail_to_parking"
+            app:destination="@id/parkingFragment" />
 
     </fragment>
 
@@ -67,6 +70,15 @@
         android:label="ExpenseFormFragment"
         tools:layout="@layout/fragment_user_expense_list" >
     </fragment>
-
+    <fragment
+        android:id="@+id/parkingFragment"
+        android:name="com.example.trabajointegrador_modulonativo.ui.parking.ParkingFragment"
+        android:label="Estacionamiento">
+        <argument
+            android:name="car_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

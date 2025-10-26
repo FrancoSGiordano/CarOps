@@ -3,6 +3,7 @@ package com.example.trabajointegrador_modulonativo.data
 import android.util.Log
 import com.example.trabajointegrador_modulonativo.FirebaseClient
 import com.example.trabajointegrador_modulonativo.model.Car
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -83,6 +84,49 @@ class CarRepository {
 
     }
 
+    suspend fun saveParking(
+        carId: String,
+        lat: Double,
+        lng: Double,
+
+    ) {
+        if (carId.isBlank()) {
+            Log.w("CarRepository", "saveParkingLocation: carId vacío")
+            return
+        }
+
+        val docRef = carCollection.document(carId)
+        val updates = mutableMapOf<String, Any>(
+            "parked" to true,
+            "parkedLat" to lat,
+            "parkedLng" to lng,
+            "parkedDate" to FieldValue.serverTimestamp()
+        )
+
+
+        docRef.update(updates)
+            .addOnSuccessListener { Log.d("CarRepository", "Parking location saved for $carId") }
+            .addOnFailureListener { e -> Log.w("CarRepository", "Error saving parking location", e) }
+    }
+
+    suspend fun clearParking(carId: String) {
+        if (carId.isBlank()) {
+            Log.w("CarRepository", "clearParkingLocation: carId vacío")
+            return
+        }
+
+        val docRef = carCollection.document(carId)
+        val updates = mapOf<String, Any>(
+            "parked" to false,
+            "parkedLat" to FieldValue.delete(),
+            "parkedLng" to FieldValue.delete(),
+            "parkedAt" to FieldValue.delete(),
+        )
+
+        docRef.update(updates)
+            .addOnSuccessListener { Log.d("CarRepository", "Parking cleared for $carId") }
+            .addOnFailureListener { e -> Log.w("CarRepository", "Error clearing parking location", e) }
+    }
 
 
 }
