@@ -82,6 +82,11 @@ class CarViewModel (
     }
 
     fun updateCar(car: Car) {
+        if(userId == null) {
+            _error.value = "Error: Usuario no autenticado"
+            return
+        }
+        car.userId = this.userId
         viewModelScope.launch {
             carRepository.updateCar(car)
         }
@@ -126,7 +131,33 @@ class CarViewModel (
         }
     }
 
+    fun saveParking(carId: String, lat: Double, lng: Double) {
+        if (carId.isBlank()) {
+            _error.value = "Error: id de vehículo inválido"
+            return
+        }
+        viewModelScope.launch {
+            try {
+                carRepository.saveParking(carId, lat, lng)
+                _error.value = null
+            } catch (e: Exception) {
+                _error.value = "No se pudo guardar la ubicación: ${e.message}"
+            }
+        }
+    }
 
-
-
+    fun clearParking(carId: String) {
+        if (carId.isBlank()) {
+            _error.value = "Error: id de vehículo inválido"
+            return
+        }
+        viewModelScope.launch {
+            try {
+                carRepository.clearParking(carId)
+                _error.value = null
+            } catch (e: Exception) {
+                _error.value = "No se pudo borrar la ubicación: ${e.message}"
+            }
+        }
+    }
 }
