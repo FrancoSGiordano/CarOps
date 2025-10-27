@@ -12,6 +12,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.util.Date
 
 
 class ExpenseRepository {
@@ -34,13 +35,25 @@ class ExpenseRepository {
 
 
 
-    fun getExpensesForUserStream(userId: String, carId: String?): Flow<List<Expense>> = callbackFlow {
+    fun getExpensesForUserStream(userId: String, carId: String?, expenseTypeId: Int?, startDate: Date?, endDate: Date?): Flow<List<Expense>> = callbackFlow {
 
         var query: Query = expenseCollection
             .whereEqualTo("userId", userId)
 
-        if(carId != null) {
+        if(!carId.isNullOrBlank()) {
             query = query.whereEqualTo("carId", carId)
+        }
+
+        if(expenseTypeId != null) {
+            query = query.whereEqualTo("expense_type_id", expenseTypeId)
+        }
+
+        if(startDate != null) {
+            query = query.whereGreaterThanOrEqualTo("date", startDate)
+        }
+
+        if(endDate != null) {
+            query = query.whereLessThanOrEqualTo("date", endDate)
         }
 
         val subscription = query
@@ -61,6 +74,8 @@ class ExpenseRepository {
                     }
                 } ?: emptyList()
 
+                Log.e("FilterDebug", "Firestore devolvió ${expenses.size} documentos.")
+
                 trySend(expenses)
             }
 
@@ -69,9 +84,11 @@ class ExpenseRepository {
         }
     }
 
+
+
     suspend fun getExpenseTypes(): List<ExpenseType> {
         return try {
-            val snapshot = db.collection("expenseTypes").get().await()
+            val snapshot = expenseTypeCollection.get().await()
             snapshot.toObjects(ExpenseType::class.java)
         } catch (e: Exception) {
             Log.e("Repo", "Error al obtener tipos de gasto", e)

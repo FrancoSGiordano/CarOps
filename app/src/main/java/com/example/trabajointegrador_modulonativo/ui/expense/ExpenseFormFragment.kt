@@ -1,5 +1,6 @@
 package com.example.trabajointegrador_modulonativo.ui.expense
 
+import ExpenseViewModel
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,21 +26,22 @@ import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.model.Expense
 import com.example.trabajointegrador_modulonativo.model.ExpenseType
 import com.example.trabajointegrador_modulonativo.util.CurrencyTextWatcher
-import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
-import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
-import com.example.trabajointegrador_modulonativo.viewmodel.ExpenseViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.ExpenseViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
+import java.util.Date
 
 
 class ExpenseFormFragment : Fragment() {
     private var _binding: FragmentCreateExpenseBinding? = null
     private val binding get() = _binding!!
     private var selectedExpenseType: ExpenseType? = null
+
+    private var selectedDate: Date? = null
 
     private val args: ExpenseFormFragmentArgs by navArgs()
 
@@ -81,7 +83,6 @@ class ExpenseFormFragment : Fragment() {
         setupClickListeners()
         setup()
         observeExpenseTypes()
-        expenseViewModel.loadExpenseTypes()
     }
     private fun observeExpenseTypes() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -115,28 +116,32 @@ class ExpenseFormFragment : Fragment() {
 
         binding.expenseDateEditText.setOnClickListener {
             binding.expenseDateLayout.error = null
-            showDatePickerDialog()
+            showDatePickerDialog(binding.expenseDateEditText) { date ->
+                selectedDate = date
+            }
         }
 
     }
 
-    private fun showDatePickerDialog() {
+    private fun showDatePickerDialog(targetEditText: TextInputEditText, onDateSelected: (Date) -> Unit) {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
         val datePickerDialog = DatePickerDialog(
             requireContext(),
-            { _, selectedYear, selectedMonth, selectedDay ->
-                val formattedDate = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear)
-                binding.expenseDateEditText.setText(formattedDate)
-            },
-            year,
-            month,
-            day
-        )
+            { _, year, month, day ->
 
+                val selectedCalendar = Calendar.getInstance().apply { set(year, month, day) }
+
+                val dateObject = selectedCalendar.time
+
+                val formattedDateForDisplay = String.format("%02d/%02d/%d", day, month + 1, year)
+                targetEditText.setText(formattedDateForDisplay)
+
+                onDateSelected(dateObject)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
         datePickerDialog.show()
     }
 
@@ -229,12 +234,12 @@ class ExpenseFormFragment : Fragment() {
         val amount = cleanString.toDoubleOrNull()!!.div(100.0)
 
         val description = binding.expenseDescriptionEditText.text.toString()
-        val date = binding.expenseDateEditText.text.toString()
+        val date = binding.expenseDateEditText
 
         val newExpense = Expense(
             amount = amount,
             description = description.uppercase(),
-            date = date,
+            date = selectedDate,
             expenseTypeId = selectedExpenseType!!.id,
             userId = userId,
             carId = currentCar.id,

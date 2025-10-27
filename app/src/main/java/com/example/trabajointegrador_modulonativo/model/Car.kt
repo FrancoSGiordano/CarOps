@@ -21,4 +21,9 @@ data class Car (
     var userId: String = "",
 ) : Parcelable {
     constructor() : this("", "", "", 0, "", "", "", "", "", "")
+
+
+    override fun toString(): String {
+        return "${this.brand} ${this.model}"
+    }
 }
