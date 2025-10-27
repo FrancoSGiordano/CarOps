@@ -8,6 +8,7 @@ import com.example.trabajointegrador_modulonativo.databinding.CarExpenseItemBind
 import com.example.trabajointegrador_modulonativo.databinding.UserExpenseItemBinding
 import com.example.trabajointegrador_modulonativo.model.Expense
 import java.text.NumberFormat
+import java.util.Date
 import java.util.Locale
 import kotlin.math.exp
 
@@ -38,7 +39,7 @@ class ExpenseAdapter(private val mode: AdapterMode) : RecyclerView.Adapter<Recyc
             binding.expenseImageView.setImageResource(setImage(expense))
 
             binding.expenseNameTextView.text = expense.description
-            binding.expenseDateTextView.text = expense.date
+            binding.expenseDateTextView.text = formatDateForDisplay(expense.date!!)
 
             val amountToFormat = expense.amount ?: 0.0
 
@@ -53,7 +54,7 @@ class ExpenseAdapter(private val mode: AdapterMode) : RecyclerView.Adapter<Recyc
             binding.userExpenseImageView.setImageResource(setImage(expense))
 
             binding.userExpenseNameTextView.text = expense.description
-            binding.userExpenseDateTextView.text = expense.date
+            binding.userExpenseDateTextView.text = formatDateForDisplay(expense.date!!)
             binding.userCarNameTextView.text = expense.carName
 
             val amountToFormat = expense.amount ?: 0.0
@@ -104,6 +105,11 @@ class ExpenseAdapter(private val mode: AdapterMode) : RecyclerView.Adapter<Recyc
             AdapterMode.USER_EXPENSE -> VIEW_TYPE_USER_EXPENSE
             AdapterMode.SIMPLE_EXPENSE -> VIEW_TYPE_SIMPLE_EXPENSE
         }
+    }
+
+    private fun formatDateForDisplay(date: Date): String {
+        val sdf = java.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return sdf.format(date)
     }
 
     companion object {

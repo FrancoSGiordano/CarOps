@@ -47,7 +47,7 @@ class CarViewModel (
 
         viewModelScope.launch {
             _isLoading.value = true
-            expenseRepository.getExpensesForUserStream(userId, carId)
+            expenseRepository.getExpensesForUserStream(userId, carId, null, null, null)
                 .catch { e ->
                     _error.value = "Error al cargar los gastos: ${e.message}"
                     _isLoading.value = false

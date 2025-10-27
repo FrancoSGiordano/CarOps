@@ -48,8 +48,6 @@ class carDetailFragment : Fragment() {
         CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider())
     }
 
-    private val userId = FirebaseAuth.getInstance().currentUser?.uid
-
     private lateinit var expenseAdapter: ExpenseAdapter
 
     override fun onCreateView(
@@ -153,7 +151,6 @@ class carDetailFragment : Fragment() {
         binding.carImageView?.let { imageView ->
             Glide.with(this)
                 .load(car.imageUrl)
-                .placeholder(R.drawable.logo)
                 .into(imageView)
         }
 

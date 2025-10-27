@@ -1,10 +1,12 @@
 package com.example.trabajointegrador_modulonativo.ui.expense
 
+import ExpenseViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,9 +18,9 @@ import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.databinding.FragmentUserExpenseListBinding
-import com.example.trabajointegrador_modulonativo.viewmodel.ExpenseViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.ExpenseViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 
@@ -28,7 +30,7 @@ class ExpenseListFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: ExpenseViewModel by viewModels {
+    private val viewModel: ExpenseViewModel by activityViewModels {
         ExpenseViewModelFactory(ExpenseRepository(), CarRepository(), SessionProvider())
     }
 
@@ -50,10 +52,10 @@ class ExpenseListFragment : Fragment() {
         super.onViewCreated(view, saveInstanceState)
 
         setupRecyclerView()
-
-        viewModel.getUserExpenses()
-
         observeViewModel()
+        binding.filterExpensesButton.setOnClickListener {
+            FilterExpenseModalFragment().show(parentFragmentManager, "FilterExpenseModalTag")
+        }
     }
 
     private fun setupRecyclerView() {
@@ -68,6 +70,8 @@ class ExpenseListFragment : Fragment() {
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+
                 launch {
                     viewModel.isLoading.collect { isLoading ->
 
@@ -82,6 +86,11 @@ class ExpenseListFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

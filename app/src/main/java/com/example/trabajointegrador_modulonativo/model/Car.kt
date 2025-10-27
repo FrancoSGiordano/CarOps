@@ -18,12 +18,16 @@ data class Car (
     val transmission: String? = "",
     val lastUpdate: String? = "",
     val imageUrl: String? = "",
-
     var userId: String = "",
     var parked: Boolean = false,
     var parkedLat: Double? = null,
     var parkedLng: Double? = null,
     var parkedDate: Timestamp? = null,
-    ) : Parcelable {
-    constructor() : this("", "", "", 0, "", "", "", "", "", "",false, null, null, null  )
+) : Parcelable {
+   constructor() : this("", "", "", 0, "", "", "", "", "", "",false, null, null, null  )
+
+    override fun toString(): String {
+        return "${this.brand} ${this.model}"
+    }
+    
 }

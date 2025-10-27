@@ -129,7 +129,7 @@ class carListFragment : Fragment() {
 
             Glide.with(holder.itemView)
                 .load(item.imageUrl)
-                .transform(RoundedCorners(16)) // opcional, redondea la imagen
+                .transform(RoundedCorners(16))
                 .into(holder.binding.imgThumb)
 
             holder.itemView.tag = item

@@ -302,11 +302,9 @@ class CarFormFragment : Fragment()  {
             .setItems(items) { _, which ->
                 when (which) {
                     0 -> {
-                        // galería
                         pickImageLauncher.launch("image/*")
                     }
                     1 -> {
-                        // cámara: pedir permiso si es necesario
                         requestCameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
                     }
 

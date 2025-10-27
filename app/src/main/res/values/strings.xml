@@ -6,4 +6,11 @@
     <string name="back_button_description">Botón para ir atrás</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tipo_de_gasto">Tipo de Gasto</string>
+    <string name="fecha_inicio">Fecha Inicio</string>
+    <string name="fecha_fin">Fecha Fin</string>
+    <string name="limpiar">Limpiar</string>
+    <string name="aplicar">Aplicar</string>
+    <string name="filtrar_gastos">Filtrar Gastos</string>
+    <string name="vehiculo">Vehículo</string>
 </resources>
