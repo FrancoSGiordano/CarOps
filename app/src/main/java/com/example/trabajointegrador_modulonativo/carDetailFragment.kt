@@ -103,6 +103,16 @@ class carDetailFragment : Fragment() {
                 Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.viewReminderButton?.setOnClickListener {
+            val carId = viewModel.selectedCar.value?.id
+            if (carId != null) {
+                val bundle = Bundle().apply { putString("car_id", carId) }
+                findNavController().navigate(R.id.action_list_to_reminders, bundle)
+            } else {
+                Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupRecylcerView() {
