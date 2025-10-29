@@ -16,7 +16,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
@@ -32,7 +34,7 @@ class carListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel : CarViewModel by viewModels {
-        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider())
+        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(), null)
     }
 
     private var carAdapter: SimpleItemRecyclerViewAdapter? = null
@@ -127,10 +129,23 @@ class carListFragment : Fragment() {
             holder.binding.tvTitle.text = "${item.brand} ${item.model}"
             holder.binding.tvSubtitle.text = "Patente: ${item.licensePlate} - Última actualización: ${item.lastUpdate}"
 
-            Glide.with(holder.itemView)
-                .load(item.imageUrl)
-                .transform(RoundedCorners(16))
-                .into(holder.binding.imgThumb)
+            val requestOptions = RequestOptions()
+                .transform(CenterCrop(), RoundedCorners(24))
+
+            if(item.imageUrl != null) {
+                Glide.with(holder.itemView)
+                    .load(item.imageUrl)
+                    .apply(requestOptions)
+                    .placeholder(R.drawable.generic_car_icon)
+                    .error(R.drawable.generic_car_icon)
+                    .into(holder.binding.imgThumb)
+            } else {
+                Glide.with(holder.itemView)
+                    .load(R.drawable.generic_car_icon)
+                    .apply(requestOptions)
+                    .into(holder.binding.imgThumb)
+            }
+
 
             holder.itemView.tag = item
             holder.itemView.setOnClickListener { v ->
