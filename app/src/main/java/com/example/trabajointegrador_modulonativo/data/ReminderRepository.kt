@@ -107,14 +107,7 @@ class ReminderRepository {
         awaitClose { subscription.remove() }
     }
 
-    suspend fun markAsRealizado(reminderId: String) {
-        val updates = mapOf(
-            "state" to ReminderState.REALIZADO.name,
-            "notificationSent" to true,
-            "done" to true
-        )
-        remindersCol.document(reminderId).update(updates).await()
-    }
+
 
     suspend fun markDueRemindersAsPending() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return

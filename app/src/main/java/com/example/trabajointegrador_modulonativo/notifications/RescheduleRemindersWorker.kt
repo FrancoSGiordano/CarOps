@@ -1,0 +1,59 @@
+package com.example.trabajointegrador_modulonativo.notifications
+
+import android.content.Context
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import com.example.trabajointegrador_modulonativo.data.ReminderRepository
+import com.example.trabajointegrador_modulonativo.model.Reminder
+import com.example.trabajointegrador_modulonativo.model.ReminderState
+import com.example.trabajointegrador_modulonativo.notifications.ReminderScheduler
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
+import android.util.Log
+
+class RescheduleRemindersWorker(
+    appContext: Context,
+    workerParams: WorkerParameters
+) : CoroutineWorker(appContext, workerParams) {
+
+    companion object { private const val TAG = "RescheduleWorker" }
+
+    override suspend fun doWork(): Result {
+        try {
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
+            if (uid == null) {
+                Log.w(TAG, "No hay usuario autenticado en boot — no se reprogramarán reminders user-scoped")
+                return Result.success()
+            }
+
+            val db = FirebaseFirestore.getInstance()
+            val now = com.google.firebase.Timestamp.now()
+
+            // Consulta: reminders del usuario que estén EN_ESPERA y con notifyAt >= ahora
+            val snap = db.collection("reminders")
+                .whereEqualTo("userId", uid)
+                .whereEqualTo("state", ReminderState.EN_ESPERA.name)
+                .whereGreaterThanOrEqualTo("notifyAt", now)
+                .get()
+                .await()
+
+            for (doc in snap.documents) {
+                val r = doc.toObject(Reminder::class.java) ?: continue
+                r.id = doc.id
+                // Reprogramar si notifyAt válido y en el futuro
+                val notifyMillis = r.notifyAt?.toDate()?.time ?: continue
+                if (notifyMillis > System.currentTimeMillis()) {
+                    ReminderScheduler.schedule(applicationContext, r)
+                    Log.d(TAG, "Reprogramado reminder ${r.id} para ${r.notifyAt}")
+                }
+            }
+
+            return Result.success()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error reprogramando reminders: ${e.message}", e)
+            // Si hay error temporal (red, etc.) probamos reintentar
+            return Result.retry()
+        }
+    }
+}

@@ -1,12 +1,11 @@
-// ReminderScheduler.kt
 package com.example.trabajointegrador_modulonativo.notifications
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import com.example.trabajointegrador_modulonativo.ui.reminder.ReminderReceiver
 import com.example.trabajointegrador_modulonativo.model.Reminder
+import com.example.trabajointegrador_modulonativo.ui.reminder.ReminderReceiver
 
 object ReminderScheduler {
 
@@ -30,15 +29,11 @@ object ReminderScheduler {
         val triggerAtMillis = reminder.notifyAt?.toDate()?.time ?: return
 
         // Recomendado: exacto y que funcione en Doze (usa permiso exacto en Android 12+ si necesario)
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            triggerAtMillis,
-            pi
-        )
-    }
+        alarmManager.setExactAndAllowWhileIdle( AlarmManager.RTC_WAKEUP, triggerAtMillis, pi ) }
 
     fun cancel(context: Context, reminderId: String) {
-        val dummy = Reminder(id = reminderId, userId = null, carId = null, title = "", notifyAt = null)
+        val dummy =
+            Reminder(id = reminderId, userId = null, carId = null, title = "", notifyAt = null)
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pi = buildIntent(context, dummy)
         alarmManager.cancel(pi)

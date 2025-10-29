@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ReminderAdapter(
-    private val onMarkDone: (Reminder) -> Unit = {},
     private val onDelete: (Reminder) -> Unit = {},
     private val onEdit: (Reminder) -> Unit = {}
 ) : ListAdapter<Reminder, ReminderAdapter.ViewHolder>(DIFF) {
@@ -53,18 +52,6 @@ class ReminderAdapter(
             titleTv.text = r.title
             val ts = r.notifyAt?.toDate()
             dateTv.text = if (ts != null) TIME_FMT.format(ts) else ""
-
-            // estado visual (puedes adaptar estilos según r.state)
-            when (r.state) {
-                "REALIZADO" -> {
-                    titleTv.alpha = 0.6f
-                    dateTv.alpha = 0.6f
-                }
-                else -> {
-                    titleTv.alpha = 1f
-                    dateTv.alpha = 1f
-                }
-            }
 
             editBtn?.setOnClickListener { onEdit(r) }
 

@@ -50,7 +50,6 @@ class ReminderListFragment : Fragment() {
         // proteger por si el layout cambió y binding no tiene esas vistas
         try {
             adapter = ReminderAdapter(
-                onMarkDone = { reminder -> markAsRealizado(reminder) },
                 onDelete = { reminder -> deleteReminder(reminder) },
                 onEdit = { /* editar futuro */ }
             )
@@ -95,20 +94,6 @@ class ReminderListFragment : Fragment() {
                         Toast.makeText(requireContext(), "Error cargando recordatorios: ${e.message}", Toast.LENGTH_LONG).show()
                     }
                 }
-            }
-        }
-    }
-
-    private fun markAsRealizado(reminder: com.example.trabajointegrador_modulonativo.model.Reminder) {
-        lifecycleScope.launch {
-            try {
-                withContext(Dispatchers.IO) {
-                    repo.markAsRealizado(reminder.id ?: return@withContext)
-                }
-                Toast.makeText(requireContext(), "Marcado como realizado", Toast.LENGTH_SHORT).show()
-            } catch (e: Exception) {
-                Log.e(TAG, "markAsRealizado error: ${e.message}", e)
-                Toast.makeText(requireContext(), "Error al marcar: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }

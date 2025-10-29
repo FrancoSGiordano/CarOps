@@ -11,7 +11,7 @@ data class Reminder (
     var state: String = ReminderState.EN_ESPERA.name,
     var notificationSent: Boolean = false,
     var createdAt: Timestamp? = null,
-    val done: Boolean = false
-){constructor() : this("", "", "", "", null, ReminderState.EN_ESPERA.name, false, null, false)}
-enum class ReminderState { EN_ESPERA, PENDIENTE, REALIZADO }
+    var pending: Boolean = false
+){constructor() : this("", "", "", "", null, ReminderState.EN_ESPERA.name, false, null,false)}
+enum class ReminderState { EN_ESPERA, PENDIENTE}
 
