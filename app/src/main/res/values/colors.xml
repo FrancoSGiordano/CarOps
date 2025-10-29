@@ -9,7 +9,7 @@
     <color name="light_blue">#5381C4</color>
     <color name="green">#006D2C</color>
     <color name="red">#E91E25</color>
-
+    <color name="pending_yellow">#FFC53D</color>
 
 </resources>
 

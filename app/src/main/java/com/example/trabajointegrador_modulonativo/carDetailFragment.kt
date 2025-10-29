@@ -152,7 +152,7 @@ class carDetailFragment : Fragment() {
             }
         }
 
-        binding.viewReminderButton?.setOnClickListener {
+        binding.remindersButton?.setOnClickListener {
             val carId = viewModel.selectedCar.value?.id
             if (carId != null) {
                 val bundle = Bundle().apply { putString("car_id", carId) }
