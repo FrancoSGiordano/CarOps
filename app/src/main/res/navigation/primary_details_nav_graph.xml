@@ -11,7 +11,11 @@
         android:label="carListFragment">
         <action
             android:id="@+id/show_car_detail"
-            app:destination="@id/car_detail_fragment" />
+            app:destination="@id/car_detail_fragment">
+            <argument
+                android:name="carId"
+                app:argType="string" />
+        </action>
         <action
             android:id="@+id/action_list_to_form"
             app:destination="@id/carFormFragment" />
@@ -25,7 +29,7 @@
         android:label="car_detail"
         tools:layout="@layout/fragment_car_detail">
         <argument
-            android:name="item_id"
+            android:name="carId"
             android:defaultValue=""
             app:argType="string" />
         <action
@@ -37,6 +41,16 @@
         <action
             android:id="@+id/action_detail_to_parking"
             app:destination="@id/parkingFragment" />
+        <action
+            android:id="@+id/action_detail_to_insurance_form"
+            app:destination="@id/insuranceFormFragment" />
+        <action
+            android:id="@+id/action_detail_to_insurance_list"
+            app:destination="@id/userExpensesFragment">
+            <argument
+                android:name="carId"
+                app:argType="string" />
+        </action>
 
     </fragment>
 
@@ -46,7 +60,7 @@
         android:label="CarFormFragment"
         tools:layout="@layout/fragment_create_car">
         <argument
-            android:name="car_id"
+            android:name="carId"
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
@@ -69,16 +83,38 @@
         android:name="com.example.trabajointegrador_modulonativo.ui.expense.ExpenseListFragment"
         android:label="ExpenseFormFragment"
         tools:layout="@layout/fragment_user_expense_list" >
+        <argument
+            android:name="carId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/parkingFragment"
         android:name="com.example.trabajointegrador_modulonativo.ui.parking.ParkingFragment"
         android:label="Estacionamiento">
         <argument
-            android:name="car_id"
+            android:name="carId"
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/insuranceFormFragment"
+        android:name="com.example.trabajointegrador_modulonativo.ui.insurance.InsuranceFormFragment"
+        android:label="fragment_add_insurance"
+        tools:layout="@layout/fragment_add_insurance" >
+
+        <argument
+            android:name="carId"
+            app:argType="string" />
+        <argument
+            android:name="insurance"
+            app:argType="com.example.trabajointegrador_modulonativo.model.Insurance"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
     </fragment>
 
 </navigation>

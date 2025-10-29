@@ -39,7 +39,7 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
     // Fused location provider
     private val fusedLocationClient by lazy { LocationServices.getFusedLocationProviderClient(requireActivity()) }
     private val viewModel: CarViewModel by activityViewModels {
-        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider())
+        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(), null)
     }
 
     private var lastLocation: Location? = null

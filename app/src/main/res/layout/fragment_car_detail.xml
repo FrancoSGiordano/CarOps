@@ -21,36 +21,58 @@
             <ImageView
                 android:id="@+id/carImageView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="30dp"
-                app:srcCompat="@drawable/clio" />
+                android:layout_marginHorizontal="60dp"
+                app:srcCompat="@drawable/generic_car_icon" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                >
-                <Button
-                    android:id="@+id/viewParkingButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="30dp"
-                    android:text="Estacionar"
-                    android:textSize="20dp"
-                    app:backgroundTint="#F44336" />
-                <Space android:layout_width="16dp" android:layout_height="0dp"/>
-                <Button
-                    android:id="@+id/viewAlarmButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="30dp"
-                    android:text="Recordatorios"
-                    android:textSize="20dp"
-                    app:backgroundTint="#673AB7" />
+                android:paddingVertical="8dp"
+                android:background="@drawable/container_border_background"
+                android:weightSum="2">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/viewParkingButton"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingVertical="8dp"
+                        android:text="Estacionar"
+                        android:textColor="@color/gray_light"
+                        app:icon="@drawable/parking_icon"
+                        app:iconGravity="top"
+                        app:iconSize="32dp"
+                        app:iconTint="@color/button"
+                         />
 
 
-            </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/remindersButton"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingVertical="8dp"
+                        android:text="Recordatorios"
+                        android:textColor="@color/gray_light"
+                        app:icon="@drawable/reminder_icon"
+                        app:iconGravity="top"
+                        app:iconSize="32dp"
+                        app:iconTint="@color/button"
+                        />
+
+
+                </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,21 +88,22 @@
                     android:layout_height="wrap_content"
                     >
                     <TextView
-                    android:id="@+id/carData"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/title_chip_background"
-                    android:paddingStart="16dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="4dp"
-                    android:text="DATOS DEL VEHICULO"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
+                        android:id="@+id/carData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.App.SectionTitle"
+                        android:background="@drawable/title_chip_background"
+                        android:paddingStart="16dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="4dp"
+                        android:text="DATOS DEL VEHICULO"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
 
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
 
                     <ImageButton
                         android:id="@+id/editCarDataButton"
@@ -100,6 +123,7 @@
 
                 <TextView
                     android:id="@+id/lastModifiedTextView"
+                    style="@style/TextAppearance.App.CardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -108,6 +132,7 @@
 
                 <TextView
                     android:id="@+id/plateTextView"
+                    style="@style/TextAppearance.App.CardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -116,6 +141,7 @@
 
                 <TextView
                     android:id="@+id/carBrandTextView"
+                    style="@style/TextAppearance.App.CardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -124,6 +150,7 @@
 
                 <TextView
                     android:id="@+id/carModelTextView"
+                    style="@style/TextAppearance.App.CardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -132,6 +159,7 @@
 
                 <TextView
                     android:id="@+id/carYearTextView"
+                    style="@style/TextAppearance.App.CardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -140,6 +168,7 @@
 
                 <TextView
                     android:id="@+id/carEngineTextView"
+                    style="@style/TextAppearance.App.CardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -148,6 +177,7 @@
 
                 <TextView
                     android:id="@+id/carTransmissionTextView"
+                    style="@style/TextAppearance.App.CardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -159,15 +189,16 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/insuranceDataContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp"
                 android:background="@drawable/container_border_background"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -175,6 +206,7 @@
 
                     <TextView
                         android:id="@+id/insuranceData"
+                        style="@style/TextAppearance.App.SectionTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/title_chip_background"
@@ -192,6 +224,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/insuranceButtonsContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -224,83 +257,139 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <TextView
-                    android:id="@+id/lastModifiedInsuranceTextView"
+                <LinearLayout
+                    android:id="@+id/insuranceDetailsContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Ultima actualizacion: "
-                    android:textColor="@android:color/darker_gray" />
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
-                <TextView
-                    android:id="@+id/insuranceNameTextView"
+                    <TextView
+                        android:id="@+id/lastModifiedInsuranceTextView"
+                        style="@style/TextAppearance.App.CardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Ultima actualizacion: "
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/insuranceNameTextView"
+                        style="@style/TextAppearance.App.CardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Aseguradora: "
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/policyNumberTextView"
+                        style="@style/TextAppearance.App.CardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Numero de poliza: "
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/expirationDateTextView"
+                        style="@style/TextAppearance.App.CardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Fecha de vencimiento: "
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/coverageTypeTextView"
+                        style="@style/TextAppearance.App.CardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Tipo de cobertura:"
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/ownerNameTextView"
+                        style="@style/TextAppearance.App.CardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Titular:"
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/engineNumberTextView"
+                        style="@style/TextAppearance.App.CardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Numero de motor: "
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/chassisNumberTextView"
+                        style="@style/TextAppearance.App.CardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Numero de chasis: "
+                        android:textColor="@android:color/darker_gray" />
+
+
+                </LinearLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/addInsuranceContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Aseguradora: "
-                    android:textColor="@android:color/darker_gray" />
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/container_border_background"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="32dp"
+                    android:visibility="gone"
+                    tools:visibility="gone">
 
-                <TextView
-                    android:id="@+id/policyNumberTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Numero de poliza: "
-                    android:textColor="@android:color/darker_gray" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Este vehículo no tiene un seguro asociado."
+                        android:textAlignment="center"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/expirationDateTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Fecha de vencimiento: "
-                    android:textColor="@android:color/darker_gray" />
+                    <Button
+                        android:id="@+id/btnAddInsurance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Agregar seguro"
+                        app:backgroundTint="@color/button" />
 
-                <TextView
-                    android:id="@+id/coverageTypeTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Tipo de cobertura:"
-                    android:textColor="@android:color/darker_gray" />
-
-                <TextView
-                    android:id="@+id/ownerNameTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Titular:"
-                    android:textColor="@android:color/darker_gray" />
-
-                <TextView
-                    android:id="@+id/engineNumberTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Numero de motor: "
-                    android:textColor="@android:color/darker_gray" />
-
-                <TextView
-                    android:id="@+id/chassisNumberTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Numero de chasis: "
-                    android:textColor="@android:color/darker_gray" />
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/expensesDataContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/container_border_background"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -308,6 +397,7 @@
 
                     <TextView
                         android:id="@+id/expensesData"
+                        style="@style/TextAppearance.App.SectionTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/title_chip_background"
@@ -367,12 +457,42 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     tools:listitem="@layout/car_expense_item"
-                    tools:itemCount="3" />
+                    tools:itemCount="3"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
 
+
+                    <LinearLayout
+                        android:id="@+id/noExpensesContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:visibility="gone"
+                        tools:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/noExpensesTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Este vehículo no tiene ningún gasto asociado."
+                            android:textAlignment="center"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/addExpenseButtonDirect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="Agregar gasto"
+                            app:backgroundTint="@color/button" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
-
 
         </LinearLayout>
     </ScrollView>
