@@ -28,12 +28,12 @@ object ReminderScheduler {
         val pi = buildIntent(context, reminder)
         val triggerAtMillis = reminder.notifyAt?.toDate()?.time ?: return
 
-        // Recomendado: exacto y que funcione en Doze (usa permiso exacto en Android 12+ si necesario)
-        alarmManager.setExactAndAllowWhileIdle( AlarmManager.RTC_WAKEUP, triggerAtMillis, pi ) }
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pi)
+    }
 
     fun cancel(context: Context, reminderId: String) {
         val dummy =
-            Reminder(id = reminderId, userId = null, carId = null, title = "", notifyAt = null)
+            Reminder(id = reminderId, userId = null, carId = null, title = "", notifyAt = null, pending = false, notificationSent = false, createdAt = null)
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pi = buildIntent(context, dummy)
         alarmManager.cancel(pi)

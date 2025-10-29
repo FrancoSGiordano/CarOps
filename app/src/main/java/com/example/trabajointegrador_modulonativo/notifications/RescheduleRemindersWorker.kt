@@ -42,10 +42,7 @@ class RescheduleRemindersWorker(
                 r.id = doc.id
                 // Reprogramar si notifyAt válido y en el futuro
                 val notifyMillis = r.notifyAt?.toDate()?.time ?: continue
-                if (notifyMillis > System.currentTimeMillis()) {
-                    ReminderScheduler.schedule(applicationContext, r)
-                    Log.d(TAG, "Reprogramado reminder ${r.id} para ${r.notifyAt}")
-                }
+
             }
 
             return Result.success()

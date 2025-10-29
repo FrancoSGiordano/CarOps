@@ -84,6 +84,7 @@ class ReminderFormModal : BottomSheetDialogFragment() {
         binding.filterStartTimeEditText.setOnClickListener { openMaterialTimePicker() }
         binding.btnApplyFiltersButton.setOnClickListener { onSaveClicked() }
         binding.btnDone.setOnClickListener { onDoneClicked() }
+        binding.btnDelete.setOnClickListener { onDeleteClicked() }
     }
 
     private fun loadReminderData() {
@@ -97,8 +98,10 @@ class ReminderFormModal : BottomSheetDialogFragment() {
                         updateDateField()
                         updateTimeField()
                     }
-                    if(currentReminder!!.pending){
+                    if (currentReminder!!.pending) {
                         binding.btnDone.visibility = View.VISIBLE
+                    } else if (isEditMode) {
+                        binding.btnDelete.visibility = View.VISIBLE
                     }
                 } else {
                     Toast.makeText(context, "Error al cargar el recordatorio", Toast.LENGTH_SHORT).show()
@@ -163,6 +166,17 @@ class ReminderFormModal : BottomSheetDialogFragment() {
     }
 
     private fun onDoneClicked(){
+        currentReminder?.id?.let {
+            lifecycleScope.launch{
+                withContext(Dispatchers.IO) { repo.deleteReminder(it) }
+                ReminderScheduler.cancel(requireContext(), it)
+                Toast.makeText(context, "Recordatorio eliminado", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
+        }
+    }
+
+    private fun onDeleteClicked(){
         currentReminder?.id?.let {
             lifecycleScope.launch{
                 withContext(Dispatchers.IO) { repo.deleteReminder(it) }
