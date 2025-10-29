@@ -43,7 +43,7 @@ class CarFormFragment : Fragment()  {
     private val binding get() = _binding!!
 
     private val viewModel: CarViewModel by activityViewModels{
-        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider())
+        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(), null)
     }
 
     private val carId: String? by lazy {
@@ -116,7 +116,7 @@ class CarFormFragment : Fragment()  {
 
     private fun setupEditMode(id: String) {
         binding.createVehicleTitle.text = "Editar Vehículo"
-        binding.createCarButton.text = "Guardar Cambios"
+        binding.createCarButton.text = "Guardar"
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.loadCarDetails(id)
@@ -148,7 +148,6 @@ class CarFormFragment : Fragment()  {
         binding.createCarButton.setOnClickListener {
             if(!validateForm()) return@setOnClickListener
 
-            // Hacemos todo en coroutine porque podemos necesitar subir la imagen
             viewLifecycleOwner.lifecycleScope.launch {
                 binding.createCarButton.isEnabled = false
                 binding.createCarButton.alpha = 0.6f
@@ -210,7 +209,7 @@ class CarFormFragment : Fragment()  {
         } else {
             val year = binding.carYearEditText.text.toString().toIntOrNull()
             if (year == null || year < 1917 || year > java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)) {
-                binding.carYearLayout.error = "El año ingresao es invalido"
+                binding.carYearLayout.error = "El año ingresado es invalido"
                 isValid = false
             }
         }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
+import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.model.Car
 import com.example.trabajointegrador_modulonativo.model.Expense
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 class CarViewModel (
     private val carRepository: CarRepository,
     private val expenseRepository: ExpenseRepository,
-    private val sessionProvider: SessionProvider
+    private val sessionProvider: SessionProvider,
+    private val insuranceRepository: InsuranceRepository?
 ) : ViewModel() {
 
     private val userId: String? = sessionProvider.getUserId()
@@ -69,17 +71,27 @@ class CarViewModel (
                     _isLoading.value = false
                 }
                 .collect { car ->
-                    _selectedCar.value = car
+
                     _isLoading.value = false
                     if (car != null) {
+
+                        if (car.insuranceId != null) {
+                            val insurance = insuranceRepository?.getInsuranceById(car.insuranceId)
+                            car.insurance = insurance
+                        }
+
                         _error.value = null
+                        _selectedCar.value = car
                         return@collect
+                    } else {
+                        _error.value = "Vehículo no encontrado"
                     }
-                    _error.value = "Vehículo no encontrado"
+
                 }
 
         }
     }
+
 
     fun updateCar(car: Car) {
         if(userId == null) {

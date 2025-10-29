@@ -56,6 +56,8 @@ class FilterExpenseModalFragment : BottomSheetDialogFragment() {
         observeViewModel()
         setupDatePickers()
         setupActionButtons()
+
+
     }
 
     private fun observeViewModel() {
@@ -123,6 +125,7 @@ class FilterExpenseModalFragment : BottomSheetDialogFragment() {
 
         }
     }
+
 
     private fun setupDatePickers() {
         binding.filterStartDateEditText.setOnClickListener {
