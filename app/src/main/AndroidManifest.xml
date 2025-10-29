@@ -8,6 +8,13 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
@@ -15,6 +22,7 @@
 
 
     <application
+        android:name=".MyApp"
         android:requestLegacyExternalStorage="true"
         tools:targetApi="31"
         android:allowBackup="true"
@@ -59,7 +67,18 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBXtc57NAMMXptFeJQhoi086mIcjD-0_9U"/>
+        <receiver
+            android:name=".ui.reminder.ReminderReceiver"
+            android:exported="true" />
 
+        <receiver
+            android:name=".notifications.BootReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

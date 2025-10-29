@@ -7,10 +7,9 @@
     <color name="button">#0067FF</color>
     <color name="gray_light">#686868</color>
     <color name="light_blue">#5381C4</color>
-    <color name="dialog_background_dark">#2C2C2C</color>
-    <color name="dialog_text_light">#FFFFFF</color>
-    <color name="dialog_button_color">#FFA500</color>
-
+    <color name="green">#006D2C</color>
+    <color name="red">#E91E25</color>
+    <color name="pending_yellow">#FFC53D</color>
 
 </resources>
 

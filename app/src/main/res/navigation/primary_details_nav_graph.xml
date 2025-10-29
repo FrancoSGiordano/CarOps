@@ -51,6 +51,9 @@
                 android:name="carId"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_list_to_reminders"
+            app:destination="@id/carRemindersFragment" />
 
     </fragment>
 
@@ -115,6 +118,16 @@
             app:nullable="true"
             android:defaultValue="@null" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/carRemindersFragment"
+        android:name="com.example.trabajointegrador_modulonativo.ui.reminder.ReminderListFragment"
+        android:label="Recordatorios">
+        <argument
+            android:name="car_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 </navigation>

@@ -1,5 +1,3 @@
-
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -73,5 +71,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("jp.wasabeef:glide-transformations:4.3.0")
-
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.6.0")
+    implementation("com.google.firebase:firebase-auth-ktx:22.1.0")
 }
