@@ -204,7 +204,7 @@ class ReminderFormModal:  BottomSheetDialogFragment() {
             state = if (ts.toDate().time > System.currentTimeMillis()) ReminderState.EN_ESPERA.name else ReminderState.PENDIENTE.name,
             notificationSent = false,
             createdAt = null,
-            done = false
+            pending = false
         )
 
         lifecycleScope.launch {
