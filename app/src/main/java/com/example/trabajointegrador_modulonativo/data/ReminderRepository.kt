@@ -3,7 +3,6 @@ package com.example.trabajointegrador_modulonativo.data
 import android.util.Log
 import com.example.trabajointegrador_modulonativo.FirebaseClient
 import com.example.trabajointegrador_modulonativo.model.Reminder
-import com.example.trabajointegrador_modulonativo.model.ReminderState
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.channels.awaitClose
@@ -16,9 +15,18 @@ class ReminderRepository {
     private val remindersCol = db.collection("reminders")
 
     suspend fun addReminder(reminder: com.example.trabajointegrador_modulonativo.model.Reminder): String {
-        // agrega el documento y devuelve el id generado por Firestore
         val docRef = remindersCol.add(reminder).await()
         return docRef.id
+    }
+
+    suspend fun getReminderById(id: String): Reminder? {
+        return try {
+            val document = remindersCol.document(id).get().await()
+            document.toObject(Reminder::class.java)?.apply { this.id = document.id }
+        } catch (e: Exception) {
+            Log.e("ReminderRepository", "Error getting reminder by ID", e)
+            null
+        }
     }
 
     fun createReminder(reminder: Reminder){
@@ -91,7 +99,7 @@ class ReminderRepository {
         }
         val subscription = remindersCol
             .whereEqualTo("userId", uid)
-            .whereEqualTo("state", ReminderState.PENDIENTE.name)
+            .whereEqualTo("pending", true)
             .orderBy("notifyAt")
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
@@ -115,7 +123,7 @@ class ReminderRepository {
 
         val q = remindersCol
             .whereEqualTo("userId", uid)
-            .whereEqualTo("state", ReminderState.EN_ESPERA.name)
+            .whereEqualTo("pending", false)
             .whereLessThanOrEqualTo("notifyAt", now)
 
         val snap = q.get().await()
@@ -123,7 +131,7 @@ class ReminderRepository {
 
         val batch = db.batch()
         for (doc in snap.documents) {
-            batch.update(doc.reference, mapOf("state" to ReminderState.PENDIENTE.name))
+            batch.update(doc.reference, mapOf("pending" to true))
         }
         batch.commit().await()
     }

@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trabajointegrador_modulonativo.adapter.ReminderAdapter
 import com.example.trabajointegrador_modulonativo.data.ReminderRepository
 import com.example.trabajointegrador_modulonativo.databinding.FragmentCarReminderListBinding
+import com.example.trabajointegrador_modulonativo.model.Reminder
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.flow.collectLatest
 
 class ReminderListFragment : Fragment() {
 
@@ -47,20 +48,24 @@ class ReminderListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // proteger por si el layout cambió y binding no tiene esas vistas
         try {
             adapter = ReminderAdapter(
                 onDelete = { reminder -> deleteReminder(reminder) },
-                onEdit = { /* editar futuro */ }
+                onEdit = { reminder ->
+                    val modal = ReminderFormModal()
+                    val args = Bundle()
+                    reminder.carId?.let { args.putString("carId", it) }
+                    args.putString("reminderId", reminder.id)
+                    modal.arguments = args
+                    modal.show(parentFragmentManager, "EditReminderModalTag")
+                }
             )
 
-            // RecyclerView
             binding.userExpensesRecyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = this@ReminderListFragment.adapter
             }
 
-            // FAB abrir modal
             binding.addReminderButton.setOnClickListener {
                 val modal = ReminderFormModal()
                 carIdFromArgs?.let { modal.arguments = Bundle().apply { putString("carId", it) } }
@@ -72,24 +77,18 @@ class ReminderListFragment : Fragment() {
             return
         }
 
-        // collect safely
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 try {
-                    if (carIdFromArgs != null) {
-                        repo.getRemindersStreamForCar(carIdFromArgs!!).collectLatest { list ->
-                            adapter.submitList(list)
-
-                        }
+                    val stream = if (carIdFromArgs != null) {
+                        repo.getRemindersStreamForCar(carIdFromArgs!!)
                     } else {
-                        repo.getPendingRemindersStreamForUser().collectLatest { list ->
-                            adapter.submitList(list)
-
-                        }
+                        repo.getRemindersStreamForUser()
                     }
-                } catch (e: Exception) {
-                    Log.e(TAG, "Error collecting reminders: ${e.message}", e)
-                    // mostrar mensaje al usuario (no crashear)
+                    stream.collectLatest { list ->
+                        adapter.submitList(list)
+                    }
+                } catch (e: Exception) { Log.e(TAG, "Error collecting reminders: ${e.message}", e)
                     withContext(Dispatchers.Main) {
                         Toast.makeText(requireContext(), "Error cargando recordatorios: ${e.message}", Toast.LENGTH_LONG).show()
                     }
@@ -98,7 +97,7 @@ class ReminderListFragment : Fragment() {
         }
     }
 
-    private fun deleteReminder(reminder: com.example.trabajointegrador_modulonativo.model.Reminder) {
+    private fun deleteReminder(reminder: Reminder) {
         val id = reminder.id ?: return
         lifecycleScope.launch {
             try {

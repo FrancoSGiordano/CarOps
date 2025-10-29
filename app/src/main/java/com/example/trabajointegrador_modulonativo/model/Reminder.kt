@@ -8,10 +8,8 @@ data class Reminder (
     var carId: String? = "",
     val title: String = "",
     val notifyAt: Timestamp? = null,
-    var state: String = ReminderState.EN_ESPERA.name,
     var notificationSent: Boolean = false,
     var createdAt: Timestamp? = null,
     var pending: Boolean = false
-){constructor() : this("", "", "", "", null, ReminderState.EN_ESPERA.name, false, null,false)}
-enum class ReminderState { EN_ESPERA, PENDIENTE}
+){constructor() : this("", "", "", "", null, false, null,false)}
 

@@ -5,7 +5,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.trabajointegrador_modulonativo.data.ReminderRepository
 import com.example.trabajointegrador_modulonativo.model.Reminder
-import com.example.trabajointegrador_modulonativo.model.ReminderState
 import com.example.trabajointegrador_modulonativo.notifications.ReminderScheduler
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,10 +29,10 @@ class RescheduleRemindersWorker(
             val db = FirebaseFirestore.getInstance()
             val now = com.google.firebase.Timestamp.now()
 
-            // Consulta: reminders del usuario que estén EN_ESPERA y con notifyAt >= ahora
+            // Consulta: reminders del usuario que estén pendindg = false y con notifyAt >= ahora
             val snap = db.collection("reminders")
                 .whereEqualTo("userId", uid)
-                .whereEqualTo("state", ReminderState.EN_ESPERA.name)
+                .whereEqualTo("pending", false)
                 .whereGreaterThanOrEqualTo("notifyAt", now)
                 .get()
                 .await()

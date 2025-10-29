@@ -70,7 +70,7 @@ class ReminderReceiver : BroadcastReceiver() {
 
         // Actualizar Firestore (no crítico para mostrar la notificación)
         reminderId?.let { id ->
-            val updates = mapOf("state" to "PENDIENTE", "notificationSent" to true)
+            val updates = mapOf("pending" to true, "notificationSent" to true)
             FirebaseFirestore.getInstance().collection("reminders").document(id)
                 .update(updates)
                 .addOnSuccessListener { Log.d(TAG, "Firestore actualizado para $id") }
