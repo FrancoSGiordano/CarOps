@@ -45,7 +45,7 @@ class InsuranceFormFragment : Fragment() {
     private var userId: String? = null
     private var carId: String? = null
     private var insurance: Insurance? = null
-    private var currentInsurance: Insurance? = null
+
     private var selectedDate: Date? = null
 
     private var selectedFileUri: Uri? = null
@@ -342,7 +342,7 @@ class InsuranceFormFragment : Fragment() {
         }
 
         if(binding.chassisNumberEditText.text.toString().trim().isEmpty()){
-            binding.chassisNumberEditText.error = "El numero de chasis es obligatorio"
+            binding.chassisNumberLayout.error = "El numero de chasis es obligatorio"
             isValid = false
         }
 

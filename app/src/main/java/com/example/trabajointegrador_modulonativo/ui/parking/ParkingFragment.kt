@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
+import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.databinding.FragmentParkingBinding
 import com.example.trabajointegrador_modulonativo.ui.car.CarFormFragment.Companion.ARG_CAR_ID
@@ -28,7 +29,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ParkingFragment : Fragment(), OnMapReadyCallback {
 
     private var _binding: FragmentParkingBinding? = null
@@ -39,7 +42,9 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
     // Fused location provider
     private val fusedLocationClient by lazy { LocationServices.getFusedLocationProviderClient(requireActivity()) }
     private val viewModel: CarViewModel by activityViewModels {
-        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(), null)
+        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(),
+            InsuranceRepository()
+        )
     }
 
     private var lastLocation: Location? = null
@@ -91,9 +96,6 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         // Cargar detalles del auto si viene carId
-        selectedCarIdFromArgs?.let { id ->
-            viewModel.loadCarDetails(id)
-        }
 
         // Observamos selectedCar; si tiene ubicación guardada la dejamos en "pending" (o la mostramos si mapa listo)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
