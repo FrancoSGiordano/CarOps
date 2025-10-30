@@ -4,6 +4,7 @@ package com.example.trabajointegrador_modulonativo
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 
 import androidx.fragment.app.Fragment
 
@@ -37,6 +38,9 @@ import com.example.trabajointegrador_modulonativo.model.Car
 import com.example.trabajointegrador_modulonativo.model.Insurance
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
+import com.example.trabajointegrador_modulonativo.viewmodel.InsuranceViewModel
+import com.example.trabajointegrador_modulonativo.viewmodel.InsuranceViewModelFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 
@@ -48,6 +52,7 @@ import kotlinx.coroutines.launch
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 class carDetailFragment : Fragment() {
 
     private var _binding: FragmentCarDetailBinding? = null
@@ -56,6 +61,7 @@ class carDetailFragment : Fragment() {
         CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(),
             InsuranceRepository())
     }
+
 
     private lateinit var expenseAdapter: ExpenseAdapter
 
@@ -75,10 +81,11 @@ class carDetailFragment : Fragment() {
         setupRecylcerView()
 
         arguments?.getString(ARG_ITEM_ID)?.let { carId ->
-            viewModel.loadCarDetails(carId)
-            viewModel.getCarExpenses(carId)
+            viewModel.setCarId(carId)
         }
+
         observeViewModel()
+
 
         binding.editCarDataButton?.setOnClickListener {
             val carId = viewModel.selectedCar.value?.id
@@ -106,7 +113,7 @@ class carDetailFragment : Fragment() {
 
         binding.editInsuranceDataButton?.setOnClickListener {
             val carId = viewModel.selectedCar.value?.id
-            val insurance = viewModel.selectedCar.value?.insurance
+            val insurance = viewModel.carInsurance.value
             if(carId != null) {
                 val action = carDetailFragmentDirections.actionDetailToInsuranceForm(carId, insurance)
                 findNavController().navigate(action)
@@ -116,10 +123,21 @@ class carDetailFragment : Fragment() {
         }
 
         binding.showCirculationCardButton?.setOnClickListener {
-            showInsurancePolicy(viewModel.selectedCar.value?.insurance?.policyFileUrl)
+            showInsurancePolicy(viewModel.carInsurance.value?.policyFileUrl)
         }
 
         binding.addExpensesButton?.setOnClickListener {
+            val selectedCar = viewModel.selectedCar.value
+            if(selectedCar != null) {
+                val action = carDetailFragmentDirections.actionDetailToExpenseForm(selectedCar)
+                findNavController().navigate(action)
+            } else {
+                Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        binding.addExpenseButtonDirect?.setOnClickListener {
             val selectedCar = viewModel.selectedCar.value
             if(selectedCar != null) {
                 val action = carDetailFragmentDirections.actionDetailToExpenseForm(selectedCar)
@@ -184,8 +202,15 @@ class carDetailFragment : Fragment() {
                 launch {
                     viewModel.selectedCar.collect { car ->
                         car?.let {
-                            bindInsuranceData(it.insurance)
-                            bindCarData(it)}
+                            bindCarData(car)
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.carInsurance.collect { insurance ->
+                        Log.d("InsuranceViewModel", "Insurance data received: $insurance")
+                        bindInsuranceData(insurance)
                     }
                 }
 

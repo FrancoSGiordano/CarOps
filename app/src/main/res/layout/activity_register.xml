@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context="auth.RegisterActivity">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -60,67 +60,66 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/labelEmail"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registerEmailLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Correo electrónico"
-            android:textSize="18sp"
-            android:textColor="@color/white"
             android:layout_marginTop="28dp"
-            app:layout_constraintTop_toBottomOf="@id/titleUnderline"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <EditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray_light"
-            android:ems="10"
             android:hint="Correo electrónico"
-            android:inputType="textEmailAddress" />
+            android:textColorHint="@color/gray_light"
+            app:placeholderText="ejemplo@gmail.com">
 
-        <TextView
-            android:id="@+id/labelPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contraseña"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerEmailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/passwordEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registerPasswordLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray_light"
-            android:ems="10"
+            android:layout_marginTop="28dp"
             android:hint="Contraseña"
-            android:inputType="textPassword" />
+            android:textColorHint="@color/gray_light"
+            app:placeholderText="">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerPasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/labelConfirmPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Confirmar contraseña"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent" />
-        <EditText
-            android:id="@+id/confirmPasswordEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registerConfirmPasswordLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray_light"
-            android:ems="10"
+            android:layout_marginTop="28dp"
             android:hint="Confirma tu contraseña"
-            android:inputType="textPassword" />
+            android:textColorHint="@color/gray_light"
+            app:placeholderText="">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registerConfirmPasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/errorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            tools:text="Este es un mensaje de error de prueba"
+            tools:visibility="visible" />
 
 
         <LinearLayout

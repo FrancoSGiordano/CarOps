@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
+import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.databinding.FragmentCreateCarBinding
 import com.example.trabajointegrador_modulonativo.model.Car
@@ -26,6 +27,7 @@ import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -37,13 +39,15 @@ import java.util.jar.Manifest
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class CarFormFragment : Fragment()  {
 
     private var _binding: FragmentCreateCarBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: CarViewModel by activityViewModels{
-        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(), null)
+        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(),
+            InsuranceRepository())
     }
 
     private val carId: String? by lazy {
@@ -119,7 +123,6 @@ class CarFormFragment : Fragment()  {
         binding.createCarButton.text = "Guardar"
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.loadCarDetails(id)
             val car = viewModel.selectedCar.first()
             car?.let {
                 currentCar = it

@@ -11,7 +11,7 @@ class CarViewModelFactory(
     private val carRepository: CarRepository,
     private val expenseRepository: ExpenseRepository,
     private val sessionProvider: SessionProvider,
-    private val insuranceRepository: InsuranceRepository?
+    private val insuranceRepository: InsuranceRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(CarViewModel::class.java)) {

@@ -1,6 +1,7 @@
 package com.example.trabajointegrador_modulonativo
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,13 +20,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.example.trabajointegrador_modulonativo.auth.LoginActivity
 import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
+import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.databinding.FragmentCarListBinding
 import com.example.trabajointegrador_modulonativo.model.Car
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class carListFragment : Fragment() {
@@ -34,7 +38,8 @@ class carListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel : CarViewModel by viewModels {
-        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(), null)
+        CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(),
+            InsuranceRepository())
     }
 
     private var carAdapter: SimpleItemRecyclerViewAdapter? = null
@@ -65,6 +70,15 @@ class carListFragment : Fragment() {
 
         binding.btnVerGastos?.setOnClickListener {
             findNavController().navigate(R.id.action_list_to_expenses)
+        }
+
+        binding.btnCerrarSesion?.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(requireActivity(), LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
 

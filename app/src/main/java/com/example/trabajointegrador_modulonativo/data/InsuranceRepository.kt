@@ -18,13 +18,25 @@ class InsuranceRepository {
 
     private val carCollection = FirebaseClient.db.collection("cars")
 
-    suspend fun getInsuranceById(insuranceId : String): Insurance? {
-        return try {
-            val docRef = insuranceCollection.document(insuranceId)
-            docRef.get().await().toObject(Insurance::class.java)
-        } catch (e: Exception) {
-            Log.e("InsuranceRepo", "Error al obtener seguro $insuranceId", e)
-            null
+
+
+    fun getInsuranceById(insuranceId: String): Flow<Insurance?> = callbackFlow {
+        val docRef = insuranceCollection.document(insuranceId)
+        val subscription = docRef.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                close(error)
+                return@addSnapshotListener
+            }
+            if (snapshot != null && snapshot.exists()) {
+                val insurance = snapshot.toObject(Insurance::class.java)
+                insurance?.id = snapshot.id
+                trySend(insurance)
+            } else {
+                trySend(null)
+            }
+        }
+        awaitClose{
+            subscription.remove()
         }
     }
 

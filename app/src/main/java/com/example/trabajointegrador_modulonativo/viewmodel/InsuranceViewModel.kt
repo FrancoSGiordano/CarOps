@@ -27,24 +27,7 @@ class InsuranceViewModel (
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error.asStateFlow()
 
-    private val _selectedInsurance = MutableStateFlow<Insurance?>(null)
-    val insurance: StateFlow<Insurance?> = _selectedInsurance.asStateFlow()
 
-
-    suspend fun getInsuranceById(insuranceId: String) {
-
-        if(userId == null) {
-            _error.value = "Error: Usuario no autenticado"
-            return
-        }
-
-        viewModelScope.launch {
-            _isLoading.value = true
-            val insurance = insuranceRepository.getInsuranceById(insuranceId)
-            _selectedInsurance.value = insurance
-            _isLoading.value = false
-        }
-    }
 
     suspend fun addInsurance(insurance: Insurance, carId: String) {
         if(userId == null) {

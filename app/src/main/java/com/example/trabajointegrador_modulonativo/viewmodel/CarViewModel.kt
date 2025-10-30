@@ -8,17 +8,23 @@ import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.model.Car
 import com.example.trabajointegrador_modulonativo.model.Expense
+import com.example.trabajointegrador_modulonativo.model.Insurance
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class CarViewModel (
     private val carRepository: CarRepository,
     private val expenseRepository: ExpenseRepository,
     private val sessionProvider: SessionProvider,
-    private val insuranceRepository: InsuranceRepository?
+    private val insuranceRepository: InsuranceRepository
 ) : ViewModel() {
 
     private val userId: String? = sessionProvider.getUserId()
@@ -32,64 +38,49 @@ class CarViewModel (
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error.asStateFlow()
 
-    private val _selectedCar = MutableStateFlow<Car?>(null)
-    val selectedCar: StateFlow<Car?> = _selectedCar.asStateFlow()
+   private val _carId = MutableStateFlow<String?>(null)
 
-    private val _carExpenses = MutableStateFlow<List<Expense>>(emptyList())
-    val carExpenses: StateFlow<List<Expense>> = _carExpenses.asStateFlow()
-
-
-
-    fun getCarExpenses(carId: String) {
-
-        if(userId == null){
-            _error.value = "Error: Usuario no autenticado"
-            return
+    @ExperimentalCoroutinesApi
+    val selectedCar: StateFlow<Car?> = _carId.flatMapLatest { id ->
+        if(id == null) {
+            flowOf(null)
+        } else {
+            carRepository.getCarById(id)
         }
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-        viewModelScope.launch {
-            _isLoading.value = true
-            expenseRepository.getExpensesForUserStream(userId, carId, null, null, null)
-                .catch { e ->
-                    _error.value = "Error al cargar los gastos: ${e.message}"
-                    _isLoading.value = false
-                }
-                .collect { expenses ->
-                    _carExpenses.value = expenses
-                    _isLoading.value = false
-                    _error.value = null
-                }
+    @ExperimentalCoroutinesApi
+    val carInsurance: StateFlow<Insurance?> = selectedCar.flatMapLatest { car ->
+        val insuranceId = car?.insuranceId
+        if(insuranceId.isNullOrBlank()){
+            flowOf(null)
+        } else {
+            insuranceRepository.getInsuranceById(insuranceId)
         }
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    @ExperimentalCoroutinesApi
+    val carExpenses: StateFlow<List<Expense>> = _carId.flatMapLatest { id ->
+        if( id == null || userId == null) {
+            flowOf(emptyList())
+        } else {
+            expenseRepository.getExpensesForUserStream(userId, id, null, null, null)
+        }
+    }.catch { error ->
+        _error.value = "Error al cargar los gastos: ${error.message}"
+        emit(emptyList())
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+
+
+
+
+    fun setCarId(carId: String?) {
+        _carId.value = carId
     }
 
-    fun loadCarDetails(carId: String) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            carRepository.getCarById(carId)
-                .catch { e ->
-                    _error.value = "Error al cargar los detalles: ${e.message}"
-                    _isLoading.value = false
-                }
-                .collect { car ->
-
-                    _isLoading.value = false
-                    if (car != null) {
-
-                        if (car.insuranceId != null) {
-                            val insurance = insuranceRepository?.getInsuranceById(car.insuranceId)
-                            car.insurance = insurance
-                        }
-
-                        _error.value = null
-                        _selectedCar.value = car
-                        return@collect
-                    } else {
-                        _error.value = "Vehículo no encontrado"
-                    }
-
-                }
-
-        }
+    fun clearSelectedCar(){
+        _carId.value = null
     }
 
 
@@ -102,10 +93,6 @@ class CarViewModel (
         viewModelScope.launch {
             carRepository.updateCar(car)
         }
-    }
-
-    fun clearSelectedCar() {
-        _selectedCar.value = null
     }
 
 

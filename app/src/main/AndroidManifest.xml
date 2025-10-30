@@ -40,7 +40,7 @@
             android:resizeableActivity="true"
             tools:targetApi="24" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".auth.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,7 +52,7 @@
             android:name=".LogoutActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".auth.RegisterActivity"
             android:exported="true"></activity>
         <provider
             android:name="androidx.core.content.FileProvider"
