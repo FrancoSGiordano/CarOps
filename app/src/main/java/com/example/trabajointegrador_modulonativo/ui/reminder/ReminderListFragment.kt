@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.trabajointegrador_modulonativo.R
 import com.example.trabajointegrador_modulonativo.adapter.ReminderAdapter
 import com.example.trabajointegrador_modulonativo.data.ReminderRepository
 import com.example.trabajointegrador_modulonativo.databinding.FragmentCarReminderListBinding
@@ -73,7 +74,7 @@ class ReminderListFragment : Fragment() {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error initializing views: ${e.message}", e)
-            Toast.makeText(requireContext(), "Error inicializando la vista: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.error_vista, e.message), Toast.LENGTH_LONG).show()
             return
         }
 
@@ -90,7 +91,7 @@ class ReminderListFragment : Fragment() {
                     }
                 } catch (e: Exception) { Log.e(TAG, "Error collecting reminders: ${e.message}", e)
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(requireContext(), "Error cargando recordatorios: ${e.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.error_carga_recordatorios, e.message), Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -102,10 +103,10 @@ class ReminderListFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 withContext(Dispatchers.IO) { repo.deleteReminder(id) }
-                Toast.makeText(requireContext(), "Eliminado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.eliminado), Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Log.e(TAG, "deleteReminder error: ${e.message}", e)
-                Toast.makeText(requireContext(), "Error al eliminar: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.error_eliminar_recordatorio, e.message), Toast.LENGTH_LONG).show()
             }
         }
     }

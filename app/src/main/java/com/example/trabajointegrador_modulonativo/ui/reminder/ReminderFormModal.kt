@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.trabajointegrador_modulonativo.R
 import com.example.trabajointegrador_modulonativo.data.ReminderRepository
 import com.example.trabajointegrador_modulonativo.databinding.ModalCreateReminderBinding
 import com.example.trabajointegrador_modulonativo.model.Reminder
@@ -48,7 +49,7 @@ class ReminderFormModal : BottomSheetDialogFragment() {
         if (isGranted) {
             saveReminder()
         } else {
-            Toast.makeText(requireContext(), "No se pueden mostrar notificaciones sin permiso", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.notificacion_permiso), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -75,9 +76,9 @@ class ReminderFormModal : BottomSheetDialogFragment() {
 
         if (isEditMode) {
             loadReminderData()
-            binding.btnApplyFiltersButton.text = "Actualizar"
+            binding.btnApplyFiltersButton.text = getString(R.string.actualizar)
         } else {
-            binding.btnApplyFiltersButton.text = "Crear"
+            binding.btnApplyFiltersButton.text = getString(R.string.crear)
         }
 
         binding.filterStartDateEditText.setOnClickListener { openMaterialDatePicker() }
@@ -104,7 +105,7 @@ class ReminderFormModal : BottomSheetDialogFragment() {
                         binding.btnDelete.visibility = View.VISIBLE
                     }
                 } else {
-                    Toast.makeText(context, "Error al cargar el recordatorio", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.error_cargar_recordatorio), Toast.LENGTH_SHORT).show()
                     dismiss()
                 }
             }
@@ -155,11 +156,11 @@ class ReminderFormModal : BottomSheetDialogFragment() {
 
     private fun onSaveClicked() {
         if (binding.reminderTitleEditText.text.toString().trim().isEmpty()) {
-            binding.reminderTitle.error = "Ingrese un título"
+            binding.reminderTitle.error = getString(R.string.ingrese_titulo)
             return
         }
         if (selectedCal.timeInMillis <= System.currentTimeMillis()) {
-            Toast.makeText(requireContext(), "Seleccioná una fecha/hora futura", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.seleccion_fecha_hora), Toast.LENGTH_SHORT).show()
             return
         }
         checkPermissionsAndSchedule()
@@ -170,7 +171,7 @@ class ReminderFormModal : BottomSheetDialogFragment() {
             lifecycleScope.launch{
                 withContext(Dispatchers.IO) { repo.deleteReminder(it) }
                 ReminderScheduler.cancel(requireContext(), it)
-                Toast.makeText(context, "Recordatorio eliminado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.recordatorio_eliminado), Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }
@@ -181,7 +182,7 @@ class ReminderFormModal : BottomSheetDialogFragment() {
             lifecycleScope.launch{
                 withContext(Dispatchers.IO) { repo.deleteReminder(it) }
                 ReminderScheduler.cancel(requireContext(), it)
-                Toast.makeText(context, "Recordatorio eliminado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.recordatorio_eliminado), Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }
@@ -192,7 +193,7 @@ class ReminderFormModal : BottomSheetDialogFragment() {
             val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
             if (!alarmManager.canScheduleExactAlarms()) {
                 Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).also { intent ->
-                    Toast.makeText(requireContext(), "Se necesita permiso para programar recordatorios precisos.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.permiso_recordatorio), Toast.LENGTH_LONG).show()
                     startActivity(intent)
                 }
                 dismiss()
@@ -219,7 +220,7 @@ class ReminderFormModal : BottomSheetDialogFragment() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
 
         if (uid == null) {
-            Toast.makeText(requireContext(), "Debes iniciar sesión", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.debes_iniciar_sesion), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -250,11 +251,11 @@ class ReminderFormModal : BottomSheetDialogFragment() {
                     ReminderScheduler.schedule(requireContext(), reminder)
                 }
 
-                Toast.makeText(requireContext(), if (isEditMode) "Recordatorio actualizado" else "Recordatorio creado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), if (isEditMode) getString(R.string.recordatorio_actualizado) else getString(R.string.recordatorio_creado), Toast.LENGTH_SHORT).show()
                 dismiss()
             } catch (e: Exception) {
                 Log.e("ReminderFormModal", "Error al guardar reminder", e)
-                Toast.makeText(requireContext(), "Error al guardar: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.error_guardar_recordatorio, e.message), Toast.LENGTH_LONG).show()
             }
         }
     }

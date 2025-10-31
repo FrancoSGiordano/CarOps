@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.trabajointegrador_modulonativo.R
 import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.databinding.FragmentAddInsuranceBinding
@@ -106,7 +107,7 @@ class InsuranceFormFragment : Fragment() {
 
 
     private fun setupCreateMode() {
-        binding.addInsuranceTitle.text = "Añadir seguro"
+        binding.addInsuranceTitle.text = getString(R.string.anadir_seguro)
         binding.saveInsuranceFab.visibility = View.VISIBLE
         binding.btnDeleteInsurance.visibility = View.GONE
 
@@ -117,7 +118,7 @@ class InsuranceFormFragment : Fragment() {
     }
 
     private fun setupEditMode(insurance: Insurance){
-        binding.addInsuranceTitle.text = "Editar seguro"
+        binding.addInsuranceTitle.text = getString(R.string.editar_seguro)
         binding.saveInsuranceFab.visibility = View.VISIBLE
         binding.btnDeleteInsurance.visibility = View.VISIBLE
 
@@ -131,7 +132,7 @@ class InsuranceFormFragment : Fragment() {
 
         insurance.policyFileUrl?.let { url ->
             currentPolicyFileUrl = url
-            binding.fileNameTextView.text = "Póliza actual (Click para ver)"
+            binding.fileNameTextView.text = getString(R.string.poliza_actual)
             binding.fileNameTextView.visibility = View.VISIBLE
         } ?: run {
             binding.fileNameTextView.text = ""
@@ -212,15 +213,15 @@ class InsuranceFormFragment : Fragment() {
 
                 if (id == null) {
                     viewModel.addInsurance(insuranceToSave, carId!!)
-                    Toast.makeText(requireContext(), "Seguro añadido con éxito", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.seguro_añadido), Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.updateInsurance(insuranceToSave)
-                    Toast.makeText(requireContext(), "Seguro actualizado con éxito", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.seguro_actualizado), Toast.LENGTH_SHORT).show()
                 }
                 findNavController().popBackStack()
 
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Error al guardar/actualizar el seguro: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.error_actualizar_seguro, e.message), Toast.LENGTH_LONG).show()
             } finally {
                 binding.saveInsuranceFab.isEnabled = true
                 binding.saveInsuranceFab.alpha = 1f
@@ -241,7 +242,7 @@ class InsuranceFormFragment : Fragment() {
             val downloadUrl = storageRef.downloadUrl.await().toString()
             downloadUrl
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Error al subir el archivo: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.error_subir_archivo , e.message), Toast.LENGTH_LONG).show()
             null
         }
     }
@@ -315,40 +316,40 @@ class InsuranceFormFragment : Fragment() {
         binding.ownerNameLayout.error = null
 
         if(binding.insuranceNameEditText.text.toString().trim().isEmpty()){
-            binding.insuranceNameLayout.error = "El nombre de la aseguradora es obligatorio"
+            binding.insuranceNameLayout.error = getString(R.string.nombre_aseguradora_obligatorio)
             isValid = false
         }
 
         if(binding.insurancePolicyNumberEditText.text.toString().trim().isEmpty()){
-            binding.insurancePolicyNumberLayout.error = "El numero de poliza es obligatorio"
+            binding.insurancePolicyNumberLayout.error = getString(R.string.poliza_obligatorio)
             isValid = false
         }
 
         if(binding.insuranceExpirationDateEditText.text.toString().trim().isEmpty()){
-            binding.insuranceExpirationDateLayout.error = "La fecha de expiración es obligatoria"
+            binding.insuranceExpirationDateLayout.error = getString(R.string.expiracion_obligatorio)
             isValid = false
         } else {
 
         }
 
        if(binding.insuranceCoverageEditText.toString().trim().isEmpty()){
-           binding.insuranceCoverageLayout.error = "El tipo de cobertura es obligatorio"
+           binding.insuranceCoverageLayout.error = getString(R.string.cobertura_obligatorio)
            isValid = false
        }
 
         if(binding.engineNumberEditText.text.toString().trim().isEmpty()){
-            binding.engineNumberLayout.error = "El numero de motor es obligatorio"
+            binding.engineNumberLayout.error = getString(R.string.numero_motor_obligatorio)
             isValid = false
         }
 
         if(binding.chassisNumberEditText.text.toString().trim().isEmpty()){
-            binding.chassisNumberLayout.error = "El numero de chasis es obligatorio"
+            binding.chassisNumberLayout.error = getString(R.string.chasis_obligatorio)
             isValid = false
         }
 
         if(binding.ownerNameEditText.text.toString().trim().isEmpty()){
 
-            binding.ownerNameLayout.error = "El titular es obligatorio"
+            binding.ownerNameLayout.error = getString(R.string.titular_obligatorio)
             isValid = false
         }
 

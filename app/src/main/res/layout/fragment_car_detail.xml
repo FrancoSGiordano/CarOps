@@ -45,7 +45,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:paddingVertical="8dp"
-                        android:text="Estacionar"
+                        android:text="@string/estacionar"
                         android:textColor="@color/gray_light"
                         app:icon="@drawable/parking_icon"
                         app:iconGravity="top"
@@ -62,7 +62,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:paddingVertical="8dp"
-                        android:text="Recordatorios"
+                        android:text="@string/recordatorios"
                         android:textColor="@color/gray_light"
                         app:icon="@drawable/reminder_icon"
                         app:iconGravity="top"
@@ -97,7 +97,7 @@
                         android:paddingTop="4dp"
                         android:paddingEnd="16dp"
                         android:paddingBottom="4dp"
-                        android:text="DATOS DEL VEHICULO"
+                        android:text="@string/datos_del_vehiculo"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"
 
@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:contentDescription="Editar datos del vehículo"
+                        android:contentDescription="@string/editar_datos_vehiculo"
                         android:padding="8dp"
                         app:srcCompat="@drawable/edit_icon"
                         app:tint="@android:color/darker_gray"
@@ -127,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Ultima actualizacion: "
+                    android:text="@string/ultima_actualizacion"
                     android:textColor="@android:color/darker_gray" />
 
                 <TextView
@@ -136,7 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Patente: "
+                    android:text="@string/patente_card"
                     android:textColor="@android:color/darker_gray" />
 
                 <TextView
@@ -145,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Marca: "
+                    android:text="@string/marca_card"
                     android:textColor="@android:color/darker_gray" />
 
                 <TextView
@@ -154,7 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Modelo: "
+                    android:text="@string/modelo_card"
                     android:textColor="@android:color/darker_gray" />
 
                 <TextView
@@ -163,7 +163,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Año:"
+                    android:text="@string/anio_card"
                     android:textColor="@android:color/darker_gray" />
 
                 <TextView
@@ -172,7 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Motor:"
+                    android:text="@string/motor_card"
                     android:textColor="@android:color/darker_gray" />
 
                 <TextView
@@ -181,7 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Transmision: "
+                    android:text="@string/transmision_card"
                     android:textColor="@android:color/darker_gray" />
 
 
@@ -214,7 +214,7 @@
                         android:paddingTop="4dp"
                         android:paddingEnd="16dp"
                         android:paddingBottom="4dp"
-                        android:text="SEGURO"
+                        android:text="@string/seguro"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"
 
@@ -236,7 +236,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:contentDescription="Ver la tarjeta de circulacion"
+                            android:contentDescription="@string/ver_tarjeta_circulacion"
                             android:padding="8dp"
                             app:srcCompat="@drawable/doc_icon"
                             app:tint="@android:color/darker_gray" />
@@ -246,7 +246,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:contentDescription="Editar datos del vehículo"
+                            android:contentDescription="@string/editar_datos_seguro"
                             android:padding="8dp"
                             app:srcCompat="@drawable/edit_icon"
                             app:tint="@android:color/darker_gray" />
@@ -271,7 +271,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Ultima actualizacion: "
+                        android:text="@string/ultima_actualizacion"
                         android:textColor="@android:color/darker_gray" />
 
                     <TextView
@@ -280,7 +280,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Aseguradora: "
+                        android:text="@string/aseguradora_card"
                         android:textColor="@android:color/darker_gray" />
 
                     <TextView
@@ -289,7 +289,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Numero de poliza: "
+                        android:text="@string/numero_de_poliza"
                         android:textColor="@android:color/darker_gray" />
 
                     <TextView
@@ -298,7 +298,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Fecha de vencimiento: "
+                        android:text="@string/fecha_de_vencimiento"
                         android:textColor="@android:color/darker_gray" />
 
                     <TextView
@@ -307,7 +307,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Tipo de cobertura:"
+                        android:text="@string/tipo_cobertura"
                         android:textColor="@android:color/darker_gray" />
 
                     <TextView
@@ -316,7 +316,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Titular:"
+                        android:text="@string/titular"
                         android:textColor="@android:color/darker_gray" />
 
                     <TextView
@@ -325,7 +325,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Numero de motor: "
+                        android:text="@string/numero_motor"
                         android:textColor="@android:color/darker_gray" />
 
                     <TextView
@@ -334,7 +334,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Numero de chasis: "
+                        android:text="@string/numero_chasis"
                         android:textColor="@android:color/darker_gray" />
 
 
@@ -361,7 +361,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Este vehículo no tiene un seguro asociado."
+                        android:text="@string/no_seguro_asociado"
                         android:textAlignment="center"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="16sp" />
@@ -371,7 +371,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Agregar seguro"
+                        android:text="@string/agregar_seguro"
                         app:backgroundTint="@color/button" />
 
                 </LinearLayout>
@@ -405,7 +405,7 @@
                         android:paddingTop="4dp"
                         android:paddingEnd="16dp"
                         android:paddingBottom="4dp"
-                        android:text="GASTOS"
+                        android:text="@string/gastos"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"
 
@@ -425,7 +425,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:contentDescription="Añadir un gasto del vehiculo"
+                            android:contentDescription="@string/anadir_gasto_vehiculo"
                             android:padding="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -438,7 +438,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:contentDescription="Ver los gastos del vehiculo"
+                            android:contentDescription="@string/ver_gastos_vehiculo"
                             android:padding="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -477,7 +477,7 @@
                             android:id="@+id/noExpensesTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Este vehículo no tiene ningún gasto asociado."
+                            android:text="@string/ningun_gasto_asociado"
                             android:textAlignment="center"
                             android:textColor="@android:color/darker_gray"
                             android:textSize="16sp" />
@@ -487,7 +487,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="Agregar gasto"
+                            android:text="@string/agregar_gasto"
                             app:backgroundTint="@color/button" />
 
                 </LinearLayout>

@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="Añadir gasto"
+                android:text="@string/anadir_gasto"
                 android:textColor="@color/white"
                 android:textSize="26sp"
                 android:textStyle="bold" />
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Descripción"
+            android:hint="@string/descripcion"
             android:textColorHint="@color/gray_light"
             app:placeholderText="Ej. Nafta, Repuesto, Service">
 
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Monto"
+            android:hint="@string/monto"
             android:textColorHint="@color/gray_light"
             app:placeholderText="$">
 
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Fecha"
+            android:hint="@string/fecha"
             android:textColorHint="@color/gray_light">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Tipo de Gasto"
+            android:hint="@string/tipo_de_gasto"
             android:textColorHint="@color/gray_light">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="60dp"
-                android:text="Añadir"
+                android:text="@string/anadir"
                 android:textSize="24dp"
                 app:backgroundTint="@color/button" />
 

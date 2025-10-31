@@ -7,6 +7,7 @@ import com.example.trabajointegrador_modulonativo.databinding.ActivityRegisterBi
 import android.util.Patterns
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import com.example.trabajointegrador_modulonativo.R
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -23,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        title = "Registrarse"
+        title = getString(R.string.registrarse_title)
 
         binding.loginTextView.setOnClickListener {
             showLogin()
@@ -54,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                             if (task.isSuccessful) {
                                 showVerificationAlert()
                             } else {
-                                showError("No se pudo enviar el correo de verificación. Inténtalo de nuevo más tarde.")
+                                showError(getString(R.string.correo_verificacion_no_enviado))
                             }
                         }
                 } else {
@@ -63,9 +64,9 @@ class RegisterActivity : AppCompatActivity() {
                     try {
                         throw it.exception!!
                     } catch (e: FirebaseAuthUserCollisionException) {
-                        errorMessage = "Ya existe una cuenta asociada a este correo electrónico."
+                        errorMessage = getString(R.string.cuenta_existente)
                     } catch (e: Exception) {
-                        errorMessage = e.localizedMessage ?: "Ocurrió un error inesperado."
+                        errorMessage = e.localizedMessage ?: getString(R.string.error_inesperado)
                         e.printStackTrace()
                     }
                     showError(errorMessage)
@@ -90,26 +91,26 @@ class RegisterActivity : AppCompatActivity() {
         val confirmPassword = binding.registerConfirmPasswordEditText.text.toString()
 
         if(email.isEmpty()){
-            binding.registerEmailLayout.error = "El correo electrónico es obligatorio"
+            binding.registerEmailLayout.error = getString(R.string.correo_obligatorio)
             isValid = false
         } else if(!isValidEmail(email)) {
-            binding.registerEmailLayout.error = "El correo electrónico no es válido"
+            binding.registerEmailLayout.error = getString(R.string.correo_invalido)
             isValid = false
         }
 
         if(password.isEmpty()){
-            binding.registerPasswordLayout.error = "La contraseña es obligatoria"
+            binding.registerPasswordLayout.error = getString(R.string.contraseña_obligatoria)
             isValid = false
         } else if(!isValidPassword(password)){ // Cambiado a 'else if'
-            binding.registerPasswordLayout.error = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+            binding.registerPasswordLayout.error = getString(R.string.contraseña_formato)
             isValid = false
         }
 
         if(confirmPassword.isEmpty()){
-            binding.registerConfirmPasswordLayout.error = "La confirmación de contraseña es obligatoria"
+            binding.registerConfirmPasswordLayout.error = getString(R.string.confirmacion_obligatoria)
             isValid = false
         } else if(confirmPassword != password){
-            binding.registerConfirmPasswordLayout.error = "Las contraseñas no coinciden"
+            binding.registerConfirmPasswordLayout.error = getString(R.string.contraseñas_no_coindicen)
             isValid = false
         }
 
@@ -123,10 +124,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun showVerificationAlert() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("¡Registro Exitoso!")
-        builder.setMessage("Se ha enviado un correo de verificación a tu dirección de email. Por favor, revísalo para poder iniciar sesión.")
+        builder.setTitle(getString(R.string.registro_exitoso))
+        builder.setMessage(getString(R.string.verificacion_enviada))
         // Al hacer clic en "Aceptar", llevamos al usuario de vuelta a la pantalla de Login
-        builder.setPositiveButton("Aceptar") { _, _ ->
+        builder.setPositiveButton(getString(R.string.aceptar)) { _, _ ->
             showLogin()
         }
         builder.setCancelable(false) // Evita que el usuario cierre el diálogo sin presionar "Aceptar"

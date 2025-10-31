@@ -109,12 +109,12 @@ class carDetailHostActivity : AppCompatActivity() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
             // mostrar diálogo personalizado y luego pedir permiso
             AlertDialog.Builder(this)
-                .setTitle("Permiso para notificaciones")
-                .setMessage("La app necesita permiso para mostrar recordatorios en forma de notificaciones. Por favor concedelo para recibir alertas de tus recordatorios.")
-                .setPositiveButton("Permitir") { _, _ ->
+                .setTitle(getString(R.string.permiso_notificaciones))
+                .setMessage(getString(R.string.necesita_permiso))
+                .setPositiveButton(getString(R.string.permitir)) { _, _ ->
                     requestNotifPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
-                .setNegativeButton("Ahora no", null)
+                .setNegativeButton(getString(R.string.ahora_no), null)
                 .show()
         } else {
             // Solicitar permiso directamente
@@ -140,19 +140,19 @@ class carDetailHostActivity : AppCompatActivity() {
 
     private fun showRationaleExplainingDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Notificaciones")
-            .setMessage("Si rechazás este permiso no recibirás recordatorios en forma de notificación. Podés habilitarlo desde Ajustes de la app.")
-            .setPositiveButton("Abrir ajustes") { _, _ -> openAppNotificationSettings() }
-            .setNegativeButton("Cancelar", null)
+            .setTitle(getString(R.string.notificaciones))
+            .setMessage(getString(R.string.aviso_rechazo_notificacion))
+            .setPositiveButton(getString(R.string.abrir_ajustes)) { _, _ -> openAppNotificationSettings() }
+            .setNegativeButton(getString(R.string.cancelar), null)
             .show()
     }
 
     private fun showOpenSettingsDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Habilitar notificaciones")
-            .setMessage("Parece que rechazaste las notificaciones permanentemente. ¿Querés abrir los ajustes para habilitarlas manualmente?")
+            .setTitle(getString(R.string.habilitar_notificaciones))
+            .setMessage(getString(R.string.rechazo_permanente))
             .setPositiveButton("Ir a ajustes") { _, _ -> openAppNotificationSettings() }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancelar), null)
             .show()
     }
 

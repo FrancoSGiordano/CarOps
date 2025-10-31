@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.trabajointegrador_modulonativo.R
 import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
 import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
@@ -88,7 +89,7 @@ class CarFormFragment : Fragment()  {
         if (granted) {
             launchCamera()
         } else {
-            Toast.makeText(requireContext(), "Permiso de cámara denegado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.permiso_camara_denegado), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -119,8 +120,8 @@ class CarFormFragment : Fragment()  {
     }
 
     private fun setupEditMode(id: String) {
-        binding.createVehicleTitle.text = "Editar Vehículo"
-        binding.createCarButton.text = "Guardar"
+        binding.createVehicleTitle.text = getString(R.string.editar_vehiculo)
+        binding.createCarButton.text = getString(R.string.guardar)
 
         viewLifecycleOwner.lifecycleScope.launch {
             val car = viewModel.selectedCar.first()
@@ -173,10 +174,10 @@ class CarFormFragment : Fragment()  {
                     )
 
                     viewModel.updateCar(updatedCar)
-                    Toast.makeText(context, "Vehículo actualizado", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.vehiculo_actualizado), Toast.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                 } catch (e: Exception) {
-                    Toast.makeText(context, "Error al actualizar vehículo: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, getString(R.string.error_actualizar_vehiculo , e.message),  Toast.LENGTH_LONG).show()
                 } finally {
                     binding.createCarButton.isEnabled = true
                     binding.createCarButton.alpha = 1f
@@ -197,44 +198,44 @@ class CarFormFragment : Fragment()  {
         binding.carTransmissionLayout.error = null
 
         if(binding.carBrandEditText.text.toString().trim().isEmpty()){
-            binding.carBrandLayout.error = "La marca es obligatoria"
+            binding.carBrandLayout.error = getString(R.string.marca_obligatoria)
             isValid = false
         }
 
         if(binding.carModelEditText.text.toString().trim().isEmpty()){
-            binding.carModelLayout.error = "El modelo es obligatorio"
+            binding.carModelLayout.error = getString(R.string.modelo_obligatorio)
             isValid = false
         }
 
         if(binding.carYearEditText.text.toString().trim().isEmpty()){
-            binding.carYearLayout.error = "El año es obligatorio"
+            binding.carYearLayout.error = getString(R.string.anio_oblligatorio)
             isValid = false
         } else {
             val year = binding.carYearEditText.text.toString().toIntOrNull()
             if (year == null || year < 1917 || year > java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)) {
-                binding.carYearLayout.error = "El año ingresado es invalido"
+                binding.carYearLayout.error = getString(R.string.anio_invalido)
                 isValid = false
             }
         }
 
         val plate = binding.carPlateEditText.text.toString().trim()
         if(plate.isEmpty()){
-            binding.carPlateLayout.error = "La patente es obligatoria"
+            binding.carPlateLayout.error = getString(R.string.patente_obligatoria)
             isValid = false
         } else {
             if(!validatePlate(plate)){
-                binding.carPlateLayout.error = "La patente ingresada es invalida"
+                binding.carPlateLayout.error = getString(R.string.patente_invalida)
                 isValid = false
             }
         }
 
         if(binding.carEngineEditText.text.toString().trim().isEmpty()){
-            binding.carEngineLayout.error = "El motor es obligatorio"
+            binding.carEngineLayout.error = getString(R.string.motor_obligatorio)
             isValid = false
         }
 
         if(binding.carTransmissionEditText.text.toString().trim().isEmpty()){
-            binding.carTransmissionLayout.error = "La transmisión es obligatoria"
+            binding.carTransmissionLayout.error = getString(R.string.transmision_obligatorio)
             isValid = false
         }
 
@@ -249,8 +250,8 @@ class CarFormFragment : Fragment()  {
     }
 
     private fun setupCreateMode() {
-        binding.createVehicleTitle.text = "Agregar Vehículo"
-        binding.createCarButton.text = "Agregar"
+        binding.createVehicleTitle.text = getString(R.string.agregar_vehiculo)
+        binding.createCarButton.text = getString(R.string.agregar)
         binding.createCarButton.setOnClickListener {
             if(!validateForm()){
                 return@setOnClickListener
@@ -282,10 +283,10 @@ class CarFormFragment : Fragment()  {
                     )
 
                     viewModel.addCar(newCar)
-                    Toast.makeText(context, "Vehiculo creado correctamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.vehiculo_creado_correctamente), Toast.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                 } catch (e: Exception) {
-                    Toast.makeText(context, "Error al crear vehículo: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, getString(R.string.error_crear_vehiculo, e.message) , Toast.LENGTH_LONG).show()
                 } finally {
                     binding.createCarButton.isEnabled = true
                     binding.createCarButton.alpha = 1f
@@ -298,9 +299,9 @@ class CarFormFragment : Fragment()  {
     }
 
     private fun showImageOptionsDialog() {
-        val items = arrayOf("Elegir de galería", "Tomar foto")
+        val items = arrayOf(getString(R.string.galeria), getString(R.string.foto))
         AlertDialog.Builder(requireContext())
-            .setTitle("Foto del vehículo")
+            .setTitle(getString(R.string.foto_vehiculo))
             .setItems(items) { _, which ->
                 when (which) {
                     0 -> {
