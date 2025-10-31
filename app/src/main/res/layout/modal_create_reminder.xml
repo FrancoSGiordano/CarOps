@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear recordatorio"
+        android:text="@string/crear_recordatorio"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:hint="Titulo"
+        android:hint="@string/titulo"
         android:textColorHint="@color/gray_light"
         app:placeholderText="Ej. Cambiar aceite">
 
@@ -58,7 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Fecha"
+            android:hint="@string/fecha"
             android:textColorHint="@color/gray_light">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="12dp"
-            android:hint="Hora"
+            android:hint="@string/hora"
             android:textColorHint="@color/gray_light">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -125,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Agregar"
+            android:text="@string/anadir"
             android:textColor="@color/white"
             app:backgroundTint="@color/button"/>
     </LinearLayout>

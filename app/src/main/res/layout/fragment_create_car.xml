@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="Añadir vehículo"
+                    android:text="@string/anadir_vehiculo"
                     android:textColor="@color/white"
                     android:textSize="26sp"
                     android:textStyle="bold" />
@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:hint="Marca"
+                    android:hint="@string/marca"
                     android:textColorHint="@color/gray_light"
                     app:placeholderText="Ej. Peugeot">
 
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:hint="Modelo"
+                    android:hint="@string/modelo"
                     android:textColorHint="@color/gray_light"
                     app:placeholderText="Ej. 208">
 
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:hint="Año"
+                    android:hint="@string/anio"
                     android:textColorHint="@color/gray_light"
                     app:placeholderText="Ej. 2017">
 
@@ -101,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:hint="Patente"
+                    android:hint="@string/patente"
                     android:textColorHint="@color/gray_light"
                     app:placeholderText="Ej. ITW760">
 
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:hint="Motor"
+                    android:hint="@string/motor"
                     android:textColorHint="@color/gray_light"
                     app:placeholderText="Ej. 1.6">
 
@@ -135,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:hint="Transmisión"
+                    android:hint="@string/transmision"
                     android:textColorHint="@color/gray_light"
                     app:placeholderText="Ej. Manual o Automática">
 
@@ -159,7 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Foto del vehiculo"
+                        android:text="@string/foto_vehiculo"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -169,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
-                        android:text="(opcional)"
+                        android:text="@string/opcional"
                         android:textColor="@color/light_blue"
                         android:textSize="18sp" />
 
@@ -196,7 +196,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="90dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="40dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -205,7 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="60dp"
-                        android:text="Añadir"
+                        android:text="@string/anadir"
                         android:textSize="30dp"
                         app:backgroundTint="@color/button" />
 

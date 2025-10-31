@@ -141,7 +141,7 @@ class carListFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
             holder.binding.tvTitle.text = "${item.brand} ${item.model}"
-            holder.binding.tvSubtitle.text = "Patente: ${item.licensePlate} - Última actualización: ${item.lastUpdate}"
+            holder.binding.tvSubtitle.text = holder.itemView.context.getString(R.string.carCard,item.licensePlate,item.lastUpdate)
 
             val requestOptions = RequestOptions()
                 .transform(CenterCrop(), RoundedCorners(24))
@@ -185,5 +185,3 @@ class carListFragment : Fragment() {
         _binding = null
     }
 }
-
-

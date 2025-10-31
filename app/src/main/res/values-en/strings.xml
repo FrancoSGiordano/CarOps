@@ -1,0 +1,264 @@
+<resources>
+    <string name="app_name">TrabajoIntegrador-ModuloNativo</string>
+    <string name="title_activity_car_detail_host">carDetailHostActivity</string>
+    <string name="title_car_list">Cars</string>
+    <string name="title_car_detail">Car Detail</string>
+    <string name="back_button_description">Back button</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--acitivy_login-->
+    <string name="iniciar_sesion">Log in</string>
+    <string name="correo_electronico">Email</string>
+    <string name="ejemplo_mail">example@gmail.com</string>
+    <string name="contrasena">Password</string>
+    <string name="acceder">Access</string>
+    <string name="redireccion_a_register">Don\'t have an account? Sign up here</string>
+
+    <!--acitivy_register-->
+    <string name="registrarse">Sign up</string>
+    <string name="confirma_contrasena">Confirm your password</string>
+    <string name="crear_cuenta">Create account</string>
+    <string name="reddireccion_a_login">Already have an account? Log in</string>
+
+    <!--fragment_add_insurance-->
+    <string name="anadir_seguro">Add insurance</string>
+    <string name="aseguradora">Insurance company</string>
+    <string name="n_de_poliza">Policy number</string>
+    <string name="fecha_de_expiracion">Policy expiration date</string>
+    <string name="cobertura">Coverage</string>
+    <string name="n_de_motor">Engine number</string>
+    <string name="n_de_chasis">Chassis number</string>
+    <string name="titular_de_la_poliza">Policyholder</string>
+    <string name="seleccionar_tarjeta">Select vehicle registration card</string>
+    <string name="eliminar_seguro">Delete Insurance</string>
+    <string name="seguro_ejemplo">E.g. La Caja, Libra, Rivadavia</string>
+    <string name="cobertura_ejemplo">E.g. Civil Liability</string>
+    <string name="nombre_apellido">Name and last name</string>
+
+    <!--fragment_create_car-->
+    <string name="anadir_vehiculo">Add vehicle</string>
+    <string name="marca">Brand</string>
+    <string name="modelo">Model</string>
+    <string name="anio">Year</string>
+    <string name="patente">License Plate</string>
+    <string name="motor">Engine</string>
+    <string name="transmision">Transmission</string>
+    <string name="foto_vehiculo">Vehicle photo</string>
+    <string name="opcional">(optional)</string>
+    <string name="anadir">Add</string>
+
+    <!--fragment_create_expense-->
+    <string name="anadir_gasto">Add expense</string>
+    <string name="descripcion">Description</string>
+    <string name="monto">Amount</string>
+    <string name="fecha">Date</string>
+
+    <!--fragment_parking-->
+    <string name="ultima_actualizacion">Last update: </string>
+    <string name="actualizar">Update</string>
+    <string name="guardar">Save</string>
+
+    <!--modal_create_reminder-->
+    <string name="crear_recordatorio">Create reminder</string>
+    <string name="titulo">Title</string>
+    <string name="hora">Time</string>
+
+    <!--modal_filter_expenses-->
+    <string name="filtrar_gastos">Filter Expenses</string>
+    <string name="tipo_de_gasto">Expense Type</string>
+    <string name="fecha_inicio">Start Date</string>
+    <string name="fecha_fin">End Date</string>
+    <string name="limpiar">Clear</string>
+    <string name="aplicar">Apply</string>
+    <string name="vehiculo">Vehicle</string>
+
+    <!--fragment_car_list-->
+    <string name="agregar_vehiculo">Add Vehicle</string>
+    <string name="ver_gastos">View expenses</string>
+    <string name="cerrar_sesion">Log out</string>
+
+    <!--fragment_car_detail-->
+    <string name="estacionar">Park</string>
+    <string name="recordatorios">Reminders</string>
+    <string name="datos_del_vehiculo">VEHICLE DATA</string>
+    <string name="editar_datos_vehiculo">Edit vehicle data</string>
+    <string name="patente_card">License plate:</string>
+    <string name="marca_card">Brand:</string>
+    <string name="modelo_card">Model:</string>
+    <string name="anio_card">Year:</string>
+    <string name="motor_card">Engine:</string>
+    <string name="transmision_card">Transmission:</string>
+    <string name="seguro">INSURANCE</string>
+    <string name="editar_datos_seguro">Edit insurance data</string>
+    <string name="ver_tarjeta_circulacion">View vehicle registration card</string>
+    <string name="aseguradora_card">Insurance company:</string>
+    <string name="numero_de_poliza">Policy number:</string>
+    <string name="fecha_de_vencimiento">Expiration date:</string>
+    <string name="tipo_cobertura">Coverage type:</string>
+    <string name="titular">Holder:</string>
+    <string name="numero_motor">Engine number:</string>
+    <string name="numero_chasis">Chassis number:</string>
+    <string name="gastos">EXPENSES</string>
+    <string name="anadir_gasto_vehiculo">Add vehicle expense</string>
+    <string name="ver_gastos_vehiculo">View vehicle expenses</string>
+    <string name="ningun_gasto_asociado">This vehicle has no associated expenses.</string>
+    <string name="agregar_gasto">Add expense</string>
+    <string name="agregar_seguro">Add insurance</string>
+    <string name="no_seguro_asociado">This vehicle does not have an associated insurance.</string>
+
+    <!--loginActivity-->
+    <string name="verificar_correo">You must verify your email before logging in</string>
+    <string name="credenciales_invalidas">Invalid credentials.</string>
+    <string name="error_inesperado">An unexpected error occurred.</string>
+    <string name="debe_ingresar_correo">You must enter your email</string>
+    <string name="debe_ingresar_contrasena">You must enter your password</string>
+    <string name="error">Error</string>
+    <string name="aceptar">Accept</string>
+
+    <!--registerActivity-->
+    <string name="registrarse_title">Sign up</string>
+    <string name="correo_verificacion_no_enviado">Could not send verification email. Please try again later.</string>
+    <string name="cuenta_existente">An account with this email address already exists.</string>
+    <string name="correo_obligatorio">Email is required</string>
+    <string name="correo_invalido">The email is not valid</string>
+    <string name="contraseña_obligatoria">Password is required</string>
+    <string name="contraseña_formato">The password must be at least 8 characters long, with one uppercase, one lowercase and one number</string>
+    <string name="confirmacion_obligatoria">Password confirmation is required</string>
+    <string name="contraseñas_no_coindicen">Passwords do not match</string>
+    <string name="registro_exitoso">Registration Successful!</string>
+    <string name="verificacion_enviada">A verification email has been sent to your email address. Please check it to be able to log in.</string>
+
+    <!--CarFormFragment-->
+    <string name="permiso_camara_denegado">Camera permission denied</string>
+    <string name="editar_vehiculo">Edit Vehicle</string>
+    <string name="vehiculo_actualizado">Vehicle updated</string>
+    <string name="error_actualizar_vehiculo">Error updating vehicle: %1$s</string>
+    <string name="marca_obligatoria">Brand is required</string>
+    <string name="modelo_obligatorio">Model is required</string>
+    <string name="anio_oblligatorio">Year is required</string>
+    <string name="anio_invalido">The entered year is invalid</string>
+    <string name="patente_obligatoria">License plate is required</string>
+    <string name="patente_invalida">The entered license plate is invalid</string>
+    <string name="motor_obligatorio">Engine is required</string>
+    <string name="transmision_obligatorio">Transmission is required</string>
+    <string name="vehiculo_creado_correctamente">Vehicle created successfully</string>
+    <string name="error_crear_vehiculo">Error creating vehicle: %1$s</string>
+    <string name="galeria">Choose from gallery</string>
+    <string name="foto">Take photo</string>
+    <string name="foto_del_vehiculo">Vehicle photo</string>
+    <string name="agregar">Add</string>
+
+    <!--ExpenseFormFragment-->
+    <string name="cargando_tipos_gastos">Loading expense types...</string>
+    <string name="seleccione_tipo_gasto">Select an expense type</string>
+    <string name="cancelar">Cancel</string>
+    <string name="debe_seleccionar_tipo">You must select a type</string>
+    <string name="desc_obligatoria">Description is required</string>
+    <string name="monto_obligatorio">Amount is required</string>
+    <string name="monto_mayor_cero">The amount must be greater than zero</string>
+    <string name="debe_seleccionar_fecha">You must select a date</string>
+    <string name="usuario_no_autenticado">Error: User not authenticated.</string>
+    <string name="gasto_guardado">Expense saved successfully</string>
+
+    <!--ExpenseListFragment-->
+    <string name="error_PDF">Error generating PDF</string>
+    <string name="no_gastos_exportar">There are no expenses to export.</string>
+    <string name="no_gastos_informe">There are no expenses to generate the report.</string>
+    <string name="detalle">Detail</string>
+    <string name="informe_gastos">General Expense Report</string>
+    <string name="vehiculo_desconocido">Unknown Vehicle</string>
+    <string name="subtotal">Subtotal %1$s: %2$s</string>
+    <string name="pdf_general_total">Total General Spent: %1$s</string>
+    <string name="PDF_generado">PDF generated successfully</string>
+    <string name="error_guardar_pdf">Error saving PDF</string>
+    <string name="no_aplicacion_pdf">No application found to open PDFs.</string>
+
+    <!--InsuranseFormFragment-->
+    <string name="editar_seguro">Edit insurance</string>
+    <string name="poliza_actual">Current policy (Click to view)</string>
+    <string name="seguro_añadido">Insurance added successfully</string>
+    <string name="seguro_actualizado">Insurance updated successfully</string>
+    <string name="error_actualizar_seguro">Error saving/updating insurance: %1$s</string>
+    <string name="error_subir_archivo">Error uploading file: %1$s</string>
+    <string name="nombre_aseguradora_obligatorio">Insurance company name is required</string>
+    <string name="poliza_obligatorio">Policy number is required</string>
+    <string name="expiracion_obligatorio">Expiration date is required</string>
+    <string name="cobertura_obligatorio">Coverage type is required</string>
+    <string name="numero_motor_obligatorio">Engine number is required</string>
+    <string name="chasis_obligatorio">Chassis number is required</string>
+    <string name="titular_obligatorio">Holder is required</string>
+
+    <!--ParkingFragment-->
+    <string name="ubicacion_denegado">Location permission denied. Cannot display location.</string>
+    <string name="no_vehiculo_seleccionado">No vehicle selected</string>
+    <string name="ubicacion_no_disponible">Location not available</string>
+    <string name="ubicacion_guardada">Location saved</string>
+    <string name="estacione">I parked here</string>
+    <string name="estacionado">Parked here</string>
+    <string name="actualizacion_ubicacion">Last update: %1$s</string>
+    <string name="error_ubicacion">Error getting location: %1$s</string>
+    <string name="tu_ubicacion">Your location</string>
+    <string name="obtener_ubicacion_fallido">Could not get location. Activate GPS or try again.</string>
+
+    <!--reminderFormModal-->
+    <string name="notificacion_permiso">Cannot show notifications without permission</string>
+    <string name="crear">Create</string>
+    <string name="error_cargar_recordatorio">Error loading reminder</string>
+    <string name="ingrese_titulo">Enter a title</string>
+    <string name="seleccion_fecha_hora">Select a future date/time</string>
+    <string name="recordatorio_eliminado">Reminder deleted</string>
+    <string name="permiso_recordatorio">Permission is needed to schedule precise reminders.</string>
+    <string name="debes_iniciar_sesion">You must be logged in</string>
+    <string name="recordatorio_actualizado">Reminder updated</string>
+    <string name="recordatorio_creado">Reminder created</string>
+    <string name="error_guardar_recordatorio">Error saving: %1$s</string>
+
+    <!--reminderListFragment-->
+    <string name="error_vista">Error initializing view: %1$s</string>
+    <string name="error_carga_recordatorios">Error loading reminders: %1$s</string>
+    <string name="eliminado">Deleted</string>
+    <string name="error_eliminar_recordatorio">Error deleting: %1$s</string>
+
+    <!--carDetailFragment-->
+    <string name="no_obtuvo_id_vehiculo">Could not get vehicle ID</string>
+    <string name="cargando_datos_vehiculo">Loading vehicle data...</string>
+    <string name="patente_bind">License Plate: %1$s</string>
+    <string name="Marca_bind">Brand: %1$s</string>
+    <string name="Modelo_bind">Model: %1$s</string>
+    <string name="anio_bind">Year: %1$s</string>
+    <string name="Actualizacion_bind">Last Update: %1$s</string>
+    <string name="Motor_bind">Engine: %1$s</string>
+    <string name="Transmisión_bind">Transmission: %1$s</string>
+    <string name="Aseguradora_bind">Insurance company: %1$s</string>
+    <string name="poliza_bind">Policy number: %1$s</string>
+    <string name="Expiracion_bind">Expiration: %1$s</string>
+    <string name="Cobertura_bind">Coverage: %1$s</string>
+    <string name="nMotor_bind">Engine number: %1$s</string>
+    <string name="nChasis_bind">Chassis number: %1$s</string>
+    <string name="titular_bind">Policyholder: %1$s</string>
+    <string name="no_aplicacion">No application to open this file.</string>
+    <string name="no_archivo_poliza">No policy file attached.</string>
+
+    <!--carDetailHostActivity-->
+    <string name="permiso_notificaciones">Permission for notifications</string>
+    <string name="necesita_permiso">The app needs permission to show reminders as notifications. Please grant it to receive alerts for your reminders.</string>
+    <string name="permitir">Allow</string>
+    <string name="ahora_no">Not now</string>
+    <string name="notificaciones">Notifications</string>
+    <string name="aviso_rechazo_notificacion">If you deny this permission you will not receive reminders as notifications. You can enable it from the app settings.</string>
+    <string name="abrir_ajustes">Open settings</string>
+    <string name="habilitar_notificaciones">Enable notifications</string>
+    <string name="rechazo_permanente">It seems you have permanently denied notifications. Do you want to open settings to enable them manually?</string>
+    <string name="ajustes">Go to settings</string>
+
+    <!--carlistfragment-->
+    <string name="carCard">License Plate: %1$s - Last update: %2$s</string>
+
+    <!--activity_language_selection-->
+    <string name="seleccione_idioma">Select your language</string>
+    <string name="espanol">Spanish</string>
+    <string name="ingles">English</string>
+    <string name="portugues">Portuguese</string>
+</resources>

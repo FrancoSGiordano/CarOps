@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.trabajointegrador_modulonativo.R
 import com.example.trabajointegrador_modulonativo.adapter.AdapterMode
 import com.example.trabajointegrador_modulonativo.adapter.ExpenseAdapter
 import com.example.trabajointegrador_modulonativo.data.CarRepository
@@ -51,7 +52,7 @@ class ExpenseListFragment : Fragment() {
     ) { uri ->
         uri?.let{
             generatePdf(it)
-        } ?: Toast.makeText(requireContext(), "Error al generar el PDF", Toast.LENGTH_SHORT).show()
+        } ?: Toast.makeText(requireContext(), getString(R.string.error_PDF), Toast.LENGTH_SHORT).show()
     }
 
 
@@ -86,7 +87,7 @@ class ExpenseListFragment : Fragment() {
 
         binding.pdfExpensesButton.setOnClickListener {
             if (viewModel.expenses.value.isEmpty()) {
-                Toast.makeText(requireContext(), "No hay gastos para exportar.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.no_gastos_exportar), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -129,7 +130,7 @@ class ExpenseListFragment : Fragment() {
     private fun generatePdf(uri: Uri) {
         val allExpenses = viewModel.expenses.value // Obtenemos la lista FILTRADA actual
         if (allExpenses.isEmpty()) {
-            Toast.makeText(requireContext(), "No hay gastos para generar el informe.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.no_gastos_informe), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -174,18 +175,18 @@ class ExpenseListFragment : Fragment() {
         val rightMargin = 40f
         val tableWidth = pageInfo.pageWidth - leftMargin - rightMargin
         val columnWidths = floatArrayOf(0.20f, 0.40f, 0.40f) // 3 columnas: Fecha, Tipo/Descripción, Monto
-        val columns = listOf("Fecha", "Detalle", "Monto")
+        val columns = listOf(getString(R.string.fecha), getString(R.string.detalle), getString(R.string.monto))
         var yPosition = 80f // Posición Y inicial
 
         // --- Dibujar el Título Principal ---
-        canvas.drawText("Informe General de Gastos", pageInfo.pageWidth / 2f, yPosition, titlePaint)
+        canvas.drawText(getString(R.string.informe_gastos), pageInfo.pageWidth / 2f, yPosition, titlePaint)
         yPosition += 40f // Espacio después del título
 
         // --- Procesar cada grupo de gastos (por coche) ---
         var grandTotal = 0.0
         for ((carId, expensesForCar) in expensesGroupedByCar) {
             // Dibujar el nombre del coche como título de la sección
-            val carName = expensesForCar.firstOrNull()?.carName ?: "Vehículo Desconocido"
+            val carName = expensesForCar.firstOrNull()?.carName ?: getString(R.string.vehiculo_desconocido)
             canvas.drawText(carName, leftMargin, yPosition, carTitlePaint)
             yPosition += 25f
 
@@ -224,7 +225,9 @@ class ExpenseListFragment : Fragment() {
 
             // Subtotal por coche (opcional)
             yPosition += 10f
-            val subtotalString = "Subtotal ${carName}: $${"%.2f".format(carSubtotal)}"
+            val formattedSubtotal = "$${"%.2f".format(carSubtotal)}"
+            val subtotalString = getString(R.string.subtotal, carName, formattedSubtotal)
+
             totalPaint.textAlign = Paint.Align.RIGHT // Alineamos el subtotal a la derecha
             canvas.drawText(subtotalString, pageInfo.pageWidth - rightMargin, yPosition, totalPaint)
             totalPaint.textAlign = Paint.Align.LEFT // Restauramos la alineación
@@ -237,7 +240,8 @@ class ExpenseListFragment : Fragment() {
         yPosition += 20f
         canvas.drawLine(leftMargin, yPosition, pageInfo.pageWidth - rightMargin, yPosition, titlePaint) // Línea final
         yPosition += 30f
-        val grandTotalString = "Total General Gastado: $${"%.2f".format(grandTotal)}"
+        val formattedTotal = "$${"%.2f".format(grandTotal)}"
+        val grandTotalString = getString(R.string.pdf_general_total, formattedTotal)
         totalPaint.textSize = 18f
         totalPaint.textAlign = Paint.Align.CENTER
         canvas.drawText(grandTotalString, pageInfo.pageWidth / 2f, yPosition, totalPaint)
@@ -248,12 +252,12 @@ class ExpenseListFragment : Fragment() {
         try {
             requireContext().contentResolver.openOutputStream(uri)?.use { outputStream ->
                 pdfDocument.writeTo(outputStream)
-                Toast.makeText(requireContext(), "PDF generado con éxito", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.PDF_generado), Toast.LENGTH_LONG).show()
                 openPdf(uri) // Abrir el PDF después de guardarlo
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            Toast.makeText(requireContext(), "Error al guardar el PDF", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.error_guardar_pdf), Toast.LENGTH_LONG).show()
         } finally {
             pdfDocument.close()
         }
@@ -269,7 +273,7 @@ class ExpenseListFragment : Fragment() {
         try {
             startActivity(intent)
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "No se encontró una aplicación para abrir PDFs.", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.no_aplicacion_pdf), Toast.LENGTH_LONG).show()
         }
     }
 

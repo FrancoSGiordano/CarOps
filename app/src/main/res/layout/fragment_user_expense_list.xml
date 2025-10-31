@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:contentDescription="Filtrar gastos"
+        android:contentDescription="@string/filtrar_gastos"
         android:elevation="6dp"
         app:backgroundTint="@color/button"
         app:layout_constraintBottom_toBottomOf="parent"

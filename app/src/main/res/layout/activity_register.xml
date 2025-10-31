@@ -38,7 +38,7 @@
                 android:id="@+id/registerTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Registrarse"
+                android:text="@string/registrarse"
                 android:textSize="26sp"
                 android:textStyle="bold"
 
@@ -65,9 +65,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Correo electrónico"
+            android:hint="@string/correo_electronico"
             android:textColorHint="@color/gray_light"
-            app:placeholderText="ejemplo@gmail.com">
+            app:placeholderText="@string/ejemplo_mail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerEmailEditText"
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Contraseña"
+            android:hint="@string/contrasena"
             android:textColorHint="@color/gray_light"
             app:placeholderText="">
 
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Confirma tu contraseña"
+            android:hint="@string/confirma_contrasena"
             android:textColorHint="@color/gray_light"
             app:placeholderText="">
 
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="60dp"
-                android:text="Crear cuenta"
+                android:text="@string/crear_cuenta"
                 android:textSize="30dp"
                 app:backgroundTint="@color/button"/>
 
@@ -147,7 +147,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:text="¿Ya tienes cuenta? Inicia sesión"
+        android:text="@string/reddireccion_a_login"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

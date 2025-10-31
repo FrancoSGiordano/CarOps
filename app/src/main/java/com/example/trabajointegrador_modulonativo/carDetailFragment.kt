@@ -234,13 +234,13 @@ class carDetailFragment : Fragment() {
     }
 
     private fun bindCarData(car: Car) {
-        binding.plateTextView?.text = "Patente: ${car.licensePlate}"
-        binding.carBrandTextView?.text = "Marca: ${car.brand}"
-        binding.carModelTextView?.text = "Modelo: ${car.model}"
-        binding.carYearTextView?.text = "Año: ${car.year}"
-        binding.lastModifiedTextView?.text = "Última Actualización: ${car.lastUpdate}"
-        binding.carEngineTextView?.text = "Motor: ${car.engine}"
-        binding.carTransmissionTextView?.text = "Transmisión: ${car.transmission}"
+        binding.plateTextView?.text = getString(R.string.patente_bind, car.licensePlate)
+        binding.carBrandTextView?.text = getString(R.string.Marca_bind, car.brand)
+        binding.carModelTextView?.text = getString(R.string.Modelo_bind, car.model)
+        binding.carYearTextView?.text = getString(R.string.anio_bind, car.year.toString())
+        binding.lastModifiedTextView?.text = getString(R.string.Actualizacion_bind, car.lastUpdate)
+        binding.carEngineTextView?.text = getString(R.string.Motor_bind, car.engine)
+        binding.carTransmissionTextView?.text = getString(R.string.Transmisión_bind, car.transmission)
 
         binding.carImageView?.let { imageView ->
 
@@ -273,17 +273,17 @@ class carDetailFragment : Fragment() {
             binding.addInsuranceContainer?.visibility = View.GONE
 
 
-            binding.lastModifiedInsuranceTextView?.text = "Última actualización: ${insurance.lastUpdate}"
-            binding.insuranceNameTextView?.text = "Aseguradora: ${insurance.insuranceName}"
-            binding.policyNumberTextView?.text = "N° de póliza: ${insurance.policyNumber}"
+            binding.lastModifiedInsuranceTextView?.text = getString(R.string.Actualizacion_bind, insurance.lastUpdate )
+            binding.insuranceNameTextView?.text = getString(R.string.Aseguradora_bind, insurance.insuranceName )
+            binding.policyNumberTextView?.text = getString(R.string.poliza_bind, insurance.policyNumber )
 
             val sdf = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
-            binding.expirationDateTextView?.text = "Expiración: ${insurance.expirationDate?.let { sdf.format(it) }?: "N/A"}"
-            binding.coverageTypeTextView?.text = "Cobertura: ${insurance.coverage}"
+            binding.expirationDateTextView?.text = getString(R.string.Expiracion_bind, insurance.expirationDate?.let { sdf.format(it) }?: "N/A" )
+            binding.coverageTypeTextView?.text = getString(R.string.Cobertura_bind, insurance.coverage )
 
-            binding.engineNumberTextView?.text = "N° de motor: ${insurance.engineNumber}"
-            binding.chassisNumberTextView?.text = "N° de chasis: ${insurance.chassisNumber}"
-            binding.ownerNameTextView?.text = "Titular de la póliza: ${insurance.policyHolderName}"
+            binding.engineNumberTextView?.text = getString(R.string.nMotor_bind, insurance.engineNumber )
+            binding.chassisNumberTextView?.text = getString(R.string.nChasis_bind, insurance.chassisNumber )
+            binding.ownerNameTextView?.text = getString(R.string.titular_bind, insurance.policyHolderName )
 
         } else {
             binding.insuranceDetailsContent?.visibility = View.GONE
@@ -316,11 +316,11 @@ class carDetailFragment : Fragment() {
             if (intent.resolveActivity(requireContext().packageManager) != null) {
                 startActivity(intent)
             } else {
-                Toast.makeText(requireContext(), "No hay aplicación para abrir este archivo.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), (R.string.no_aplicacion), Toast.LENGTH_LONG).show()
             }
 
         } else {
-            Toast.makeText(requireContext(), "No hay archivo de póliza adjunto.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.no_archivo_poliza), Toast.LENGTH_SHORT).show()
         }
     }
 

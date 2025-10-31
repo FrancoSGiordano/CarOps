@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.trabajointegrador_modulonativo.R
 import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
 import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
@@ -65,7 +66,7 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
             if (granted) {
                 enableLocationAndMoveToCurrent()
             } else {
-                Toast.makeText(requireContext(), "Permiso de ubicación denegado. No se puede mostrar la ubicación.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.ubicacion_denegado), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -135,11 +136,11 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
             val loc = lastLocation
             val selectedCarId = selectedCarIdFromArgs
             if (selectedCarId.isNullOrBlank()) {
-                Toast.makeText(requireContext(), "No hay vehículo seleccionado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.no_vehiculo_seleccionado), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (loc == null) {
-                Toast.makeText(requireContext(), "Ubicación no disponible", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.ubicacion_no_disponible), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -151,13 +152,13 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
 
             )
 
-            Toast.makeText(requireContext(), "Ubicación guardada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.ubicacion_guardada), Toast.LENGTH_SHORT).show()
 
             // actualizar marcador localmente (también llegará el cambio por Firestore)
             googleMap?.let { g ->
                 val pos = LatLng(loc.latitude, loc.longitude)
                 g.clear()
-                g.addMarker(MarkerOptions().position(pos).title("Estacioné aquí"))
+                g.addMarker(MarkerOptions().position(pos).title(getString(R.string.estacione)))
                 g.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 17f))
             }
         }
@@ -209,14 +210,14 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
         g.addMarker(
             MarkerOptions()
                 .position(pending)
-                .title("Estacionado aquí")
+                .title(getString(R.string.estacionado))
                 .snippet(pendingParkedAddress)
         )
         g.animateCamera(CameraUpdateFactory.newLatLngZoom(pending, 17f))
         val sdf = java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault())
         val formatted = pendingParkedAt?.toDate()?.let { sdf.format(it) } ?: "--"
 
-        binding.tvStatus.text = "Última actualización: $formatted"
+        binding.tvStatus.text = getString(R.string.actualizacion_ubicacion, formatted)
 
         enableSaveButton(true)
 
@@ -280,19 +281,19 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
                             }
                         } else {
                             Log.w("ParkingFragment", "getCurrentLocation devolvió null")
-                            Toast.makeText(requireContext(), "No se pudo obtener la ubicación. Activá GPS o probá de nuevo.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(), getString(R.string.obtener_ubicacion_fallido), Toast.LENGTH_LONG).show()
                             enableSaveButton(false)
                         }
                     }.addOnFailureListener {
                         Log.w("ParkingFragment", "Error getCurrentLocation: ${it.message}", it)
-                        Toast.makeText(requireContext(), "Error obteniendo ubicación: ${it.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.error_ubicacion, it.message), Toast.LENGTH_SHORT).show()
                         enableSaveButton(false)
                     }
                 }
             }
             .addOnFailureListener {
                 Log.w("ParkingFragment", "Error lastLocation: ${it.message}", it)
-                Toast.makeText(requireContext(), "Error obteniendo ubicación: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_ubicacion, it.message), Toast.LENGTH_SHORT).show()
                 enableSaveButton(false)
             }
     }
@@ -300,7 +301,7 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
     private fun moveCameraToLocation(location: Location) {
         val latLng = LatLng(location.latitude, location.longitude)
         googleMap?.clear()
-        googleMap?.addMarker(MarkerOptions().position(latLng).title("Tu ubicación"))
+        googleMap?.addMarker(MarkerOptions().position(latLng).title(getString(R.string.tu_ubicacion)))
         val zoomLevel = 17f
         googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
     }
