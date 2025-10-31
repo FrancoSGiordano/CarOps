@@ -256,5 +256,11 @@
     <!--carlistfragment-->
     <string name="carCard">Patente: %1$s - Última actualización: %2$s</string>
 
+    <!--activity_language_selection-->
+    <string name="seleccione_idioma">Seleccione su idioma</string>
+    <string name="espanol">Español</string>
+    <string name="ingles">Ingles</string>
+    <string name="portugues">Portugués</string>
+
 
 </resources>

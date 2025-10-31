@@ -34,13 +34,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrabajoIntegradorModuloNativo">
         <activity
-            android:name=".carDetailHostActivity"
-            android:exported="false"
-            android:label="@string/title_activity_car_detail_host"
-            android:resizeableActivity="true"
-            tools:targetApi="24" />
-        <activity
-            android:name=".auth.LoginActivity"
+            android:name=".LanguageSelectActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +43,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogoutActivity"
+            android:name=".carDetailHostActivity"
+            android:exported="false"
+            android:label="@string/title_activity_car_detail_host"
+            android:resizeableActivity="true"
+            tools:targetApi="24" />
+        <activity
+            android:name=".auth.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".auth.RegisterActivity"

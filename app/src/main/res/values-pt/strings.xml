@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TrabalhoIntegrador-ModuloNativo</string>
+    <string name="title_activity_car_detail_host">carDetailHostActivity</string>
+    <string name="title_car_list">Carros</string>
+    <string name="title_car_detail">Detalhes do Carro</string>
+    <string name="back_button_description">Botão Voltar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Olá fragmento em branco</string>
+
+
+    <!--acitivy_login-->
+    <string name="iniciar_sesion">Entrar</string>
+    <string name="correo_electronico">Email</string>
+    <string name="ejemplo_mail">exemplo@gmail.com</string>
+    <string name="contrasena">Senha</string>
+    <string name="acceder">Acessar</string>
+    <string name="redireccion_a_register">Não tem uma conta? Cadastre-se aqui</string>
+
+    <!--acitivy_register-->
+    <string name="registrarse">Cadastrar</string>
+    <string name="confirma_contrasena">Confirme sua senha</string>
+    <string name="crear_cuenta">Criar conta</string>
+    <string name="reddireccion_a_login">Já tem uma conta? Entrar</string>
+
+    <!--fragment_add_insurance-->
+    <string name="anadir_seguro">Adicionar seguro</string>
+    <string name="aseguradora">Seguradora</string>
+    <string name="n_de_poliza">Número da apólice</string>
+    <string name="fecha_de_expiracion">Data de validade da apólice</string>
+    <string name="cobertura">Cobertura</string>
+    <string name="n_de_motor">Número do motor</string>
+    <string name="n_de_chasis">Número do chassi</string>
+    <string name="titular_de_la_poliza">Titular da apólice</string>
+    <string name="seleccionar_tarjeta">Selecionar documento do veículo</string>
+    <string name="eliminar_seguro">Excluir Seguro</string>
+    <string name="seguro_ejemplo">Ex: La Caja, Libra, Rivadavia</string>
+    <string name="cobertura_ejemplo">Ex: Responsabilidade Civil</string>
+    <string name="nombre_apellido">Nome e sobrenome</string>
+
+    <!--fragment_create_car-->
+    <string name="anadir_vehiculo">Adicionar veículo</string>
+    <string name="marca">Marca</string>
+    <string name="modelo">Modelo</string>
+    <string name="anio">Ano</string>
+    <string name="patente">Placa</string>
+    <string name="motor">Motor</string>
+    <string name="transmision">Transmissão</string>
+    <string name="foto_vehiculo">Foto do veículo</string>
+    <string name="opcional">(opcional)</string>
+    <string name="anadir">Adicionar</string>
+
+    <!--fragment_create_expense-->
+    <string name="anadir_gasto">Adicionar despesa</string>
+    <string name="descripcion">Descrição</string>
+    <string name="monto">Valor</string>
+    <string name="fecha">Data</string>
+
+    <!--fragment_parking-->
+    <string name="ultima_actualizacion">Última atualização: </string>
+    <string name="actualizar">Atualizar</string>
+    <string name="guardar">Salvar</string>
+
+    <!--modal_create_reminder-->
+    <string name="crear_recordatorio">Criar lembrete</string>
+    <string name="titulo">Título</string>
+    <string name="hora">Hora</string>
+
+    <!--modal_filter_expenses-->
+    <string name="filtrar_gastos">Filtrar Despesas</string>
+    <string name="tipo_de_gasto">Tipo de Despesa</string>
+    <string name="fecha_inicio">Data de Início</string>
+    <string name="fecha_fin">Data de Fim</string>
+    <string name="limpiar">Limpar</string>
+    <string name="aplicar">Aplicar</string>
+    <string name="vehiculo">Veículo</string>
+
+    <!--fragment_car_list-->
+    <string name="agregar_vehiculo">Adicionar Veículo</string>
+    <string name="ver_gastos">Ver despesas</string>
+    <string name="cerrar_sesion">Sair</string>
+
+    <!--fragment_car_detail-->
+    <string name="estacionar">Estacionar</string>
+    <string name="recordatorios">Lembretes</string>
+    <string name="datos_del_vehiculo">DADOS DO VEÍCULO</string>
+    <string name="editar_datos_vehiculo">Editar dados do veículo</string>
+    <string name="patente_card">Placa:</string>
+    <string name="marca_card">Marca:</string>
+    <string name="modelo_card">Modelo:</string>
+    <string name="anio_card">Ano:</string>
+    <string name="motor_card">Motor:</string>
+    <string name="transmision_card">Transmissão:</string>
+    <string name="seguro">SEGURO</string>
+    <string name="editar_datos_seguro">Editar dados do seguro</string>
+    <string name="ver_tarjeta_circulacion">Ver documento do veículo</string>
+    <string name="aseguradora_card">Seguradora:</string>
+    <string name="numero_de_poliza">Número da apólice:</string>
+    <string name="fecha_de_vencimiento">Data de vencimento:</string>
+    <string name="tipo_cobertura">Tipo de cobertura:</string>
+    <string name="titular">Titular:</string>
+    <string name="numero_motor">Número do motor:</string>
+    <string name="numero_chasis">Número do chassi:</string>
+    <string name="gastos">DESPESAS</string>
+    <string name="anadir_gasto_vehiculo">Adicionar despesa do veículo</string>
+    <string name="ver_gastos_vehiculo">Ver despesas do veículo</string>
+    <string name="ningun_gasto_asociado">Este veículo não tem despesas associadas.</string>
+    <string name="agregar_gasto">Adicionar despesa</string>
+    <string name="agregar_seguro">Adicionar seguro</string>
+    <string name="no_seguro_asociado">Este veículo não possui seguro associado.</string>
+
+    <!--loginActivity-->
+    <string name="verificar_correo">Você deve verificar seu e-mail antes de fazer login</string>
+    <string name="credenciales_invalidas">Credenciais inválidas.</string>
+    <string name="error_inesperado">Ocorreu um erro inesperado.</string>
+    <string name="debe_ingresar_correo">Você deve inserir seu e-mail</string>
+    <string name="debe_ingresar_contrasena">Você deve inserir sua senha</string>
+    <string name="error">Erro</string>
+    <string name="aceptar">Aceitar</string>
+
+    <!--registerActivity-->
+    <string name="registrarse_title">Cadastrar</string>
+    <string name="correo_verificacion_no_enviado">Não foi possível enviar o e-mail de verificação. Por favor, tente novamente mais tarde.</string>
+    <string name="cuenta_existente">Já existe uma conta com este endereço de e-mail.</string>
+    <string name="correo_obligatorio">O e-mail é obrigatório</string>
+    <string name="correo_invalido">O e-mail não é válido</string>
+    <string name="contraseña_obligatoria">A senha é obrigatória</string>
+    <string name="contraseña_formato">A senha deve ter pelo menos 8 caracteres, com uma letra maiúscula, uma minúscula e um número</string>
+    <string name="confirmacion_obligatoria">A confirmação da senha é obrigatória</string>
+    <string name="contraseñas_no_coindicen">As senhas não correspondem</string>
+    <string name="registro_exitoso">Cadastro realizado com sucesso!</string>
+    <string name="verificacion_enviada">Um e-mail de verificação foi enviado para o seu endereço de e-mail. Por favor, verifique para poder fazer login.</string>
+
+    <!--CarFormFragment-->
+    <string name="permiso_camara_denegado">Permissão da câmera negada</string>
+    <string name="editar_vehiculo">Editar Veículo</string>
+    <string name="vehiculo_actualizado">Veículo atualizado</string>
+    <string name="error_actualizar_vehiculo">Erro ao atualizar o veículo: %1$s</string>
+    <string name="marca_obligatoria">A marca é obrigatória</string>
+    <string name="modelo_obligatorio">O modelo é obrigatório</string>
+    <string name="anio_oblligatorio">O ano é obrigatório</string>
+    <string name="anio_invalido">O ano inserido é inválido</string>
+    <string name="patente_obligatoria">A placa é obrigatória</string>
+    <string name="patente_invalida">A placa inserida é inválida</string>
+    <string name="motor_obligatorio">O motor é obrigatório</string>
+    <string name="transmision_obligatorio">A transmissão é obrigatória</string>
+    <string name="vehiculo_creado_correctamente">Veículo criado com sucesso</string>
+    <string name="error_crear_vehiculo">Erro ao criar o veículo: %1$s</string>
+    <string name="galeria">Escolher da galeria</string>
+    <string name="foto">Tirar foto</string>
+    <string name="foto_del_vehiculo">Foto do veículo</string>
+    <string name="agregar">Adicionar</string>
+
+    <!--ExpenseFormFragment-->
+    <string name="cargando_tipos_gastos">Carregando tipos de despesa...</string>
+    <string name="seleccione_tipo_gasto">Selecione um tipo de despesa</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="debe_seleccionar_tipo">Você deve selecionar um tipo</string>
+    <string name="desc_obligatoria">A descrição é obrigatória</string>
+    <string name="monto_obligatorio">O valor é obrigatório</string>
+    <string name="monto_mayor_cero">O valor deve ser maior que zero</string>
+    <string name="debe_seleccionar_fecha">Você deve selecionar uma data</string>
+    <string name="usuario_no_autenticado">Erro: Usuário não autenticado.</string>
+    <string name="gasto_guardado">Despesa salva com sucesso</string>
+
+    <!--ExpenseListFragment-->
+    <string name="error_PDF">Erro ao gerar PDF</string>
+    <string name="no_gastos_exportar">Não há despesas para exportar.</string>
+    <string name="no_gastos_informe">Não há despesas para gerar o relatório.</string>
+    <string name="detalle">Detalhe</string>
+    <string name="informe_gastos">Relatório Geral de Despesas</string>
+    <string name="vehiculo_desconocido">Veículo Desconhecido</string>
+    <string name="subtotal">Subtotal %1$s: %2$s</string>
+    <string name="pdf_general_total">Total Geral Gasto: %1$s</string>
+    <string name="PDF_generado">PDF gerado com sucesso</string>
+    <string name="error_guardar_pdf">Erro ao salvar o PDF</string>
+    <string name="no_aplicacion_pdf">Nenhum aplicativo encontrado para abrir PDFs.</string>
+
+    <!--InsuranseFormFragment-->
+    <string name="editar_seguro">Editar seguro</string>
+    <string name="poliza_actual">Apólice atual (Clique para visualizar)</string>
+    <string name="seguro_añadido">Seguro adicionado com sucesso</string>
+    <string name="seguro_actualizado">Seguro atualizado com sucesso</string>
+    <string name="error_actualizar_seguro">Erro ao salvar/atualizar seguro: %1$s</string>
+    <string name="error_subir_archivo">Erro ao enviar o arquivo: %1$s</string>
+    <string name="nombre_aseguradora_obligatorio">O nome da seguradora é obrigatório</string>
+    <string name="poliza_obligatorio">O número da apólice é obrigatório</string>
+    <string name="expiracion_obligatorio">A data de vencimento é obrigatória</string>
+    <string name="cobertura_obligatorio">O tipo de cobertura é obrigatório</string>
+    <string name="numero_motor_obligatorio">O número do motor é obrigatório</string>
+    <string name="chasis_obligatorio">O número do chassi é obrigatório</string>
+    <string name="titular_obligatorio">O titular é obrigatório</string>
+
+    <!--ParkingFragment-->
+    <string name="ubicacion_denegado">Permissão de localização negada. Não é possível exibir a localização.</string>
+    <string name="no_vehiculo_seleccionado">Nenhum veículo selecionado</string>
+    <string name="ubicacion_no_disponible">Localização não disponível</string>
+    <string name="ubicacion_guardada">Localização salva</string>
+    <string name="estacione">Estacionei aqui</string>
+    <string name="estacionado">Estacionado aqui</string>
+    <string name="actualizacion_ubicacion">Última atualização: %1$s</string>
+    <string name="error_ubicacion">Erro ao obter a localização: %1$s</string>
+    <string name="tu_ubicacion">Sua localização</string>
+    <string name="obtener_ubicacion_fallido">Não foi possível obter a localização. Ative o GPS ou tente novamente.</string>
+
+    <!--reminderFormModal-->
+    <string name="notificacion_permiso">Não é possível mostrar notificações sem permissão</string>
+    <string name="crear">Criar</string>
+    <string name="error_cargar_recordatorio">Erro ao carregar o lembrete</string>
+    <string name="ingrese_titulo">Insira um título</string>
+    <string name="seleccion_fecha_hora">Selecione uma data/hora futura</string>
+    <string name="recordatorio_eliminado">Lembrete excluído</string>
+    <string name="permiso_recordatorio">É necessária permissão para agendar lembretes precisos.</string>
+    <string name="debes_iniciar_sesion">Você deve estar logado</string>
+    <string name="recordatorio_actualizado">Lembrete atualizado</string>
+    <string name="recordatorio_creado">Lembrete criado</string>
+    <string name="error_guardar_recordatorio">Erro ao salvar: %1$s</string>
+
+    <!--reminderListFragment-->
+    <string name="error_vista">Erro ao inicializar a visualização: %1$s</string>
+    <string name="error_carga_recordatorios">Erro ao carregar lembretes: %1$s</string>
+    <string name="eliminado">Excluído</string>
+    <string name="error_eliminar_recordatorio">Erro ao excluir: %1$s</string>
+
+    <!--carDetailFragment-->
+    <string name="no_obtuvo_id_vehiculo">Não foi possível obter o ID do veículo</string>
+    <string name="cargando_datos_vehiculo">Carregando dados do veículo...</string>
+    <string name="patente_bind">Placa: %1$s</string>
+    <string name="Marca_bind">Marca: %1$s</string>
+    <string name="Modelo_bind">Modelo: %1$s</string>
+    <string name="anio_bind">Ano: %1$s</string>
+    <string name="Actualizacion_bind">Última Atualização: %1$s</string>
+    <string name="Motor_bind">Motor: %1$s</string>
+    <string name="Transmisión_bind">Transmissão: %1$s</string>
+    <string name="Aseguradora_bind">Seguradora: %1$s</string>
+    <string name="poliza_bind">Número da apólice: %1$s</string>
+    <string name="Expiracion_bind">Vencimento: %1$s</string>
+    <string name="Cobertura_bind">Cobertura: %1$s</string>
+    <string name="nMotor_bind">Número do motor: %1$s</string>
+    <string name="nChasis_bind">Número do chassi: %1$s</string>
+    <string name="titular_bind">Titular da apólice: %1$s</string>
+    <string name="no_aplicacion">Nenhum aplicativo para abrir este arquivo.</string>
+    <string name="no_archivo_poliza">Nenhum arquivo de apólice anexado.</string>
+
+    <!--carDetailHostActivity-->
+    <string name="permiso_notificaciones">Permissão para notificações</string>
+    <string name="necesita_permiso">O aplicativo precisa de permissão para mostrar lembretes como notificações. Por favor, conceda para receber alertas para seus lembretes.</string>
+    <string name="permitir">Permitir</string>
+    <string name="ahora_no">Agora não</string>
+    <string name="notificaciones">Notificações</string>
+    <string name="aviso_rechazo_notificacion">Se você negar esta permissão, não receberá lembretes como notificações. Você pode ativá-la nas configurações do aplicativo.</string>
+    <string name="abrir_ajustes">Abrir configurações</string>
+    <string name="habilitar_notificaciones">Habilitar notificações</string>
+    <string name="rechazo_permanente">Parece que você negou permanentemente as notificações. Deseja abrir as configurações para ativá-las manualmente?</string>
+    <string name="ajustes">Ir para configurações</string>
+
+    <!--carlistfragment-->
+    <string name="carCard">Placa: %1$s - Última atualização: %2$s</string>
+
+    <!--activity_language_selection-->
+    <string name="seleccione_idioma">Selecione seu idioma</string>
+    <string name="espanol">Espanhol</string>
+    <string name="ingles">Inglês</string>
+    <string name="portugues">Português</string>
+
+</resources>
