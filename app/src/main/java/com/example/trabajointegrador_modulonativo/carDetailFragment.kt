@@ -35,6 +35,7 @@ import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
 import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.model.Car
+import com.example.trabajointegrador_modulonativo.model.Expense
 import com.example.trabajointegrador_modulonativo.model.Insurance
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
@@ -160,6 +161,8 @@ class carDetailFragment : Fragment() {
 
 
 
+
+
         binding.viewParkingButton?.setOnClickListener {
             val carId = viewModel.selectedCar.value?.id
             if (carId != null) {
@@ -182,13 +185,36 @@ class carDetailFragment : Fragment() {
     }
 
     private fun setupRecylcerView() {
-        expenseAdapter = ExpenseAdapter(AdapterMode.SIMPLE_EXPENSE)
+        expenseAdapter = ExpenseAdapter(AdapterMode.SIMPLE_EXPENSE,
+            onEditClick = { expense ->
+                handleEditExpense(expense)
+            },
+            onDeleteClick = { expense ->
+                handleDeleteExpense(expense)
+            }
+        )
         binding.expensesRecyclerView.apply {
             this?.layoutManager = LinearLayoutManager(requireContext())
             this?.adapter = expenseAdapter
         }
 
     }
+
+    private fun handleEditExpense(expense: Expense) {
+        val selectedCar = viewModel.selectedCar.value
+        if(selectedCar != null) {
+            val action = carDetailFragmentDirections.actionDetailToExpenseForm(selectedCar, expense)
+            findNavController().navigate(action)
+        } else {
+            Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun handleDeleteExpense(expense: Expense) {
+
+    }
+
 
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {

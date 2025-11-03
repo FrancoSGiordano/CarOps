@@ -2,6 +2,7 @@ package com.example.trabajointegrador_modulonativo.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabajointegrador_modulonativo.R
 import com.example.trabajointegrador_modulonativo.databinding.CarExpenseItemBinding
@@ -16,7 +17,11 @@ enum class AdapterMode {
     SIMPLE_EXPENSE,
     USER_EXPENSE
 }
-class ExpenseAdapter(private val mode: AdapterMode) : RecyclerView.Adapter<RecyclerView.ViewHolder> (){
+class ExpenseAdapter(
+    private val mode: AdapterMode,
+    private val onEditClick: (Expense) -> Unit,
+    private val onDeleteClick: (Expense) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder> (){
 
 
     private var expenses: List<Expense> = emptyList()
@@ -85,6 +90,13 @@ class ExpenseAdapter(private val mode: AdapterMode) : RecyclerView.Adapter<Recyc
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val expense = expenses[position]
+        holder.itemView.findViewById<ImageButton>(R.id.editExpenseButton).setOnClickListener {
+            onEditClick(expense)
+        }
+
+        holder.itemView.findViewById<ImageButton>(R.id.deleteExpenseButton).setOnClickListener {
+            onEditClick(expense)
+        }
         when (holder) {
             is ExpenseViewHolder -> holder.bind(expense)
             is UserExpenseViewHolder -> holder.bind(expense)

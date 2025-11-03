@@ -96,6 +96,36 @@ class ExpenseRepository {
         }
     }
 
+    fun updateExpense(expense: Expense) {
+        if(expense.id == null) {
+            Log.e("Repo", "No se puede actualizar un gasto sin ID.")
+            return
+        }
+        expenseCollection.document(expense.id!!)
+            .set(expense)
+            .addOnSuccessListener {
+                Log.d("Repo", "Gasto ${expense.id} actualizado correctamente.")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Repo", "Error al actualizar el gasto ${expense.id}", e)
+            }
+    }
+
+    fun deleteExpense(expenseId: String) {
+        if(expenseId.isBlank()){
+            return
+        }
+
+        expenseCollection.document(expenseId)
+            .delete()
+            .addOnSuccessListener {
+                Log.d("Repo", "Gasto $expenseId eliminado correctamente.")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Repo", "Error al eliminar el gasto $expenseId", e)
+            }
+    }
+
 
 
 }

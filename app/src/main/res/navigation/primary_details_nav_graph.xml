@@ -74,11 +74,14 @@
         android:name="com.example.trabajointegrador_modulonativo.ui.expense.ExpenseFormFragment"
         android:label="ExpenseFormFragment"
         tools:layout="@layout/fragment_create_expense" >
-
-
         <argument
-            android:name="selected_car"
+            android:name="selectedCar"
             app:argType="com.example.trabajointegrador_modulonativo.model.Car" />
+        <argument
+            android:name="selectedExpense"
+            app:argType="com.example.trabajointegrador_modulonativo.model.Expense"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
     <fragment
@@ -91,6 +94,9 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_expense_list_to_expense_form"
+            app:destination="@id/expenseFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/parkingFragment"

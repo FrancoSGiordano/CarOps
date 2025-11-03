@@ -12,11 +12,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trabajointegrador_modulonativo.adapter.AdapterMode
@@ -25,11 +27,14 @@ import com.example.trabajointegrador_modulonativo.data.CarRepository
 import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.databinding.FragmentUserExpenseListBinding
+import com.example.trabajointegrador_modulonativo.model.Car
+import com.example.trabajointegrador_modulonativo.model.Expense
 import com.example.trabajointegrador_modulonativo.viewmodel.ExpenseViewModelFactory
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.math.exp
 
 
 class ExpenseListFragment : Fragment() {
@@ -96,7 +101,13 @@ class ExpenseListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        expenseAdapter = ExpenseAdapter(AdapterMode.USER_EXPENSE)
+        expenseAdapter = ExpenseAdapter(AdapterMode.USER_EXPENSE,
+            onEditClick = { expense ->
+                handleEditExpense(expense)
+            },
+            onDeleteClick = { expense ->
+                handleDeleteExpense(expense)
+            })
         binding.userExpensesRecyclerView.apply {
             this.layoutManager = LinearLayoutManager(requireContext())
             this.adapter = expenseAdapter
@@ -124,6 +135,49 @@ class ExpenseListFragment : Fragment() {
         }
 
     }
+
+    private fun handleEditExpense(expense: Expense) {
+
+        val carId = expense.carId
+        val carName = expense.carName
+        if(carId.isNullOrBlank() || carName.isNullOrBlank()){
+            Toast.makeText(requireContext(), "Error: El gasto no tiene información del vehículo.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val partialCar = Car(
+            id = expense.carId,
+            brand = carName.split(" - ").getOrElse(0) { "" },
+            model = carName.split(" - ").getOrElse(1) { "" }
+
+        )
+
+        val action = ExpenseListFragmentDirections.actionExpenseListToExpenseForm(partialCar, expense)
+
+        findNavController().navigate(action)
+    }
+
+    private fun handleDeleteExpense(expense: Expense) {
+
+        val expenseId = expense.id
+
+        if(expenseId.isNullOrBlank()){
+            Toast.makeText(requireContext(), "Error: El gasto no tiene un ID válido.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Confirmar eliminación")
+            .setMessage("¿Estás seguro de que deseas eliminar el gasto '${expense.description}'?")
+            .setPositiveButton("Eliminar") { _, _ ->
+
+                viewModel.deleteExpense(expenseId)
+                Toast.makeText(requireContext(), "Gasto eliminado", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
 
 
     private fun generatePdf(uri: Uri) {
