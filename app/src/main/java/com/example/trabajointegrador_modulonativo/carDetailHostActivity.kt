@@ -14,7 +14,6 @@ import com.example.trabajointegrador_modulonativo.databinding.ActivityCarDetailB
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.content.Intent
@@ -23,6 +22,10 @@ import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationManagerCompat
 import android.app.Activity
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 
 
 class carDetailHostActivity : AppCompatActivity() {
@@ -34,28 +37,35 @@ class carDetailHostActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
                 // permiso concedido
-                // opcional: mostrar un toast o continuar inicializando notificaciones
             } else {
                 // permiso denegado
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    // Si devolvemos false en shouldShowRequestPermissionRationale => "No preguntar más"
                     if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
-                        // Usuario denegó y marcó "No preguntar de nuevo": sugerir abrir ajustes
                         showOpenSettingsDialog()
                     } else {
-                        // Denegó sin "No preguntar más" — podés mostrar un mensaje explicando por qué conviene activarlo
                         showRationaleExplainingDialog()
                     }
                 }
             }
         }
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val binding = ActivityCarDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            binding.carDetailToolbar.updatePadding(top = systemBars.top)
+
+            binding.navHostFragmentCarDetail.updatePadding(bottom = systemBars.bottom)
+
+            WindowInsetsCompat.CONSUMED
+        }
+
         ensureNotificationPermission()
 
-        // <-- Asegurate de tener un Toolbar en el layout con id = toolbar
         setSupportActionBar(binding.carDetailToolbar)
 
         val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_car_detail) as? NavHostFragment
@@ -89,25 +99,18 @@ class carDetailHostActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
-
     private fun ensureNotificationPermission() {
-        // Solo pedir en Android 13+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             return
         }
 
-        // Si ya está habilitado a nivel de sistema (usuario no bloqueó las notifs)
         if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-            // adicional: comprobar permiso POST_NOTIFICATIONS (API 33+)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                return // todo ok
+                return
             }
         }
 
-        // Si debemos mostrar una rationale (explicar por qué) antes de pedir permiso
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
-            // mostrar diálogo personalizado y luego pedir permiso
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.permiso_notificaciones))
                 .setMessage(getString(R.string.necesita_permiso))
@@ -117,7 +120,6 @@ class carDetailHostActivity : AppCompatActivity() {
                 .setNegativeButton(getString(R.string.ahora_no), null)
                 .show()
         } else {
-            // Solicitar permiso directamente
             requestNotifPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
@@ -126,11 +128,9 @@ class carDetailHostActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             try {
                 val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
-                // algunos dispositivos aceptan package param
                 intent.data = Uri.parse("package:${activity.packageName}")
                 activity.startActivity(intent)
             } catch (e: Exception) {
-                // fallback: abrir ajustes de la app
                 val i = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 i.data = Uri.parse("package:${activity.packageName}")
                 activity.startActivity(i)
@@ -157,19 +157,15 @@ class carDetailHostActivity : AppCompatActivity() {
     }
 
     private fun openAppNotificationSettings() {
-        // Abrir ajustes de notificaciones de la app
         val intent = Intent().apply {
             action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
             putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-            // opcional: para algunos dispositivos:
             putExtra("app_package", packageName)
             putExtra("app_uid", applicationInfo.uid)
         }
-        // fallback general
         try {
             startActivity(intent)
         } catch (e: Exception) {
-            // fallback: abrir ajustes de la app
             val i = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             i.data = Uri.parse("package:$packageName")
             startActivity(i)
