@@ -23,9 +23,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationManagerCompat
 import android.app.Activity
 import androidx.activity.enableEdgeToEdge
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 
 
 class carDetailHostActivity : AppCompatActivity() {
@@ -49,24 +46,14 @@ class carDetailHostActivity : AppCompatActivity() {
             }
         }
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val binding = ActivityCarDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            binding.carDetailToolbar.updatePadding(top = systemBars.top)
-
-            binding.navHostFragmentCarDetail.updatePadding(bottom = systemBars.bottom)
-
-            WindowInsetsCompat.CONSUMED
-        }
-
         ensureNotificationPermission()
 
         setSupportActionBar(binding.carDetailToolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_car_detail) as? NavHostFragment
         if (fragment == null) {

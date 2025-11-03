@@ -3,6 +3,9 @@
     <style name="Base.Theme.TrabajoIntegradorModuloNativo" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-
+        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:colorBackground">@color/primary</item>
+        <item name="android:statusBarColor">@color/card_background</item>
+        <item name="android:navigationBarColor">@color/card_background</item>
     </style>
 </resources>

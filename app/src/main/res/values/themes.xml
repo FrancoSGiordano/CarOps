@@ -4,6 +4,8 @@
         <!-- Customize your light theme here. -->
         <item name="android:windowBackground">@color/primary</item>
         <item name="android:colorBackground">@color/primary</item>
+        <item name="android:statusBarColor">@color/card_background</item>
+        <item name="android:navigationBarColor">@color/card_background</item>
     </style>
 
     <style name="Theme.TrabajoIntegradorModuloNativo" parent="Base.Theme.TrabajoIntegradorModuloNativo" />

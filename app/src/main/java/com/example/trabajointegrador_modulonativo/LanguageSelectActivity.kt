@@ -51,6 +51,7 @@ class LanguageSelectActivity : AppCompatActivity() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null && currentUser.isEmailVerified) {
             startCarHostActivity()
+            finish()
         } else {
             setupLanguageSelection()
         }
