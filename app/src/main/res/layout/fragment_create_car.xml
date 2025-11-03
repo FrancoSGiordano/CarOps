@@ -206,6 +206,7 @@
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="60dp"
                         android:text="@string/anadir"
+                        android:textColor="@color/white"
                         android:textSize="30dp"
                         app:backgroundTint="@color/button" />
 
