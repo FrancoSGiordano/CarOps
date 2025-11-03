@@ -84,6 +84,7 @@
             android:layout_gravity="center"
             android:text="@string/aceptar"
             android:textSize="30dp"
+            android:textColor="@color/white"
             app:backgroundTint="@color/button"/>
 
 

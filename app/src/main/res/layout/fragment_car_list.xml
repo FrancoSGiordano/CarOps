@@ -5,8 +5,7 @@
     android:id="@+id/car_list_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/container_horizontal_margin"
-    android:layout_marginEnd="@dimen/container_horizontal_margin">
+    >
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -31,64 +30,88 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <Button
-            android:id="@+id/btnAgregarVehiculo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/agregar_vehiculo"
-            android:textSize="14sp"
-            android:paddingHorizontal="16dp"
-            android:backgroundTint="@color/button"
-            android:includeFontPadding="false"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"/>
 
-        <Button
-            android:id="@+id/btnVerGastos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/ver_gastos"
-            android:textSize="14sp"
-            android:paddingHorizontal="16dp"
-            android:backgroundTint="@color/button"
-            android:includeFontPadding="false"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"/>
-
-        <Button
-            android:id="@+id/btnCerrarSesion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cerrar_sesion"
-            android:textSize="14sp"
-            android:paddingHorizontal="16dp"
-            android:backgroundTint="@color/button"
-            android:includeFontPadding="false"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"/>
     </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/car_list"
-        android:name="com.example.trabajointegrador_modulonativo.carListFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/btn_container"
+        android:clipToPadding="false"
+        android:paddingBottom="112dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_container"
+        tools:listitem="@layout/car_list_content" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_bar_container"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/card_background"
+        android:elevation="8dp"
+        android:translationZ="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:context="com.example.trabajointegrador_modulonativo.carDetailHostActivity"
-        tools:listitem="@layout/car_list_content" />
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Left icon -->
+        <ImageButton
+            android:id="@+id/btnAgregarVehiculo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="106dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/caradd"
+            app:tint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+           />
+>
+        <!-- Right icons -->
+        <ImageButton
+            android:id="@+id/btnVerGastos"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="106dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/expenses"
+            app:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/menu"
+            app:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/home"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/home_background"
+            app:srcCompat="@drawable/home_icon"
+            app:tint="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

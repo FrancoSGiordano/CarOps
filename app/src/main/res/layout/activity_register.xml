@@ -136,6 +136,7 @@
                 android:paddingHorizontal="60dp"
                 android:text="@string/crear_cuenta"
                 android:textSize="30dp"
+                android:textColor="@color/white"
                 app:backgroundTint="@color/button"/>
 
         </LinearLayout>
