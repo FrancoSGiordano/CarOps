@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.semantics.error
+import com.example.trabajointegrador_modulonativo.R
 import com.example.trabajointegrador_modulonativo.carDetailHostActivity
 import com.example.trabajointegrador_modulonativo.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -83,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                         startCarHostActivity()
                         finish()
                     } else {
-                        showError("Debe verificar su correo electrónico antes de iniciar sesión")
+                        showError(getString(R.string.verificar_correo))
                         FirebaseAuth.getInstance().signOut()
                     }
 
@@ -93,11 +94,11 @@ class LoginActivity : AppCompatActivity() {
                     try {
                         throw it.exception!!
                     } catch (e: FirebaseAuthInvalidUserException) {
-                        errorMessage = "Las credenciales de acceso son invalidas."
+                        errorMessage = getString(R.string.credenciales_invalidas)
                     } catch (e: FirebaseAuthInvalidCredentialsException) {
-                        errorMessage = "Las credenciales de acceso son invalidas."
+                        errorMessage = getString(R.string.credenciales_invalidas)
                     } catch (e: Exception) {
-                        errorMessage = e.localizedMessage ?: "Ocurrió un error inesperado."
+                        errorMessage = e.localizedMessage ?: getString(R.string.error_inesperado)
                         e.printStackTrace()
                     }
 
@@ -128,12 +129,12 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.loginPasswordEditText.text.toString()
 
         if (email.isEmpty()){
-            binding.loginEmailLayout.error = "Debe ingresar su correo electrónico"
+            binding.loginEmailLayout.error = getString(R.string.debe_ingresar_correo)
             isValid = false
         }
 
         if(password.isEmpty()){
-            binding.loginPasswordLayout.error = "Debe ingresar su contraseña"
+            binding.loginPasswordLayout.error = getString(R.string.debe_ingresar_contrasena)
             isValid = false
         }
 
@@ -151,9 +152,9 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun showAlert(message: String){
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
+        builder.setTitle(getString(R.string.error))
         builder.setMessage(message)
-        builder.setPositiveButton("Aceptar", null)
+        builder.setPositiveButton(getString(R.string.aceptar), null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
 

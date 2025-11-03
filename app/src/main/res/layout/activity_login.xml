@@ -41,7 +41,7 @@
                 android:id="@+id/loginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Iniciar sesión"
+                android:text="@string/iniciar_sesion"
                 android:textSize="26sp"
                 android:textStyle="bold"
 
@@ -69,9 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Correo electrónico"
+            android:hint="@string/correo_electronico"
             android:textColorHint="@color/gray_light"
-            app:placeholderText="ejemplo@gmail.com">
+            app:placeholderText="@string/ejemplo_mail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginEmailEditText"
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Contraseña"
+            android:hint="@string/contrasena"
             android:textColorHint="@color/gray_light"
             app:placeholderText="">
 
@@ -121,7 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="60dp"
-                android:text="Acceder"
+                android:text="@string/acceder"
+                android:textColor="@color/white"
                 android:textSize="30dp"
                 app:backgroundTint="@color/button"/>
 
@@ -135,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:text="¿No tienes una cuenta? Registrate acá"
+        android:text="@string/redireccion_a_register"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

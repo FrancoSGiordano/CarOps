@@ -27,7 +27,7 @@
             android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ultima actualizacion:"
+            android:text="@string/ultima_actualizacion"
             android:textSize="14sp"
             android:textColor="@color/white"/>
 
@@ -42,7 +42,7 @@
                 android:id="@+id/btnGetLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Actualizar"
+                android:text="@string/actualizar"
                 app:backgroundTint="@color/button"/>
 
             <Space android:layout_width="16dp" android:layout_height="0dp"/>
@@ -50,7 +50,7 @@
                 android:id="@+id/btnSaveParking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Guardar"
+                android:text="@string/guardar"
                 app:backgroundTint="@android:color/holo_green_dark"/>
 
 

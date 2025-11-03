@@ -1,51 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/car_detail_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/primary"
-        android:title="@string/title_activity_car_detail_host"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:liftOnScroll="true">
 
-        <ImageView
-            android:layout_width="81dp"
-            android:layout_height="28dp"
-            android:src="@drawable/applogo"
-            android:layout_gravity="center" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/car_detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
 
-    </com.google.android.material.appbar.MaterialToolbar>
+            <ImageView
+                android:layout_width="81dp"
+                android:layout_height="28dp"
+                android:src="@drawable/applogo"
+                android:layout_gravity="center" />
 
-    <View
-        android:id="@+id/toolbar_separator"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/card_background"
-        app:layout_constraintTop_toBottomOf="@+id/car_detail_toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <View
+            android:id="@+id/toolbar_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/card_background" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_car_detail"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:defaultNavHost="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:navGraph="@navigation/primary_details_nav_graph"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_separator"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         tools:layout="@layout/fragment_car_detail" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

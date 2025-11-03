@@ -14,7 +14,6 @@ import com.example.trabajointegrador_modulonativo.databinding.ActivityCarDetailB
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.content.Intent
@@ -23,6 +22,7 @@ import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationManagerCompat
 import android.app.Activity
+import androidx.activity.enableEdgeToEdge
 
 
 class carDetailHostActivity : AppCompatActivity() {
@@ -34,16 +34,12 @@ class carDetailHostActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
                 // permiso concedido
-                // opcional: mostrar un toast o continuar inicializando notificaciones
             } else {
                 // permiso denegado
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    // Si devolvemos false en shouldShowRequestPermissionRationale => "No preguntar más"
                     if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
-                        // Usuario denegó y marcó "No preguntar de nuevo": sugerir abrir ajustes
                         showOpenSettingsDialog()
                     } else {
-                        // Denegó sin "No preguntar más" — podés mostrar un mensaje explicando por qué conviene activarlo
                         showRationaleExplainingDialog()
                     }
                 }
@@ -53,10 +49,11 @@ class carDetailHostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityCarDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         ensureNotificationPermission()
 
-        // <-- Asegurate de tener un Toolbar en el layout con id = toolbar
         setSupportActionBar(binding.carDetailToolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_car_detail) as? NavHostFragment
         if (fragment == null) {
@@ -89,35 +86,27 @@ class carDetailHostActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
-
     private fun ensureNotificationPermission() {
-        // Solo pedir en Android 13+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             return
         }
 
-        // Si ya está habilitado a nivel de sistema (usuario no bloqueó las notifs)
         if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-            // adicional: comprobar permiso POST_NOTIFICATIONS (API 33+)
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                return // todo ok
+                return
             }
         }
 
-        // Si debemos mostrar una rationale (explicar por qué) antes de pedir permiso
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS)) {
-            // mostrar diálogo personalizado y luego pedir permiso
             AlertDialog.Builder(this)
-                .setTitle("Permiso para notificaciones")
-                .setMessage("La app necesita permiso para mostrar recordatorios en forma de notificaciones. Por favor concedelo para recibir alertas de tus recordatorios.")
-                .setPositiveButton("Permitir") { _, _ ->
+                .setTitle(getString(R.string.permiso_notificaciones))
+                .setMessage(getString(R.string.necesita_permiso))
+                .setPositiveButton(getString(R.string.permitir)) { _, _ ->
                     requestNotifPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
-                .setNegativeButton("Ahora no", null)
+                .setNegativeButton(getString(R.string.ahora_no), null)
                 .show()
         } else {
-            // Solicitar permiso directamente
             requestNotifPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
@@ -126,11 +115,9 @@ class carDetailHostActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             try {
                 val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
-                // algunos dispositivos aceptan package param
                 intent.data = Uri.parse("package:${activity.packageName}")
                 activity.startActivity(intent)
             } catch (e: Exception) {
-                // fallback: abrir ajustes de la app
                 val i = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 i.data = Uri.parse("package:${activity.packageName}")
                 activity.startActivity(i)
@@ -140,36 +127,32 @@ class carDetailHostActivity : AppCompatActivity() {
 
     private fun showRationaleExplainingDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Notificaciones")
-            .setMessage("Si rechazás este permiso no recibirás recordatorios en forma de notificación. Podés habilitarlo desde Ajustes de la app.")
-            .setPositiveButton("Abrir ajustes") { _, _ -> openAppNotificationSettings() }
-            .setNegativeButton("Cancelar", null)
+            .setTitle(getString(R.string.notificaciones))
+            .setMessage(getString(R.string.aviso_rechazo_notificacion))
+            .setPositiveButton(getString(R.string.abrir_ajustes)) { _, _ -> openAppNotificationSettings() }
+            .setNegativeButton(getString(R.string.cancelar), null)
             .show()
     }
 
     private fun showOpenSettingsDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Habilitar notificaciones")
-            .setMessage("Parece que rechazaste las notificaciones permanentemente. ¿Querés abrir los ajustes para habilitarlas manualmente?")
+            .setTitle(getString(R.string.habilitar_notificaciones))
+            .setMessage(getString(R.string.rechazo_permanente))
             .setPositiveButton("Ir a ajustes") { _, _ -> openAppNotificationSettings() }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.cancelar), null)
             .show()
     }
 
     private fun openAppNotificationSettings() {
-        // Abrir ajustes de notificaciones de la app
         val intent = Intent().apply {
             action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
             putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-            // opcional: para algunos dispositivos:
             putExtra("app_package", packageName)
             putExtra("app_uid", applicationInfo.uid)
         }
-        // fallback general
         try {
             startActivity(intent)
         } catch (e: Exception) {
-            // fallback: abrir ajustes de la app
             val i = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             i.data = Uri.parse("package:$packageName")
             startActivity(i)

@@ -20,7 +20,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -34,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="Añadir seguro"
+                android:text="@string/anadir_seguro"
                 android:textColor="@color/white"
                 android:textSize="26sp"
                 android:textStyle="bold" />
@@ -53,9 +52,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Aseguradora"
+            android:hint="@string/aseguradora"
             android:textColorHint="@color/gray_light"
-            app:placeholderText="Ej. La Caja, Libra, Rivadavia">
+            app:placeholderText="@string/seguro_ejemplo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/insuranceNameEditText"
@@ -71,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="N° de poliza "
+            android:hint="@string/n_de_poliza"
             android:textColorHint="@color/gray_light"
             app:placeholderText="">
 
@@ -88,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Fecha de expiracion de la poliza"
+            android:hint="@string/fecha_de_expiracion"
             android:textColorHint="@color/gray_light"
             app:placeholderText="">
 
@@ -107,9 +106,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Cobertura"
+            android:hint="@string/cobertura"
             android:textColorHint="@color/gray_light"
-            app:placeholderText="Ej. Responsabilidad Civil">
+            app:placeholderText="@string/cobertura_ejemplo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/insuranceCoverageEditText"
@@ -124,7 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="N° de motor"
+            android:hint="@string/n_de_motor"
             android:textColorHint="@color/gray_light"
             app:placeholderText="">
 
@@ -141,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="N° de chasis"
+            android:hint="@string/n_de_chasis"
             android:textColorHint="@color/gray_light"
             app:placeholderText="">
 
@@ -158,9 +157,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:hint="Titular de la poliza"
+            android:hint="@string/titular_de_la_poliza"
             android:textColorHint="@color/gray_light"
-            app:placeholderText="Nombre y apellido">
+            app:placeholderText="@string/nombre_apellido">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ownerNameEditText"
@@ -182,7 +181,7 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seleccionar tarjeta de circulación"
+                android:text="@string/seleccionar_tarjeta"
                 android:textColor="@color/button"
                 app:icon="@drawable/doc_icon"
                 app:iconTint="@color/button" />
@@ -209,7 +208,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginStart="0dp"
-            android:text="Eliminar Seguro"
+            android:text="@string/eliminar_seguro"
             android:textColor="@android:color/holo_red_dark"
             app:icon="@drawable/ic_delete"
             app:iconTint="@android:color/holo_red_dark"

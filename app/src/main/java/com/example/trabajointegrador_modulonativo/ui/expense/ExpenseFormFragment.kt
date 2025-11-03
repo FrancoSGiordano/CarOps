@@ -143,7 +143,7 @@ class ExpenseFormFragment : Fragment() {
             if (currentExpenseTypes.isNotEmpty()) {
                 showExpenseTypeSelectorDialog(currentExpenseTypes)
             } else {
-                Toast.makeText(requireContext(), "Cargando tipos de gasto...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.cargando_tipos_gastos), Toast.LENGTH_SHORT).show()
 
             }
         }
@@ -191,7 +191,7 @@ class ExpenseFormFragment : Fragment() {
         val typeNames = expenseTypes.map { it.name }.toTypedArray()
 
         MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialogTheme)
-            .setTitle("Selecciona un tipo de gasto")
+            .setTitle(getString(R.string.seleccione_tipo_gasto))
             .setItems(typeNames) { dialog, which ->
 
                 val selectedType = expenseTypes[which]
@@ -200,7 +200,7 @@ class ExpenseFormFragment : Fragment() {
                 binding.expenseTypeEditText.setText(selectedType.name)
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancelar)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -219,30 +219,30 @@ class ExpenseFormFragment : Fragment() {
         binding.expenseDateLayout.error = null
 
         if (selectedExpenseType == null) {
-            binding.expenseTypeLayout.error = "Debes seleccionar un tipo"
+            binding.expenseTypeLayout.error = getString(R.string.debe_seleccionar_tipo)
             isValid = false
         }
 
         if (binding.expenseDescriptionEditText.text.toString().isBlank()) {
-            binding.expenseDescriptionLayout.error = "La descripción es obligatoria"
+            binding.expenseDescriptionLayout.error = getString(R.string.desc_obligatoria)
             isValid = false
         }
 
         val amountString = binding.expenseAmountEditText.text.toString()
         if (amountString.isBlank()) {
-            binding.expenseAmountLayout.error = "El monto es obligatorio"
+            binding.expenseAmountLayout.error = getString(R.string.monto_obligatorio)
             isValid = false
         } else {
             val cleanString = amountString.replace("[^\\d]".toRegex(), "")
             val amount = if (cleanString.isNotEmpty()) cleanString.toDoubleOrNull()?.div(100.0) else null
             if (amount == null || amount <= 0.0) {
-                binding.expenseAmountLayout.error = "El monto debe ser mayor que cero"
+                binding.expenseAmountLayout.error = getString(R.string.monto_mayor_cero)
                 isValid = false
             }
         }
 
         if (binding.expenseDateEditText.text.toString().isBlank()) {
-            binding.expenseDateLayout.error = "Debes seleccionar una fecha"
+            binding.expenseDateLayout.error = getString(R.string.debe_seleccionar_fecha)
             isValid = false
         }
 
@@ -258,8 +258,12 @@ class ExpenseFormFragment : Fragment() {
 
         val userId = Firebase.auth.currentUser?.uid
         if (userId == null) {
+<<<<<<< HEAD
             Toast.makeText(requireContext(), "Error: Usuario no autenticado.", Toast.LENGTH_SHORT)
                 .show()
+=======
+            Toast.makeText(requireContext(), getString(R.string.usuario_no_autenticado), Toast.LENGTH_SHORT).show()
+>>>>>>> main
             return
         }
 
@@ -306,6 +310,11 @@ class ExpenseFormFragment : Fragment() {
             }
         }
 
+<<<<<<< HEAD
+=======
+        Toast.makeText(requireContext(), getString(R.string.gasto_guardado), Toast.LENGTH_SHORT).show()
+        findNavController().popBackStack()
+>>>>>>> main
     }
 
     private fun addTextWatcherToLayout(textInputLayout: TextInputLayout) {
