@@ -44,7 +44,6 @@
                 android:text="@string/iniciar_sesion"
                 android:textSize="26sp"
                 android:textStyle="bold"
-
                 android:textColor="@color/white"
                 android:layout_marginTop="18dp"
                 app:layout_constraintStart_toStartOf="parent"
