@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.ui.semantics.dismiss
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -31,6 +32,7 @@ import com.example.trabajointegrador_modulonativo.databinding.FragmentUserExpens
 import com.example.trabajointegrador_modulonativo.model.Car
 import com.example.trabajointegrador_modulonativo.model.Expense
 import com.example.trabajointegrador_modulonativo.viewmodel.ExpenseViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -130,6 +132,14 @@ class ExpenseListFragment : Fragment() {
                 launch {
                     viewModel.expenses.collect { expenses ->
                         expenseAdapter.updateExpenses(expenses)
+
+                        if(expenses.isEmpty()){
+                            binding.userExpensesRecyclerView.visibility = View.GONE
+                            binding.emptyExpensesContainer.visibility = View.VISIBLE
+                        } else {
+                            binding.userExpensesRecyclerView.visibility = View.VISIBLE
+                            binding.emptyExpensesContainer.visibility = View.GONE
+                        }
                     }
                 }
             }
@@ -167,15 +177,16 @@ class ExpenseListFragment : Fragment() {
             return
         }
 
-        AlertDialog.Builder(requireContext())
-            .setTitle("Confirmar eliminación")
-            .setMessage("¿Estás seguro de que deseas eliminar el gasto '${expense.description}'?")
-            .setPositiveButton("Eliminar") { _, _ ->
-
-                viewModel.deleteExpense(expenseId)
-                Toast.makeText(requireContext(), "Gasto eliminado", Toast.LENGTH_SHORT).show()
+        MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialogTheme)
+            .setTitle(getString(R.string.confirmar_eliminacion))
+            .setMessage(getString(R.string.seguro_eliminar_gasto, expense.description))
+            .setNegativeButton(getString(R.string.cancelar)) { dialog, _ ->
+                dialog.dismiss()
             }
-            .setNegativeButton("Cancelar", null)
+            .setPositiveButton(getString(R.string.eliminar)) { _, _ ->
+                viewModel.deleteExpense(expenseId)
+                Toast.makeText(requireContext(), getString(R.string.gasto_eliminado), Toast.LENGTH_SHORT).show()
+            }
             .show()
     }
 

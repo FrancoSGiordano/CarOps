@@ -95,7 +95,7 @@ class ExpenseAdapter(
         }
 
         holder.itemView.findViewById<ImageButton>(R.id.deleteExpenseButton).setOnClickListener {
-            onEditClick(expense)
+            onDeleteClick(expense)
         }
         when (holder) {
             is ExpenseViewHolder -> holder.bind(expense)

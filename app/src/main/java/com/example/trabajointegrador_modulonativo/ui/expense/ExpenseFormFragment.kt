@@ -258,12 +258,9 @@ class ExpenseFormFragment : Fragment() {
 
         val userId = Firebase.auth.currentUser?.uid
         if (userId == null) {
-<<<<<<< HEAD
             Toast.makeText(requireContext(), "Error: Usuario no autenticado.", Toast.LENGTH_SHORT)
                 .show()
-=======
             Toast.makeText(requireContext(), getString(R.string.usuario_no_autenticado), Toast.LENGTH_SHORT).show()
->>>>>>> main
             return
         }
 
@@ -310,11 +307,9 @@ class ExpenseFormFragment : Fragment() {
             }
         }
 
-<<<<<<< HEAD
-=======
+
         Toast.makeText(requireContext(), getString(R.string.gasto_guardado), Toast.LENGTH_SHORT).show()
         findNavController().popBackStack()
->>>>>>> main
     }
 
     private fun addTextWatcherToLayout(textInputLayout: TextInputLayout) {

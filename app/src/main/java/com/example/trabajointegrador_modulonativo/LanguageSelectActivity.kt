@@ -32,6 +32,8 @@ class LanguageSelectActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLanguageSelectionBinding
 
+    private var isChangingLanguage = false
+
     private val PREFS_NAME = "app_prefs"
     private val KEY_SELECTED_LANG = "selected_language_key"
 
@@ -40,7 +42,15 @@ class LanguageSelectActivity : AppCompatActivity() {
         binding = ActivityLanguageSelectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        checkCurrentUser()
+        isChangingLanguage = intent.getBooleanExtra("IS_CHANGING_LANGUAGE", false)
+
+        if(isChangingLanguage){
+            setupLanguageSelection()
+        } else {
+            checkCurrentUser()
+        }
+
+
 
 
 
@@ -61,6 +71,10 @@ class LanguageSelectActivity : AppCompatActivity() {
         val container = findViewById<LinearLayout>(R.id.languageListContainer)
         val acceptBtn = findViewById<View>(R.id.acceptButton)
 
+        if (isChangingLanguage) {
+            (acceptBtn as? TextView)?.text = getString(R.string.volver)
+        }
+
         val languages = listOf(
             LanguageItem("es", getString(R.string.espanol)),
             LanguageItem("en", getString(R.string.ingles)),
@@ -70,15 +84,20 @@ class LanguageSelectActivity : AppCompatActivity() {
         setLanguages(container, languages)
 
         acceptBtn.setOnClickListener {
-            val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            val selectedKey = prefs.getString(KEY_SELECTED_LANG, null)
-            if (selectedKey != null) {
-                Toast.makeText(this, "Guardando idioma...", Toast.LENGTH_SHORT).show()
-                startLoginActivity()
+            if(isChangingLanguage){
                 finish()
             } else {
-                Toast.makeText(this, "No seleccionaste ningún idioma.", Toast.LENGTH_SHORT).show()
+                val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                val selectedKey = prefs.getString(KEY_SELECTED_LANG, null)
+                if (selectedKey != null) {
+                    Toast.makeText(this, "Guardando idioma...", Toast.LENGTH_SHORT).show()
+                    startLoginActivity()
+                    finish()
+                } else {
+                    Toast.makeText(this, "No seleccionaste ningún idioma.", Toast.LENGTH_SHORT).show()
+                }
             }
+
         }
 
 

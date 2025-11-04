@@ -100,7 +100,6 @@
                         android:text="@string/datos_del_vehiculo"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"
-
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
@@ -109,13 +108,8 @@
                         android:id="@+id/editCarDataButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="Editar datos del vehículo"
-=======
-                        android:background="@android:color/transparent"
-                        android:contentDescription="@string/editar_datos_vehiculo"
->>>>>>> main
                         android:padding="8dp"
                         app:srcCompat="@drawable/edit_icon"
                         app:tint="@android:color/darker_gray"
@@ -240,13 +234,8 @@
                             android:id="@+id/showCirculationCardButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-<<<<<<< HEAD
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Ver la tarjeta de circulacion"
-=======
-                            android:background="@android:color/transparent"
                             android:contentDescription="@string/ver_tarjeta_circulacion"
->>>>>>> main
                             android:padding="8dp"
                             app:srcCompat="@drawable/doc_icon"
                             app:tint="@android:color/darker_gray" />
@@ -255,13 +244,8 @@
                             android:id="@+id/editInsuranceDataButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-<<<<<<< HEAD
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Editar datos del vehículo"
-=======
-                            android:background="@android:color/transparent"
                             android:contentDescription="@string/editar_datos_seguro"
->>>>>>> main
                             android:padding="8dp"
                             app:srcCompat="@drawable/edit_icon"
                             app:tint="@android:color/darker_gray" />
@@ -440,13 +424,8 @@
                             android:id="@+id/addExpensesButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-<<<<<<< HEAD
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Añadir un gasto del vehiculo"
-=======
-                            android:background="@android:color/transparent"
                             android:contentDescription="@string/anadir_gasto_vehiculo"
->>>>>>> main
                             android:padding="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -458,13 +437,8 @@
                             android:id="@+id/showExpensesButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-<<<<<<< HEAD
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Ver los gastos del vehiculo"
-=======
-                            android:background="@android:color/transparent"
                             android:contentDescription="@string/ver_gastos_vehiculo"
->>>>>>> main
                             android:padding="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

@@ -261,6 +261,21 @@
     <string name="espanol">Español</string>
     <string name="ingles">Ingles</string>
     <string name="portugues">Portugués</string>
+    <string name="aun_no_tienes_gastos">Aun no tienes gastos.</string>
+    <string name="ve_a_la_seccion_mis_veh_culos_para_a_adir_uno_desde_el_detalle_de_tu_coche">Ve a la seccion \'Mis Vehículos\' para añadir uno desde el detalle de tu coche.</string>
+    <string name="no_hay_gastos_registrados">No hay gastos registrados</string>
+
+    <string name="confirmar_eliminacion">Confirmar eliminación</string>
+    <string name="seguro_eliminar_gasto">¿Estás seguro de que deseas eliminar el gasto \'%1$s\'?</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="gasto_eliminado">Gasto eliminado</string>
+
+
+    <string name="cuenta">CUENTA</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
+
+    <string name="seguro_cerrar_sesion">¿Estás seguro de que deseas cerrar sesión?</string>
+    <string name="volver">Atrás</string>
 
 
 </resources>

@@ -263,4 +263,20 @@
     <string name="ingles">Inglês</string>
     <string name="portugues">Português</string>
 
+    <string name="aun_no_tienes_gastos">Você ainda não tem despesas.</string>
+    <string name="ve_a_la_seccion_mis_veh_culos_para_a_adir_uno_desde_el_detalle_de_tu_coche">Vá até a seção \'Meus Veículos\' para adicionar um a partir dos detalhes do seu carro.</string>
+    <string name="no_hay_gastos_registrados">Nenhuma despesa registrada.</string>
+
+    <string name="cuenta">CONTA</string>
+    <string name="cerrar_sesi_n">Encerrar sessão</string>
+
+    <string name="seguro_cerrar_sesion">Tem certeza de que deseja encerrar a sessão?</string>
+
+    <string name="volver">Voltar</string>
+
+    <string name="confirmar_eliminacion">Confirmar exclusão</string>
+    <string name="seguro_eliminar_gasto">Tem certeza de que deseja excluir a despesa \'%1$s\'?</string>
+    <string name="eliminar">Excluir</string>
+    <string name="gasto_eliminado">Despesa excluída</string>
+
 </resources>
