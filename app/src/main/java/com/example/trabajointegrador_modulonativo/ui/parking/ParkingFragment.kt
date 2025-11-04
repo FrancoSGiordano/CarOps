@@ -163,7 +163,13 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
-
+        binding.helpButton.setOnClickListener {
+            binding.helpText.visibility = if (binding.helpText.visibility == View.VISIBLE) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+        }
 
     }
 
