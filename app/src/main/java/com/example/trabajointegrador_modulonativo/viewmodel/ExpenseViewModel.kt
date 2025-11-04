@@ -124,6 +124,20 @@ class ExpenseViewModel (
             expenseRepository.createExpense(expense)
         }
     }
+
+    fun updateExpense(expense: Expense) {
+        viewModelScope.launch {
+            expenseRepository.updateExpense(expense)
+        }
+    }
+
+    fun deleteExpense(expenseId: String) {
+        viewModelScope.launch {
+            expenseRepository.deleteExpense(expenseId)
+
+        }
+    }
+
 }
 
 

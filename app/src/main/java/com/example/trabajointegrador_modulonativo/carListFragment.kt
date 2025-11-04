@@ -63,7 +63,7 @@ class carListFragment : Fragment() {
 
         viewModel.getCars()
 
-        binding.btnAgregarVehiculo.setOnClickListener {
+        binding.btnAgregarVehiculo?.setOnClickListener {
             findNavController().navigate(R.id.action_list_to_form)
 
         }
@@ -72,13 +72,8 @@ class carListFragment : Fragment() {
             findNavController().navigate(R.id.action_list_to_expenses)
         }
 
-        binding.btnCerrarSesion?.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(requireActivity(), LoginActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            startActivity(intent)
-            requireActivity().finish()
+        binding.btnSettings?.setOnClickListener {
+            findNavController().navigate(R.id.action_list_to_settings)
         }
     }
 

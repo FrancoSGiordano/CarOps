@@ -34,6 +34,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
 import java.util.Date
+import java.util.Locale
 
 
 class ExpenseFormFragment : Fragment() {
@@ -52,10 +53,7 @@ class ExpenseFormFragment : Fragment() {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,6 +69,8 @@ class ExpenseFormFragment : Fragment() {
 
         val currentCar = args.selectedCar
 
+        val currentExpense = args.selectedExpense
+
         if(currentCar.id == null){
             findNavController().popBackStack()
             return
@@ -81,17 +81,51 @@ class ExpenseFormFragment : Fragment() {
 
 
         setupClickListeners()
-        setup()
         observeExpenseTypes()
+
+        if(currentExpense != null){
+            setupEditMode(currentExpense)
+        } else {
+            setup()
+        }
+
     }
     private fun observeExpenseTypes() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
                 expenseViewModel.expenseTypes.collect { expenseTypes ->
+                    val currentExpense = args.selectedExpense
+                    if(currentExpense != null && expenseTypes.isNotEmpty()) {
+                        val type = expenseTypes.find { it.id == currentExpense.expenseTypeId }
 
+                        if(type != null) {
+                            binding.expenseTypeEditText.setText(type.name)
+                            selectedExpenseType = type
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    private fun setupEditMode(expense: Expense) {
+        binding.createExpenseTitle.text = "Editar Gasto"
+        binding.createExpenseButton.text = "Guardar Cambios"
+
+        binding.expenseDescriptionEditText.setText(expense.description)
+        val formattedAmount = String.format(Locale.US, "%.2f", expense.amount)
+            .replace(".", "")
+            .replace(",", "")
+        binding.expenseAmountEditText.setText(formattedAmount)
+
+        val sdf = java.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        binding.expenseDateEditText.setText(expense.date?.let { sdf.format(it) }?:"")
+
+        selectedDate = expense.date
+
+        binding.createExpenseButton.setOnClickListener {
+            saveExpense(expense.id)
         }
     }
 
@@ -147,9 +181,7 @@ class ExpenseFormFragment : Fragment() {
 
     private fun setup(){
         binding.createExpenseButton.setOnClickListener {
-            if (validateForm()) {
-                saveExpense()
-            }
+            saveExpense(null)
         }
     }
 
@@ -218,9 +250,16 @@ class ExpenseFormFragment : Fragment() {
     }
 
 
-    private fun saveExpense() {
+    private fun saveExpense(id: String?) {
+
+        if(!validateForm()) {
+            return
+        }
+
         val userId = Firebase.auth.currentUser?.uid
         if (userId == null) {
+            Toast.makeText(requireContext(), "Error: Usuario no autenticado.", Toast.LENGTH_SHORT)
+                .show()
             Toast.makeText(requireContext(), getString(R.string.usuario_no_autenticado), Toast.LENGTH_SHORT).show()
             return
         }
@@ -234,19 +273,40 @@ class ExpenseFormFragment : Fragment() {
         val amount = cleanString.toDoubleOrNull()!!.div(100.0)
 
         val description = binding.expenseDescriptionEditText.text.toString()
-        val date = binding.expenseDateEditText
 
-        val newExpense = Expense(
-            amount = amount,
-            description = description.uppercase(),
-            date = selectedDate,
-            expenseTypeId = selectedExpenseType!!.id,
-            userId = userId,
-            carId = currentCar.id,
-            carName = "${currentCar.brand} ${currentCar.model}"
-        )
+        lifecycleScope.launch {
+            try {
 
-        expenseViewModel.createExpense(newExpense)
+                val saveExpense = Expense(
+                    id = id,
+                    amount = amount,
+                    description = description.uppercase(),
+                    date = selectedDate,
+                    expenseTypeId = selectedExpenseType!!.id,
+                    userId = userId,
+                    carId = currentCar.id,
+                    carName = currentCar.toString()
+                )
+
+                if (id != null) {
+                    expenseViewModel.updateExpense(saveExpense)
+                    Toast.makeText(
+                        requireContext(),
+                        "Gasto modificado con éxito",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    expenseViewModel.createExpense(saveExpense)
+                    Toast.makeText(requireContext(), "Gasto añadido con éxito", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                findNavController().popBackStack()
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Error al guardar el gasto", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
 
         Toast.makeText(requireContext(), getString(R.string.gasto_guardado), Toast.LENGTH_SHORT).show()
         findNavController().popBackStack()

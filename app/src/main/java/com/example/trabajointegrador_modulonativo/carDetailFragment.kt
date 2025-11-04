@@ -1,6 +1,7 @@
 package com.example.trabajointegrador_modulonativo
 
 
+import ExpenseViewModel
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.ui.unit.Velocity
 
 
@@ -35,11 +37,14 @@ import com.example.trabajointegrador_modulonativo.data.ExpenseRepository
 import com.example.trabajointegrador_modulonativo.data.InsuranceRepository
 import com.example.trabajointegrador_modulonativo.data.SessionProvider
 import com.example.trabajointegrador_modulonativo.model.Car
+import com.example.trabajointegrador_modulonativo.model.Expense
 import com.example.trabajointegrador_modulonativo.model.Insurance
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
+import com.example.trabajointegrador_modulonativo.viewmodel.ExpenseViewModelFactory
 import com.example.trabajointegrador_modulonativo.viewmodel.InsuranceViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.InsuranceViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -60,6 +65,11 @@ class carDetailFragment : Fragment() {
     private val viewModel: CarViewModel by activityViewModels {
         CarViewModelFactory(CarRepository(), ExpenseRepository(), SessionProvider(),
             InsuranceRepository())
+    }
+    private val expenseViewModel: ExpenseViewModel by activityViewModels {
+        ExpenseViewModelFactory(
+            ExpenseRepository(), CarRepository(), SessionProvider()
+        )
     }
 
 
@@ -160,6 +170,8 @@ class carDetailFragment : Fragment() {
 
 
 
+
+
         binding.viewParkingButton?.setOnClickListener {
             val carId = viewModel.selectedCar.value?.id
             if (carId != null) {
@@ -182,13 +194,53 @@ class carDetailFragment : Fragment() {
     }
 
     private fun setupRecylcerView() {
-        expenseAdapter = ExpenseAdapter(AdapterMode.SIMPLE_EXPENSE)
+        expenseAdapter = ExpenseAdapter(AdapterMode.SIMPLE_EXPENSE,
+            onEditClick = { expense ->
+                handleEditExpense(expense)
+            },
+            onDeleteClick = { expense ->
+                handleDeleteExpense(expense)
+            }
+        )
         binding.expensesRecyclerView.apply {
             this?.layoutManager = LinearLayoutManager(requireContext())
             this?.adapter = expenseAdapter
         }
 
     }
+
+    private fun handleEditExpense(expense: Expense) {
+        val selectedCar = viewModel.selectedCar.value
+        if(selectedCar != null) {
+            val action = carDetailFragmentDirections.actionDetailToExpenseForm(selectedCar, expense)
+            findNavController().navigate(action)
+        } else {
+            Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun handleDeleteExpense(expense: Expense) {
+        val expenseId = expense.id
+
+        if(expenseId.isNullOrBlank()){
+            Toast.makeText(requireContext(), "Error: El gasto no tiene un ID válido.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialogTheme)
+            .setTitle(getString(R.string.confirmar_eliminacion))
+            .setMessage(getString(R.string.seguro_eliminar_gasto, expense.description))
+            .setNegativeButton(getString(R.string.cancelar)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(getString(R.string.eliminar)) { _, _ ->
+                expenseViewModel.deleteExpense(expenseId)
+                Toast.makeText(requireContext(), getString(R.string.gasto_eliminado), Toast.LENGTH_SHORT).show()
+            }
+            .show()
+    }
+
 
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
