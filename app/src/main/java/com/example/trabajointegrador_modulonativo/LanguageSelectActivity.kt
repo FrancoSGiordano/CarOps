@@ -77,6 +77,7 @@ class LanguageSelectActivity : AppCompatActivity() {
 
         val languages = listOf(
             LanguageItem("es", getString(R.string.espanol)),
+            LanguageItem("es-AR", getString(R.string.espanol_AR)),
             LanguageItem("en", getString(R.string.ingles)),
             LanguageItem("pt", getString(R.string.portugues)),
         )
