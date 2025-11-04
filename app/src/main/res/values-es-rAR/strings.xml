@@ -261,7 +261,6 @@
     <!--activity_language_selection-->
     <string name="seleccione_idioma">Seleccione su idioma</string>
     <string name="espanol">Español</string>
-    <string name="espanol_AR">Español (AR)</string>
     <string name="ingles">Ingles</string>
     <string name="portugues">Portugués</string>
     <string name="aun_no_tienes_gastos">Aun no tienes gastos.</string>
