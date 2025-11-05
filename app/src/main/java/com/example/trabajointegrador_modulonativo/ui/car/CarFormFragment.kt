@@ -134,16 +134,14 @@ class CarFormFragment : Fragment()  {
                 binding.carEngineEditText.setText(it.engine)
                 binding.carTransmissionEditText.setText(it.transmission)
 
-                // Mostrar imagen si existe (usa Glide o similar)
+
                 it.imageUrl?.let { url ->
-                    // si no tenés Glide importado, agregalo a dependencias
                     try {
                         com.bumptech.glide.Glide.with(this@CarFormFragment)
                             .load(url)
                             .centerCrop()
                             .into(binding.ivCarPhoto)
                     } catch (e: Exception) {
-                        // fallback si no se puede cargar
                     }
                 }
             }

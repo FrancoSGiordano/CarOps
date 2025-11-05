@@ -30,8 +30,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-
+import android.graphics.Color
 @OptIn(ExperimentalCoroutinesApi::class)
 class ParkingFragment : Fragment(), OnMapReadyCallback {
 
@@ -59,6 +60,11 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
 
     private var pendingParkedAt: com.google.firebase.Timestamp? = null
 
+    private val currentLocationMarkerIcon by lazy {
+        val hsv = FloatArray(3)
+        Color.colorToHSV(Color.parseColor("#0067FF"), hsv) // Blue
+        BitmapDescriptorFactory.defaultMarker(hsv[0])
+    }
     private val requestLocationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
@@ -146,7 +152,7 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
             googleMap?.let { g ->
                 val pos = LatLng(loc.latitude, loc.longitude)
                 g.clear()
-                g.addMarker(MarkerOptions().position(pos).title(getString(R.string.estacione)))
+                g.addMarker(MarkerOptions().position(pos).title(getString(R.string.estacionado)))
                 g.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 17f))
             }
         }
@@ -196,10 +202,11 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
         val g = googleMap ?: return
 
         g.clear()
+
         g.addMarker(
             MarkerOptions()
                 .position(pending)
-                .title(getString(R.string.estacionado))
+                .title(getString(R.string.estacionado)).icon(currentLocationMarkerIcon)
                 .snippet(pendingParkedAddress)
         )
         g.animateCamera(CameraUpdateFactory.newLatLngZoom(pending, 17f))
@@ -208,7 +215,6 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
 
         binding.tvStatus.text = getString(R.string.actualizacion_ubicacion, formatted)
 
-        enableSaveButton(true)
 
         // ya se aplicó: limpiamos pending
         pendingParkedLatLng = null
@@ -290,6 +296,8 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
         val latLng = LatLng(location.latitude, location.longitude)
         googleMap?.clear()
         googleMap?.addMarker(MarkerOptions().position(latLng).title(getString(R.string.tu_ubicacion)))
+
+
         val zoomLevel = 17f
         googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
     }
