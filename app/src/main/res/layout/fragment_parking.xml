@@ -37,7 +37,7 @@
                     android:id="@+id/parking_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¿Donde estacione?"
+                    android:text="@string/donde_estacione"
                     android:textColor="@color/white"
                     android:textSize="26sp" />
 
@@ -68,17 +68,79 @@
             app:layout_constraintTop_toBottomOf="@id/loginTitle" />
 
     </LinearLayout>
-    <TextView
+    <LinearLayout
         android:id="@+id/help_text"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="76dp"
         android:background="@drawable/rounded_corner"
-        android:padding="8dp"
-        android:text="Guarda tu ubicación actual para recordar dónde estacionaste. La próxima vez que abras esta pantalla, verás la ubicación guardada."
-        android:textColor="@android:color/white"
-        android:visibility="gone"/>
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/parking_info"
+            android:textColor="@android:color/white"
+            />
+        <LinearLayout
+            android:id="@+id/savedPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@drawable/rounded_corner"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:backgroundTint="@color/fui_transparent"
+            >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/pin_azul"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Ubicación guardada"
+                android:textColor="@android:color/white"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/updatePin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@drawable/rounded_corner"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:backgroundTint="@color/fui_transparent"
+            >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/pin_rojo"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Vista previa — confirmá para actualizar"
+                android:textColor="@android:color/white"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/bottomPanel"
@@ -119,7 +181,7 @@
                 android:id="@+id/btnSaveParking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/guardar"
+                android:text="Confirmar"
                 app:backgroundTint="@android:color/holo_green_dark" />
 
 

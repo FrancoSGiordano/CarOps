@@ -62,6 +62,9 @@
     <string name="guardar">Salvar</string>
     <string name="donde_estacione">Onde estacionei?</string>
     <string name="parking_info">Guarde sua localização atual para lembrar onde você estacionou. Da próxima vez que abrir esta tela, verá a localização salva.</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="pinRojo_info">Visualização — confirme para atualizar</string>
+    <string name="pinAzul_info">Localização salva</string>
 
     <!--modal_create_reminder-->
     <string name="crear_recordatorio">Criar lembrete</string>
