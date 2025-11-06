@@ -191,6 +191,43 @@ class carDetailFragment : Fragment() {
                 Toast.makeText(context, "Cargando datos del vehículo...", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+        binding.deleteCarButton?.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle(getString(R.string.confirmar_eliminacion))
+                .setPositiveButton(getString(R.string.eliminar)) { dialog, _ ->
+                    val carToDelete = viewModel.selectedCar.value
+                    if (carToDelete != null) {
+                        viewModel.deleteCar(carToDelete, requireContext().applicationContext)
+                    } else {
+                        Toast.makeText(context, getString(R.string.problema_obtener_auto), Toast.LENGTH_SHORT).show()
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton(getString(R.string.cancelar), null)
+                .show()
+
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.deleteStatus.collect { status ->
+                        when (status) {
+                            true -> {
+                                Toast.makeText(context, getString(R.string.vehiculo_eliminado), Toast.LENGTH_SHORT).show()
+                                findNavController().popBackStack()
+                                viewModel.resetDeleteStatus()
+                            }
+                            false -> {
+                                Toast.makeText(context, getString(R.string.error_eliminar_vehiculo), Toast.LENGTH_LONG).show()
+                                viewModel.resetDeleteStatus()
+                            }
+                            null -> {  }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setupRecylcerView() {

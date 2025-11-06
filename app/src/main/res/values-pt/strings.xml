@@ -246,7 +246,9 @@
     <string name="titular_bind">Titular da apólice: %1$s</string>
     <string name="no_aplicacion">Nenhum aplicativo para abrir este arquivo.</string>
     <string name="no_archivo_poliza">Nenhum arquivo de apólice anexado.</string>
-
+    <string name="problema_obtener_auto">Não foi possível obter o veículo para excluir.</string>
+    <string name="vehiculo_eliminado">Veículo excluído</string>
+    <string name="error_eliminar_vehiculo">Erro ao excluir o veículo</string>
     <!--carDetailHostActivity-->
     <string name="permiso_notificaciones">Permissão para notificações</string>
     <string name="necesita_permiso">O aplicativo precisa de permissão para mostrar lembretes como notificações. Por favor, conceda para receber alertas para seus lembretes.</string>

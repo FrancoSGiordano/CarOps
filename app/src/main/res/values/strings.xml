@@ -246,6 +246,12 @@
     <string name="titular_bind">Titular de la póliza: %1$s</string>
     <string name="no_aplicacion">No hay aplicación para abrir este archivo.</string>
     <string name="no_archivo_poliza">No hay archivo de póliza adjunto.</string>
+    <string name="problema_obtener_auto">No se ha podido obtener el vehículo a eliminar.</string>
+    <string name="vehiculo_eliminado">Vehículo eliminado</string>
+    <string name="error_eliminar_vehiculo">Error al eliminar el vehículo</string>
+
+
+
 
     <!--carDetailHostActivity-->
     <string name="permiso_notificaciones">Permiso para notificaciones</string>

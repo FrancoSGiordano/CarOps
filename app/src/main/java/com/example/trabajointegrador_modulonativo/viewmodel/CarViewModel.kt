@@ -1,5 +1,6 @@
 package com.example.trabajointegrador_modulonativo.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.trabajointegrador_modulonativo.data.CarRepository
@@ -39,6 +40,10 @@ class CarViewModel (
     val error: StateFlow<String?> = _error.asStateFlow()
 
    private val _carId = MutableStateFlow<String?>(null)
+
+    private val _deleteStatus = MutableStateFlow<Boolean?>(null)
+    val deleteStatus: StateFlow<Boolean?> = _deleteStatus.asStateFlow()
+
 
     @ExperimentalCoroutinesApi
     val selectedCar: StateFlow<Car?> = _carId.flatMapLatest { id ->
@@ -130,6 +135,30 @@ class CarViewModel (
         }
     }
 
+    fun deleteCar(car : Car, context: Context) {
+        if(userId == null) {
+            _error.value = "Error: Usuario no autenticado"
+            _deleteStatus.value = false // Notifica que hubo un error
+            return
+        }
+
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                carRepository.deleteCar(car, context)
+                _deleteStatus.value = true
+            } catch (e: Exception) {
+                _error.value = "Error al eliminar el vehículo: ${e.message}"
+                _deleteStatus.value = false // Error
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun resetDeleteStatus() {
+        _deleteStatus.value = null
+    }
     fun saveParking(carId: String, lat: Double, lng: Double) {
         if (carId.isBlank()) {
             _error.value = "Error: id de vehículo inválido"
@@ -145,18 +174,5 @@ class CarViewModel (
         }
     }
 
-    fun clearParking(carId: String) {
-        if (carId.isBlank()) {
-            _error.value = "Error: id de vehículo inválido"
-            return
-        }
-        viewModelScope.launch {
-            try {
-                carRepository.clearParking(carId)
-                _error.value = null
-            } catch (e: Exception) {
-                _error.value = "No se pudo borrar la ubicación: ${e.message}"
-            }
-        }
-    }
+
 }

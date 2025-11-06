@@ -154,9 +154,8 @@ class CarFormFragment : Fragment()  {
                 binding.createCarButton.isEnabled = false
                 binding.createCarButton.alpha = 0.6f
                 try {
-                    // Si hay nueva imagen -> subir y obtener URL, si no -> conservar la anterior
                     val imageUrl = selectedImageUri?.let { uri ->
-                        uploadImageAndGetUrl(uri) // suspend function
+                        uploadImageAndGetUrl(uri)
                     } ?: currentCar?.imageUrl
 
                     val updatedCar = Car(
