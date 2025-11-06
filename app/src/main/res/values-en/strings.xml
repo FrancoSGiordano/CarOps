@@ -245,6 +245,9 @@
     <string name="titular_bind">Policyholder: %1$s</string>
     <string name="no_aplicacion">No application to open this file.</string>
     <string name="no_archivo_poliza">No policy file attached.</string>
+    <string name="problema_obtener_auto">Could not retrieve the vehicle to delete.</string>
+    <string name="vehiculo_eliminado">Vehicle deleted</string>
+    <string name="error_eliminar_vehiculo">Error deleting vehicle</string>
 
     <!--carDetailHostActivity-->
     <string name="permiso_notificaciones">Permission for notifications</string>
