@@ -11,7 +11,6 @@ data class Expense (
     val description: String? = "",
     val amount: Double? = 0.0,
     val date: Date? = Date(),
-    @get:PropertyName("expense_type_id") @set:PropertyName("expense_type_id")
     var expenseTypeId: Long? = 0,
     var carId: String? = "",
     var carName: String? = "",

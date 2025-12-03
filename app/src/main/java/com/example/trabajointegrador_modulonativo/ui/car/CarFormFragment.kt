@@ -26,6 +26,7 @@ import com.example.trabajointegrador_modulonativo.ui.expense.ExpenseFormFragment
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
 import com.google.firebase.FirebaseApp
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -129,7 +130,7 @@ class CarFormFragment : Fragment()  {
                 currentCar = it
                 binding.carBrandEditText.setText(it.brand)
                 binding.carModelEditText.setText(it.model)
-                binding.carYearEditText.setText(it.year?.toString() ?: "")
+                binding.carYearEditText.setText(it.anio?.toString() ?: "")
                 binding.carPlateEditText.setText(it.licensePlate)
                 binding.carEngineEditText.setText(it.engine)
                 binding.carTransmissionEditText.setText(it.transmission)
@@ -165,12 +166,12 @@ class CarFormFragment : Fragment()  {
                         id = id,
                         brand = binding.carBrandEditText.text.toString().trim().uppercase(Locale.getDefault()),
                         model = binding.carModelEditText.text.toString().trim().uppercase(Locale.getDefault()),
-                        year = binding.carYearEditText.text.toString().toIntOrNull(),
+                        anio = binding.carYearEditText.text.toString().toIntOrNull(),
                         licensePlate = binding.carPlateEditText.text.toString().trim().uppercase(Locale.getDefault()),
                         engine = binding.carEngineEditText.text.toString().trim().uppercase(Locale.getDefault()),
                         transmission = binding.carTransmissionEditText.text.toString().trim().uppercase(Locale.getDefault()),
                         imageUrl = imageUrl,
-                        lastUpdate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date()).toString()
+                        lastUpdate = Timestamp(Date())
                     )
 
                     viewModel.updateCar(updatedCar)
@@ -274,11 +275,11 @@ class CarFormFragment : Fragment()  {
                     val newCar = Car(
                         brand = brand,
                         model = model,
-                        year = year,
+                        anio = year,
                         licensePlate = plate,
                         engine = engine,
                         transmission = transmission,
-                        lastUpdate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date()).toString(),
+                        lastUpdate = Timestamp(Date()),
                         imageUrl = imageUrl
                     )
 
