@@ -31,7 +31,7 @@ class FilterExpenseModalFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private var selectedCarId: String? = null
-    private var selectedExpenseTypeId: Int? = null
+    private var selectedExpenseTypeId: String? = null
 
     private var selectedStartDate: Date? = null
     private var selectedEndDate: Date? = null
@@ -70,7 +70,7 @@ class FilterExpenseModalFragment : BottomSheetDialogFragment() {
                         selectedCarId = lastFilters.carId
                         selectedExpenseTypeId = lastFilters.expenseTypeId
                         val car = viewModel.cars.value.find {it.id == lastFilters.carId}
-                        val type = viewModel.expenseTypes.value.find { it.id.toInt() == lastFilters.expenseTypeId}
+                        val type = viewModel.expenseTypes.value.find { it.id == lastFilters.expenseTypeId}
 
                         if(car != null) {
                             binding.filterCarAutoComplete.setText(car.toString(), false)
@@ -117,7 +117,7 @@ class FilterExpenseModalFragment : BottomSheetDialogFragment() {
                         binding.filterExpenseTypeAutoComplete.setAdapter(adapter)
 
                         binding.filterExpenseTypeAutoComplete.setOnItemClickListener { _, _, position, _ ->
-                            selectedExpenseTypeId = typeFilterList[position].first.toInt()
+                            selectedExpenseTypeId = typeFilterList[position].first
                         }
                     }
                 }

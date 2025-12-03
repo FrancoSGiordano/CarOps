@@ -28,7 +28,7 @@ import java.util.UUID
 
 data class FilterState(
     val carId: String? = null,
-    val expenseTypeId: Int? = null,
+    val expenseTypeId: String? = null,
     val startDate: Date? = null,
     val endDate: Date? = null,
     val id: String = UUID.randomUUID().toString()
@@ -104,7 +104,7 @@ class ExpenseViewModel (
 
 
 
-    fun applyFilters(carId: String?, expenseTypeId: Int?, startDate: Date?, endDate: Date?) {
+    fun applyFilters(carId: String?, expenseTypeId: String?, startDate: Date?, endDate: Date?) {
         _filterEvents.tryEmit(
             FilterState(
                 carId = carId,

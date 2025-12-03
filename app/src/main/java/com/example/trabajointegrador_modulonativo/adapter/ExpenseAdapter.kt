@@ -28,11 +28,11 @@ class ExpenseAdapter(
 
     fun setImage(expense: Expense): Int {
         val imageResource = when (expense.expenseTypeId) {
-            0L -> R.drawable.ic_fuel
-            1L -> R.drawable.ic_insurance
-            2L -> R.drawable.ic_maintenance
-            3L -> R.drawable.ic_parts
-            4L -> R.drawable.ic_cleaning
+            "0" -> R.drawable.ic_fuel
+            "1" -> R.drawable.ic_insurance
+            "2" -> R.drawable.ic_maintenance
+            "3" -> R.drawable.ic_parts
+            "4" -> R.drawable.ic_cleaning
             else -> R.drawable.ic_car
         }
         return imageResource
