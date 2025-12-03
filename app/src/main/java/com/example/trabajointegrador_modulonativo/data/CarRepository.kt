@@ -129,7 +129,6 @@ class CarRepository {
         }
 
         try {
-            // 1. Si tiene insuranceId, borrar la carpeta asociada en Storage
             if (!car.insuranceId.isNullOrBlank()) {
                 val insuranceId = car.insuranceId
                 insuranceCollection.document(insuranceId).delete().await()
