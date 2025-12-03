@@ -1,18 +1,28 @@
 package com.example.trabajointegrador_modulonativo.data
 
+import android.content.Context
 import android.util.Log
+import androidx.compose.ui.graphics.vector.path
+import androidx.work.await
 import com.example.trabajointegrador_modulonativo.FirebaseClient
 import com.example.trabajointegrador_modulonativo.model.Car
+import com.example.trabajointegrador_modulonativo.notifications.ReminderScheduler
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.tasks.await
 
 class CarRepository {
 
     private val db = FirebaseClient.db
     private val carCollection = db.collection("cars")
+    private val insuranceCollection = db.collection("insurances")
+    private val expenseCollection = db.collection("expenses")
+    private val reminderCollection = db.collection("reminders")
+
     fun getCarsStream(userId: String): Flow<List<Car>> = callbackFlow {
 
         val query: Query = carCollection.whereEqualTo("userId", userId)
@@ -109,26 +119,110 @@ class CarRepository {
             .addOnFailureListener { e -> Log.w("CarRepository", "Error saving parking location", e) }
     }
 
-    suspend fun clearParking(carId: String) {
-        if (carId.isBlank()) {
-            Log.w("CarRepository", "clearParkingLocation: carId vacío")
+
+
+    suspend fun deleteCar(car: Car,  context: Context) {
+        val carId = car.id
+        if (carId.isNullOrBlank()) {
+            Log.w("CarRepository", "ID del coche es nulo o vacío, no se puede eliminar.")
             return
         }
 
-        val docRef = carCollection.document(carId)
-        val updates = mapOf<String, Any>(
-            "parked" to false,
-            "parkedLat" to FieldValue.delete(),
-            "parkedLng" to FieldValue.delete(),
-            "parkedAt" to FieldValue.delete(),
-        )
+        try {
+            if (!car.insuranceId.isNullOrBlank()) {
+                val insuranceId = car.insuranceId
+                insuranceCollection.document(insuranceId).delete().await()
+                deleteInsurancePolicyFolder(car.userId, carId)
+            }
+            deleteExpensesForCar(carId)
 
-        docRef.update(updates)
-            .addOnSuccessListener { Log.d("CarRepository", "Parking cleared for $carId") }
-            .addOnFailureListener { e -> Log.w("CarRepository", "Error clearing parking location", e) }
+            if (!car.imageUrl.isNullOrBlank()) {
+                deleteImageFromUrl(car.imageUrl)
+            }
+            deleteRemindersForCar(carId, context)
+            // 2. Eliminar el documento del coche en Firestore
+            carCollection.document(carId).delete().await()
+            Log.d("CarRepository", "Coche con ID: $carId eliminado de Firestore.")
+
+        } catch (e: Exception) {
+            Log.w("CarRepository", "Error al eliminar el coche con ID: $carId", e)
+
+        }
     }
 
+    private suspend fun deleteInsurancePolicyFolder(userId: String, carId: String) {
+        val folderPath = "policies/$userId/$carId"
+        val folderRef = FirebaseStorage.getInstance().reference.child(folderPath)
 
+        try {
+            val items = folderRef.listAll().await()
+            items.items.forEach { item ->
+                item.delete().await()
+                Log.d("CarRepository", "Archivo de póliza eliminado: ${item.path}")
+            }
+
+            Log.d("CarRepository", "Carpeta de póliza '$folderPath' eliminada de Storage.")
+        } catch (e: Exception) {
+            Log.w(
+                "CarRepository",
+                "Error al eliminar la carpeta de póliza '$folderPath' en Storage",
+                e
+            )
+        }
+
+    }
+
+    private suspend fun deleteExpensesForCar(carId: String) {
+        val query = expenseCollection.whereEqualTo("carId", carId)
+        try {
+            val snapshot = query.get().await()
+            val batch = db.batch()
+            for (document in snapshot.documents) {
+                batch.delete(document.reference)
+            }
+            batch.commit().await()
+            Log.d("CarRepository", "Eliminados ${snapshot.size()} gastos para el coche con ID: $carId")
+        } catch (e: Exception) {
+            Log.w("CarRepository", "Error al eliminar los gastos para el coche con ID: $carId", e)
+        }
+    }
+
+    private suspend fun deleteImageFromUrl(imageUrl: String) {
+        try {
+            val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl)
+            imageRef.delete().await()
+            Log.d("CarRepository", "Imagen eliminada de Storage: ${imageRef.path}")
+        } catch (e: Exception) {
+            Log.w("CarRepository", "Error al eliminar la imagen desde la URL: $imageUrl", e)
+        }
+    }
+
+    private suspend fun deleteRemindersForCar(carId: String, context: Context) {
+        val query = reminderCollection.whereEqualTo("carId", carId)
+        try {
+            val snapshot = query.get().await()
+            if (snapshot.isEmpty) {
+                Log.d("CarRepository", "No se encontraron recordatorios para el coche: $carId")
+                return
+            }
+
+            val batch = db.batch()
+            for (document in snapshot.documents) {
+                // 1. Cancelar la alarma en el dispositivo
+                ReminderScheduler.cancel(context, document.id)
+
+                // 2. Añadir la eliminación del documento al batch de Firestore
+                batch.delete(document.reference)
+            }
+
+            // 3. Ejecutar la eliminación en Firestore
+            batch.commit().await()
+
+            Log.d("CarRepository", "Eliminados ${snapshot.size()} recordatorios y sus alarmas para el coche: $carId")
+        } catch (e: Exception) {
+            Log.w("CarRepository", "Error al eliminar los recordatorios para el coche: $carId", e)
+        }
+    }
 }
 
 

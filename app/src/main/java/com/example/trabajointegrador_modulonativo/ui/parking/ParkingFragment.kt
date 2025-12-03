@@ -30,8 +30,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModel
 import com.example.trabajointegrador_modulonativo.viewmodel.CarViewModelFactory
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-
+import android.graphics.Color
 @OptIn(ExperimentalCoroutinesApi::class)
 class ParkingFragment : Fragment(), OnMapReadyCallback {
 
@@ -54,13 +55,16 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
         arguments?.getString(ARG_CAR_ID)
     }
 
-    // Variables para manejar ubicación "parked" pendiente si el mapa no está listo
     private var pendingParkedLatLng: LatLng? = null
     private var pendingParkedAddress: String? = null
 
     private var pendingParkedAt: com.google.firebase.Timestamp? = null
 
-    // Permission launcher (ACCESS_FINE_LOCATION)
+    private val currentLocationMarkerIcon by lazy {
+        val hsv = FloatArray(3)
+        Color.colorToHSV(Color.parseColor("#0067FF"), hsv) // Blue
+        BitmapDescriptorFactory.defaultMarker(hsv[0])
+    }
     private val requestLocationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
@@ -81,11 +85,9 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // desactivar guardado hasta tener ubicación
         binding.btnSaveParking.isEnabled = false
         binding.btnSaveParking.alpha = 0.6f
 
-        // Si todavía no tenemos SupportMapFragment en el contenedor, lo agregamos
         var mapFragment = childFragmentManager.findFragmentById(binding.mapContainer.id) as? SupportMapFragment
         if (mapFragment == null) {
             mapFragment = SupportMapFragment.newInstance()
@@ -96,9 +98,7 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
 
         mapFragment.getMapAsync(this)
 
-        // Cargar detalles del auto si viene carId
 
-        // Observamos selectedCar; si tiene ubicación guardada la dejamos en "pending" (o la mostramos si mapa listo)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.selectedCar.collect { car ->
                 if (car != null && car.parked == true && car.parkedLat != null && car.parkedLng != null) {
@@ -108,24 +108,20 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
                     pendingParkedAt = ts
 
                     Log.d("ParkingFragment", "selectedCar tiene ubicación guardada: $lat,$lng")
-                    // guardamos en pending y tratamos de aplicarla inmediatamente
                     pendingParkedLatLng = LatLng(lat, lng)
                     applyParkedIfAvailable()
                 } else {
-                    // si no hay ubicación guardada, sólo si NO hay pending mostramos la ubicación actual
-                    // (esto evita que onMapReady siempre fuerce la ubicación actual)
+
                     if (pendingParkedLatLng == null) {
                         Log.d("ParkingFragment", "selectedCar no tiene parked -> pedimos ubicación actual")
                         checkLocationPermissionAndEnable()
                     } else {
-                        // si hay pending, no hacemos nada; applyParkedIfAvailable() ya se encargará
                         Log.d("ParkingFragment", "pendingParkedLatLng ya presente, no pedir ubicación actual")
                     }
                 }
             }
         }
 
-        // Button: "Actualizar" fuerza obtención de ubicación actual
         binding.btnGetLocation.setOnClickListener {
             pendingParkedLatLng = null
             pendingParkedAddress = null
@@ -144,7 +140,6 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
                 return@setOnClickListener
             }
 
-            // Llamada al ViewModel para guardar (ajusta el nombre si lo llamaste distinto)
             viewModel.saveParking(
                 carId = selectedCarId,
                 lat = loc.latitude,
@@ -154,23 +149,27 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
 
             Toast.makeText(requireContext(), getString(R.string.ubicacion_guardada), Toast.LENGTH_SHORT).show()
 
-            // actualizar marcador localmente (también llegará el cambio por Firestore)
             googleMap?.let { g ->
                 val pos = LatLng(loc.latitude, loc.longitude)
                 g.clear()
-                g.addMarker(MarkerOptions().position(pos).title(getString(R.string.estacione)))
+                g.addMarker(MarkerOptions().position(pos).title(getString(R.string.estacionado)))
                 g.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 17f))
             }
         }
 
-
+        binding.helpButton.setOnClickListener {
+            binding.helpText.visibility = if (binding.helpText.visibility == View.VISIBLE) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+        }
 
     }
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
 
-        // Ajustes UI del mapa
         googleMap?.uiSettings?.apply {
             isZoomControlsEnabled = true
             isMyLocationButtonEnabled = true
@@ -183,7 +182,6 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
                 Log.w("ParkingFragment", "No se pudo activar myLocation", e)
             }
         }
-        // Si tenemos parked pendiente, aplicamos; si no, pedimos ubicación actual
         if (pendingParkedLatLng != null) {
             Log.d("ParkingFragment", "onMapReady -> aplicando parked pendiente")
             showParkedLocationOnMapIfReady()
@@ -194,7 +192,6 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun applyParkedIfAvailable() {
-        // intenta mostrar parked si el mapa está listo
         if (pendingParkedLatLng != null) {
             showParkedLocationOnMapIfReady()
         }
@@ -202,15 +199,14 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
 
     private fun showParkedLocationOnMapIfReady() {
         val pending = pendingParkedLatLng ?: return
-        // si el mapa aún no está listo, salimos (quedará pending)
         val g = googleMap ?: return
 
-        // mostramos el parked
         g.clear()
+
         g.addMarker(
             MarkerOptions()
                 .position(pending)
-                .title(getString(R.string.estacionado))
+                .title(getString(R.string.estacionado)).icon(currentLocationMarkerIcon)
                 .snippet(pendingParkedAddress)
         )
         g.animateCamera(CameraUpdateFactory.newLatLngZoom(pending, 17f))
@@ -219,9 +215,7 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
 
         binding.tvStatus.text = getString(R.string.actualizacion_ubicacion, formatted)
 
-        enableSaveButton(true)
 
-        // ya se aplicó: limpiamos pending
         pendingParkedLatLng = null
         pendingParkedAddress = null
         pendingParkedAt = null
@@ -243,7 +237,7 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    @Suppress("MissingPermission") // comprobamos permisos antes de llamar
+    @Suppress("MissingPermission")
     private fun enableLocationAndMoveToCurrent() {
         try {
             googleMap?.isMyLocationEnabled = true
@@ -251,7 +245,6 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
             Log.w("ParkingFragment", "enableLocationAndMoveToCurrent: sin permiso", e)
         }
 
-        // Intentamos obtener la última ubicación conocida primero
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
                 if (location != null) {
@@ -302,6 +295,8 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
         val latLng = LatLng(location.latitude, location.longitude)
         googleMap?.clear()
         googleMap?.addMarker(MarkerOptions().position(latLng).title(getString(R.string.tu_ubicacion)))
+
+
         val zoomLevel = 17f
         googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
     }

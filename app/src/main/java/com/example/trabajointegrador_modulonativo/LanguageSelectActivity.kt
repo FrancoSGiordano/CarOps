@@ -76,6 +76,7 @@ class LanguageSelectActivity : AppCompatActivity() {
 
         val languages = listOf(
             LanguageItem("es", getString(R.string.espanol)),
+            LanguageItem("es-AR", getString(R.string.espanol_AR)),
             LanguageItem("en", getString(R.string.ingles)),
             LanguageItem("pt", getString(R.string.portugues)),
         )
@@ -129,9 +130,7 @@ class LanguageSelectActivity : AppCompatActivity() {
             radios.add(radio)
             container.addView(row)
 
-            // Función auxiliar para aplicar el idioma y guardar
             fun applyLang(key: String) {
-                // guardar selección
                 getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                     .edit()
                     .putString(KEY_SELECTED_LANG, key)

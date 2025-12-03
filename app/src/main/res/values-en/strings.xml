@@ -59,6 +59,11 @@
     <string name="ultima_actualizacion">Last update: </string>
     <string name="actualizar">Update</string>
     <string name="guardar">Save</string>
+    <string name="donde_estacione">Where did I park?</string>
+    <string name="parking_info">Save your current location to remember where you parked. The next time you open this screen, you’ll see the saved location.</string>
+    <string name="confirmar">Confirm</string>
+    <string name="pinRojo_info">Preview — confirm to update</string>
+    <string name="pinAzul_info">Saved location</string>
 
     <!--modal_create_reminder-->
     <string name="crear_recordatorio">Create reminder</string>
@@ -240,6 +245,9 @@
     <string name="titular_bind">Policyholder: %1$s</string>
     <string name="no_aplicacion">No application to open this file.</string>
     <string name="no_archivo_poliza">No policy file attached.</string>
+    <string name="problema_obtener_auto">Could not retrieve the vehicle to delete.</string>
+    <string name="vehiculo_eliminado">Vehicle deleted</string>
+    <string name="error_eliminar_vehiculo">Error deleting vehicle</string>
 
     <!--carDetailHostActivity-->
     <string name="permiso_notificaciones">Permission for notifications</string>
@@ -259,6 +267,7 @@
     <!--activity_language_selection-->
     <string name="seleccione_idioma">Select your language</string>
     <string name="espanol">Spanish</string>
+    <string name="espanol_AR">Spanish (AR)</string>
     <string name="ingles">English</string>
     <string name="portugues">Portuguese</string>
 

@@ -64,8 +64,6 @@
     <string name="confirmar">Confirmar</string>
     <string name="pinRojo_info">Vista previa — confirmá para actualizar</string>
     <string name="pinAzul_info">Ubicación guardada</string>
-
-
     <!--modal_create_reminder-->
     <string name="crear_recordatorio">Crear recordatorio</string>
     <string name="titulo">Titulo</string>
@@ -250,9 +248,6 @@
     <string name="vehiculo_eliminado">Vehículo eliminado</string>
     <string name="error_eliminar_vehiculo">Error al eliminar el vehículo</string>
 
-
-
-
     <!--carDetailHostActivity-->
     <string name="permiso_notificaciones">Permiso para notificaciones</string>
     <string name="necesita_permiso">La app necesita permiso para mostrar recordatorios en forma de notificaciones. Por favor concedelo para recibir alertas de tus recordatorios.</string>
@@ -271,7 +266,7 @@
     <!--activity_language_selection-->
     <string name="seleccione_idioma">Seleccione su idioma</string>
     <string name="espanol">Español</string>
-    <string name="espanol_AR">Español (AR)</string>
+    <string name="espanol_AR">Español</string>
     <string name="ingles">Ingles</string>
     <string name="portugues">Portugués</string>
     <string name="aun_no_tienes_gastos">Aun no tienes gastos.</string>

@@ -5,53 +5,184 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Contenedor para SupportMapFragment: darle match_parent -->
     <FrameLayout
         android:id="@+id/map_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
 
-    <!-- Panel inferior con info y botones -->
+        />
+
+    <LinearLayout
+        android:id="@+id/parkingTitleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/primary"
+
+        >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/parking_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/donde_estacione"
+                    android:textColor="@color/white"
+                    android:textSize="26sp" />
+
+                <ImageButton
+                    android:id="@+id/help_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_help" />
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+
+        <View
+            android:id="@+id/titleUnderline"
+            android:layout_width="140dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+
+            android:background="@color/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginTitle" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/help_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/rounded_corner"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/parking_info"
+            android:textColor="@android:color/white"
+            />
+        <LinearLayout
+            android:id="@+id/savedPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@drawable/rounded_corner"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:backgroundTint="@color/fui_transparent"
+            >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/pin_azul"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Ubicación guardada"
+                android:textColor="@android:color/white"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/updatePin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@drawable/rounded_corner"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:backgroundTint="@color/fui_transparent"
+            >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/pin_rojo"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Vista previa — confirmá para actualizar"
+                android:textColor="@android:color/white"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/bottomPanel"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:padding="12dp"
         android:background="@color/primary"
         android:elevation="6dp"
-        >
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ultima_actualizacion"
-            android:textSize="14sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center"
-            >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnGetLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/actualizar"
-                app:backgroundTint="@color/button"/>
+                app:backgroundTint="@color/button" />
 
-            <Space android:layout_width="16dp" android:layout_height="0dp"/>
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="0dp" />
+
             <Button
                 android:id="@+id/btnSaveParking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/guardar"
-                app:backgroundTint="@android:color/holo_green_dark"/>
+                android:text="Confirmar"
+                app:backgroundTint="@android:color/holo_green_dark" />
 
 
         </LinearLayout>
