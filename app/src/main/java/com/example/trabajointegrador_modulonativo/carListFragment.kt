@@ -136,7 +136,16 @@ class carListFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
             holder.binding.tvTitle.text = "${item.brand} ${item.model}"
-            holder.binding.tvSubtitle.text = holder.itemView.context.getString(R.string.carCard,item.licensePlate,item.lastUpdate)
+            val lastUpdateTimestamp = item.lastUpdate
+            var formattedDate = "N/A"
+
+            if (lastUpdateTimestamp != null) {
+
+                val date: java.util.Date = lastUpdateTimestamp.toDate()
+                val sdf = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
+                formattedDate = sdf.format(date)
+            }
+            holder.binding.tvSubtitle.text = holder.itemView.context.getString(R.string.carCard,item.licensePlate, formattedDate)
 
             val requestOptions = RequestOptions()
                 .transform(CenterCrop(), RoundedCorners(24))

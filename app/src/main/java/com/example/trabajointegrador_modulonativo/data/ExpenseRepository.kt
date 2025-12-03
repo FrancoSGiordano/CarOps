@@ -35,7 +35,7 @@ class ExpenseRepository {
 
 
 
-    fun getExpensesForUserStream(userId: String, carId: String?, expenseTypeId: Int?, startDate: Date?, endDate: Date?): Flow<List<Expense>> = callbackFlow {
+    fun getExpensesForUserStream(userId: String, carId: String?, expenseTypeId: String?, startDate: Date?, endDate: Date?): Flow<List<Expense>> = callbackFlow {
 
         var query: Query = expenseCollection
             .whereEqualTo("userId", userId)

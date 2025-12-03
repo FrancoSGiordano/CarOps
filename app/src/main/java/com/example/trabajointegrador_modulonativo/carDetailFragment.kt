@@ -111,9 +111,9 @@ class carDetailFragment : Fragment() {
 
         binding.btnAddInsurance?.setOnClickListener {
             val carId = viewModel.selectedCar.value?.id
-            val insurance = viewModel.selectedCar.value?.insurance
+            val insurance = viewModel.carInsurance.value
             if(carId != null) {
-                val action = carDetailFragmentDirections.actionDetailToInsuranceForm(carId, insurance)
+                val action = carDetailFragmentDirections.actionDetailToInsuranceForm(carId, null)
                 findNavController().navigate(action)
             } else {
                 Toast.makeText(context, "No se puedo obtener el ID del vehículo", Toast.LENGTH_SHORT).show()
@@ -323,11 +323,21 @@ class carDetailFragment : Fragment() {
     }
 
     private fun bindCarData(car: Car) {
+
+        val lastUpdateTimestamp = car.lastUpdate
+        var formattedDate = "N/A"
+
+        if (lastUpdateTimestamp != null) {
+
+            val date: java.util.Date = lastUpdateTimestamp.toDate()
+            val sdf = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
+            formattedDate = sdf.format(date)
+        }
         binding.plateTextView?.text = getString(R.string.patente_bind, car.licensePlate)
         binding.carBrandTextView?.text = getString(R.string.Marca_bind, car.brand)
         binding.carModelTextView?.text = getString(R.string.Modelo_bind, car.model)
-        binding.carYearTextView?.text = getString(R.string.anio_bind, car.year.toString())
-        binding.lastModifiedTextView?.text = getString(R.string.Actualizacion_bind, car.lastUpdate)
+        binding.carYearTextView?.text = getString(R.string.anio_bind, car.anio.toString())
+        binding.lastModifiedTextView?.text = getString(R.string.Actualizacion_bind, formattedDate)
         binding.carEngineTextView?.text = getString(R.string.Motor_bind, car.engine)
         binding.carTransmissionTextView?.text = getString(R.string.Transmisión_bind, car.transmission)
 
