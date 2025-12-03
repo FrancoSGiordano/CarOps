@@ -1,6 +1,7 @@
 package com.example.trabajointegrador_modulonativo.notifications
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.trabajointegrador_modulonativo.data.ReminderRepository
@@ -9,8 +10,6 @@ import com.example.trabajointegrador_modulonativo.notifications.ReminderSchedule
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import android.util.Log
-
 class RescheduleRemindersWorker(
     appContext: Context,
     workerParams: WorkerParameters
@@ -29,7 +28,6 @@ class RescheduleRemindersWorker(
             val db = FirebaseFirestore.getInstance()
             val now = com.google.firebase.Timestamp.now()
 
-            // Consulta: reminders del usuario que estén pendindg = false y con notifyAt >= ahora
             val snap = db.collection("reminders")
                 .whereEqualTo("userId", uid)
                 .whereEqualTo("pending", false)
@@ -40,15 +38,13 @@ class RescheduleRemindersWorker(
             for (doc in snap.documents) {
                 val r = doc.toObject(Reminder::class.java) ?: continue
                 r.id = doc.id
-                // Reprogramar si notifyAt válido y en el futuro
-                val notifyMillis = r.notifyAt?.toDate()?.time ?: continue
-
+                ReminderScheduler.schedule(applicationContext, r)
+                Log.d(TAG, "Recordatorio reprogramado: ${r.title} para ${r.notifyAt?.toDate()}")
             }
 
             return Result.success()
         } catch (e: Exception) {
             Log.e(TAG, "Error reprogramando reminders: ${e.message}", e)
-            // Si hay error temporal (red, etc.) probamos reintentar
             return Result.retry()
         }
     }

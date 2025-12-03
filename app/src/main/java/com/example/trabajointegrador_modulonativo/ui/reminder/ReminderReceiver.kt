@@ -51,7 +51,7 @@ class ReminderReceiver : BroadcastReceiver() {
         val notifId = NOTIF_ID_BASE + (reminderId ?: "").hashCode()
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo) // asegúrate de tener este drawable
+            .setSmallIcon(R.drawable.logo)
             .setContentTitle("Recordatorio")
             .setContentText(title)
             .setAutoCancel(true)
@@ -62,13 +62,11 @@ class ReminderReceiver : BroadcastReceiver() {
             NotificationManagerCompat.from(context).notify(notifId, builder.build())
             Log.d(TAG, "Notificación mostrada notifId=$notifId reminderId=$reminderId")
         } catch (se: SecurityException) {
-            // Por seguridad: si algo falla con permisos no crasheamos la app
             Log.e(TAG, "SecurityException al notificar: ${se.message}", se)
         } catch (e: Exception) {
             Log.e(TAG, "Error mostrando notificación: ${e.message}", e)
         }
 
-        // Actualizar Firestore (no crítico para mostrar la notificación)
         reminderId?.let { id ->
             val updates = mapOf("pending" to true, "notificationSent" to true)
             FirebaseFirestore.getInstance().collection("reminders").document(id)

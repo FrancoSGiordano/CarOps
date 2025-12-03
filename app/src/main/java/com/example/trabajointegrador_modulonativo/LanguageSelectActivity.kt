@@ -131,9 +131,7 @@ class LanguageSelectActivity : AppCompatActivity() {
             radios.add(radio)
             container.addView(row)
 
-            // Función auxiliar para aplicar el idioma y guardar
             fun applyLang(key: String) {
-                // guardar selección
                 getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                     .edit()
                     .putString(KEY_SELECTED_LANG, key)

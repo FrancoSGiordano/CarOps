@@ -216,7 +216,6 @@ class ParkingFragment : Fragment(), OnMapReadyCallback {
         binding.tvStatus.text = getString(R.string.actualizacion_ubicacion, formatted)
 
 
-        // ya se aplicó: limpiamos pending
         pendingParkedLatLng = null
         pendingParkedAddress = null
         pendingParkedAt = null
